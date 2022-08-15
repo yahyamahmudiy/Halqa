@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    tools:ignore="InvalidNavigation">
+
+    <action
+        android:id="@+id/action_global_languageFlowFragment"
+        app:destination="@+id/languageFlowFragment"
+        app:popUpTo="@id/nav_graph" />
+
+    <action
+        android:id="@+id/action_global_mainFlowFragment"
+        app:destination="@+id/mainFlowFragment"
+        app:popUpTo="@id/nav_graph" />
+
+    <fragment
+        android:id="@+id/mainFlowFragment"
+        android:name="com.example.halqa.fragment.mainflow.MainFlowFragment"
+        android:label="flow_fragment_main"
+        tools:layout="@layout/fragment_main_flow" />
+
+    <fragment
+        android:id="@+id/languageFlowFragment"
+        android:name="com.example.halqa.fragment.languageflow.LanguageFlowFragment"
+        android:label="flow_fragment_login"
+        tools:layout="@layout/fragment_language_flow" />
+</navigation>
