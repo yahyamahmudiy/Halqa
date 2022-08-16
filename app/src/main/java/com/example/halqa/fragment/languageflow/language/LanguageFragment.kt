@@ -18,6 +18,8 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
 
     private fun initViews() {
         selectLanguage()
+
+
     }
 
     fun selectLanguage() {
@@ -34,6 +36,7 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
                 btnContinue.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_blue)
                 btnContinue.setTextColor(resources.getColor(R.color.white))
+                btnContinue.isClickable = true
             }
 
             btnKirill.setOnClickListener {
@@ -48,6 +51,7 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
                 btnContinue.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_blue)
                 btnContinue.setTextColor(resources.getColor(R.color.white))
+                btnContinue.isClickable = true
             }
         }
     }
