@@ -4,66 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8FAFF"
     tools:context=".fragment.languageflow.language.LanguageFragment">
 
     <ImageView
         android:id="@+id/ivIntro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_intro"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnLotin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_lotin"
-        android:background="@drawable/bg_button_white"
-        android:textColor="@color/black"
-        android:paddingVertical="10dp"
-        android:textAllCaps="false"
-        android:paddingHorizontal="33dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTil"
+        android:background="@drawable/bg_button_white"
+        android:paddingHorizontal="33dp"
+        android:paddingVertical="10dp"
+        android:text="@string/str_lotin"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/tvTil" />
+
     <Button
         android:id="@+id/btnKirill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_kirill"
-        android:background="@drawable/bg_button_white"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="20dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/btnLotin"
+        android:background="@drawable/bg_button_white"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="@string/str_kirill"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnLotin" />
+
     <TextView
         android:id="@+id/tvTil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/str_til_tanlash"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/montserrat_medium"
-        app:layout_constraintTop_toBottomOf="@id/ivIntro"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/ivIntro" />
+
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textAllCaps="false"
         android:background="@drawable/bg_button_grey"
         android:paddingVertical="20dp"
-        android:textSize="16sp"
         android:text="@string/str_davom_etish"
+        android:textAllCaps="false"
         android:textColor="@color/gray"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

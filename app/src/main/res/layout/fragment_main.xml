@@ -1,16 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="#F8FAFF"
     tools:context=".fragment.mainflow.main.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/ivAkromMalik"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_akrom_malik"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvAkromMalikMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_akrom_malik"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_extra_bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="85dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik"/>
+
+    <TextView
+        android:id="@+id/tvBio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/str_biografiya"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik"/>
+    <TextView
+        android:id="@+id/tvKitoblar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/str_kitoblar"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivAkromMalik" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvHalqa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvKitoblar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivHalqa"
+                android:layout_width="70dp"
+                android:layout_height="87dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_halqa"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/round_corner" />
+
+            <TextView
+                android:id="@+id/tvHalqa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/str_halqa"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/tvAkromMalik"
+                app:layout_constraintLeft_toRightOf="@id/ivHalqa"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAkromMalik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/str_akrom_malik"
+                android:textColor="#9597A1"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@id/ivHalqa"
+                app:layout_constraintTop_toBottomOf="@+id/tvHalqa" />
+
+            <ImageView
+                android:id="@+id/ivHeadphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="18dp"
+                android:src="@drawable/ic_headphone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ivHalqa" />
+
+            <TextView
+                android:id="@+id/tvAbdukarimMirzayev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/str_abdukarim_mirzayev"
+                android:textColor="#9597A1"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ivHeadphone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/str_32_bob"
+                android:textColor="#828282"
+                android:textSize="14sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvJangchi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintTop_toBottomOf="@id/cvHalqa">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivJangchi"
+                android:layout_width="70dp"
+                android:layout_height="87dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_jangchi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/round_corner" />
+
+            <TextView
+                android:id="@+id/tvJangchi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/str_jangchi"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/tvAkromMalikIkki"
+                app:layout_constraintLeft_toRightOf="@id/ivJangchi"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAkromMalikIkki"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/str_akrom_malik"
+                android:textColor="#9597A1"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@id/ivJangchi"
+                app:layout_constraintTop_toBottomOf="@+id/tvJangchi" />
+
+            <ImageView
+                android:id="@+id/ivHeadphoneSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="18dp"
+                android:src="@drawable/ic_headphone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ivJangchi" />
+
+            <TextView
+                android:id="@+id/tvAbdukarimMirzayevIkki"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/str_abdukarim_mirzayev"
+                android:textColor="#9597A1"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ivHeadphoneSecond" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/str_14_bob"
+                android:textColor="#828282"
+                android:textSize="14sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

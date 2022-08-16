@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         when {
-            false -> navGraph.setStartDestination(R.id.mainFlowFragment)
-            !false -> navGraph.setStartDestination(R.id.languageFlowFragment)
+            !false -> navGraph.setStartDestination(R.id.mainFlowFragment)
+            false -> navGraph.setStartDestination(R.id.languageFlowFragment)
         }
 
         navController.graph = navGraph
