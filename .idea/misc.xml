@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/drawable/bg_button_blue.xml" value="0.1625" />
+        <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/drawable/bg_button_grey.xml" value="0.1625" />
+        <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/drawable/bg_text_white.xml" value="0.1625" />
+        <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/layout/fragment_language.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_main.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_bookmark.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_language.xml" value="0.15534420289855072" />
