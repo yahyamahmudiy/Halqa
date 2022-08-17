@@ -19,4 +19,16 @@
         android:name="com.example.halqa.fragment.mainflow.saved.SavedFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" />
+
+    <fragment
+        android:id="@+id/audioFragmentBM"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.audio.AudioBMFragment"
+        android:label="fragmentAudioBM"
+        tools:layout="@layout/fragment_audio"/>
+
+    <fragment
+        android:id="@+id/kitoblarFragmentBM"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.books.BooksBMFragment"
+        tools:layout="@layout/fragment_kitoblar"
+        android:label="fragmentAudioBM"/>
 </navigation>

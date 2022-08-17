@@ -14,4 +14,6 @@
     <string name="str_32_bob">32 bob</string>
     <string name="str_jangchi">Jangchi</string>
     <string name="str_14_bob">14 bob</string>
+    <string name="str_text">“O’qilayotgan kitoblar” bo’limi xozircha bo’sh</string>
+    <string name="str_davom_ettirish">Davom ettirish</string>
 </resources>
