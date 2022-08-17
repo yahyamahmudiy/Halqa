@@ -1,6 +1,6 @@
 package com.example.halqa.model
 
-data class Chap(
+data class Chapter(
     val chapNumber: String,
     val chapName: String
 )

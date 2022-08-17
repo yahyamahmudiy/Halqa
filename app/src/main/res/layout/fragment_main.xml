@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFF"
+    android:background="@color/main_background"
     tools:context=".fragment.mainflow.main.MainFragment">
 
     <ImageView
         android:id="@+id/ivAkromMalik"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="357dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/img_akrom_malik"
@@ -19,28 +19,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvAkromMalikMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_akrom_malik"
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/montserrat_extra_bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="85dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik"/>
-
-    <TextView
         android:id="@+id/tvBio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat_regular"
         android:text="@string/str_biografiya"
-        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik"/>
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/author_image_gradient"
+        app:layout_constraintBottom_toBottomOf="@id/ivAkromMalik"
+        app:layout_constraintEnd_toEndOf="@id/ivAkromMalik"
+        app:layout_constraintStart_toStartOf="@id/ivAkromMalik"
+        app:layout_constraintTop_toTopOf="@id/ivAkromMalik" />
+
+    <TextView
+        android:id="@+id/tvAkromMalikMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="85dp"
+        android:fontFamily="@font/montserrat_extra_bold"
+        android:text="@string/str_akrom_malik"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAkromMalik"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <TextView
         android:id="@+id/tvKitoblar"
         android:layout_width="wrap_content"

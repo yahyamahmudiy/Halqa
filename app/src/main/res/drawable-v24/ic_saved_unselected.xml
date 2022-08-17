@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_book" />
+
+    <item android:drawable="@drawable/ic_hor_line_1"
+        android:gravity="start|top"
+        android:start="4dp"
+        android:top="6dp"/>
+
+    <item android:drawable="@drawable/ic_hor_line_larger"
+        android:gravity="start|top"
+        android:start="4dp"
+        android:top="10dp"/>
+
+    <item
+        android:drawable="@drawable/ic_middle_book_line"
+        android:gravity="center"
+        android:top="3dp" />
+</layer-list>

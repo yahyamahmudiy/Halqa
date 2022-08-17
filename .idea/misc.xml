@@ -8,24 +8,53 @@
         <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/drawable/bg_text_white.xml" value="0.1625" />
         <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/layout/fragment_language.xml" value="0.264" />
         <entry key="..\:/PDP/NDK/Halqa/app/src/main/res/layout/fragment_main.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_book.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark_2.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark_2_fill.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark_fill.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark_selected.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_bookmark_unselected.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_hor_line_1.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_hor_line_larger.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_left.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_line.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_main_selected.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_main_unselected.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_middle_book_line.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_right.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_saved_selected.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/ic_saved_unselected.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/shape_rounded_categories.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/tab_background.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable-v24/tab_indicator.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/author_image_gradient.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/bg_button_grey_12dp.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/bg_button_white.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/bottom_nav_background.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_bot_nav_bookmark.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_bot_nav_main.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_bot_nav_saved.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_main.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_paly.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_play.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/ic_saved_books.xml" value="0.142" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/drawable/image_cover.xml" value="0.142" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio.xml" value="0.264" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_bm.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_sv.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_book_about.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_bookmark.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_bm.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_sv.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_kitoblar.xml" value="0.253125" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_language.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_language_flow.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_main.xml" value="0.264" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_main_flow.xml" value="0.22037037037037038" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_saved.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/layout/item_book_chap_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Halqa/app/src/main/res/menu/main_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_main.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_bookmark.xml" value="0.15534420289855072" />
