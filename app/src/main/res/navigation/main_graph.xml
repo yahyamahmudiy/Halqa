@@ -24,11 +24,11 @@
         android:id="@+id/audioFragmentBM"
         android:name="com.example.halqa.fragment.mainflow.bookmark.audio.AudioBMFragment"
         android:label="fragmentAudioBM"
-        tools:layout="@layout/fragment_audio"/>
+        tools:layout="@layout/fragment_audio_bm"/>
 
     <fragment
         android:id="@+id/kitoblarFragmentBM"
         android:name="com.example.halqa.fragment.mainflow.bookmark.books.BooksBMFragment"
-        tools:layout="@layout/fragment_kitoblar"
+        tools:layout="@layout/fragment_books_bm"
         android:label="fragmentAudioBM"/>
 </navigation>

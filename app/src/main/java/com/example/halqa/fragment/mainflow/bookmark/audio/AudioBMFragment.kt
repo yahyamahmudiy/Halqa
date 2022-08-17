@@ -5,7 +5,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.databinding.FragmentAudioBinding
 
-class AudioBMFragment : Fragment(R.layout.fragment_audio) {
+class AudioBMFragment : Fragment(R.layout.fragment_audio_bm) {
     private val binding by viewBinding(FragmentAudioBinding::bind)
 
 }
