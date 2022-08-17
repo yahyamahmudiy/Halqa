@@ -26,6 +26,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         adapter = ChapAdapter()
         chapList = ArrayList()
 
+
+
         binding.ivMenu.setOnClickListener{
             binding.drawerLayout.openDrawer(GravityCompat.END, true)
         }
