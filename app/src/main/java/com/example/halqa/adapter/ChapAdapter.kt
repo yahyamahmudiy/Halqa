@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
-import com.example.halqa.model.Chap
+import com.example.halqa.model.Chapter
 
-class ChapAdapter: ListAdapter<Chap, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter: ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chap>() {
-        override fun areItemsTheSame(oldItem: Chap, newItem: Chap): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
+        override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Chap, newItem: Chap): Boolean {
+        override fun areContentsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
             return oldItem == newItem
         }
     }

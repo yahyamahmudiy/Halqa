@@ -2,19 +2,19 @@ package com.example.halqa.fragment.mainflow.bookabout
 
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.halqa.R
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.FragmentBookAboutBinding
-import com.example.halqa.model.Chap
+import com.example.halqa.model.Chapter
 
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
+
     private lateinit var binding: FragmentBookAboutBinding
     private lateinit var adapter: ChapAdapter
-    private lateinit var chapList: ArrayList<Chap>
+    private lateinit var chapList: ArrayList<Chapter>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,13 +32,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             binding.drawerLayout.openDrawer(GravityCompat.END, true)
         }
 
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
-        chapList.add(Chap("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
+        chapList.add(Chapter("", ""))
 
         adapter.submitList(chapList)
 
