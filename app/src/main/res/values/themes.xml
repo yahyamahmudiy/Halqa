@@ -17,4 +17,10 @@
     <style name="round_corner">
         <item name="cornerSize">10%</item>
     </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

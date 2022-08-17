@@ -4,65 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    android:background="#F8FAFF"
     tools:context=".fragment.mainflow.bookmark.BookmarkFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/isEmpty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E5E5E5"
-        android:visibility="gone">
+        android:background="#F8FAFF">
 
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_empty"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="100dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:gravity="center"
-            android:text="@string/str_text"
-            android:textColor="#ADC1D4"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/iv_img" />
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_empty" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="@string/str_text"
+                android:textColor="#ADC1D4"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/iv_img" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:background="#E5E5E5">
+        android:background="#F8FAFF"
+        android:visibility="visible">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_filter"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/tab_indicator"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/black"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="3dp"
-            app:tabTextColor="@color/black" />
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/tab_background"
+            app:tabIndicatorColor="@null"
+            app:tabIndicatorGravity="stretch"
+            app:tabSelectedTextColor="#177EE6"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="#828282" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_filter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tl_filter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
