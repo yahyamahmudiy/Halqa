@@ -9,12 +9,16 @@
     <string name="str_biografiya">Akrom Malik 1991 yilda Toshkent viloyati Piskent tumanida tug\'ilgan. Toshkent davlat milliy universiteti magistri, Alisher Navoiy ijod bilimdoni, Halqa, Jangi va yana bir necha kitoblar muallifi</string>
     <string name="str_akrom_malik">Akrom Malik</string>
     <string name="str_kitoblar">Kitoblar</string>
+    <string name="str_audio">Audio</string>
     <string name="str_halqa">Halqa</string>
     <string name="str_abdukarim_mirzayev">Abdukarim Mirzayev</string>
     <string name="str_32_bob">32 bob</string>
     <string name="str_jangchi">Jangchi</string>
     <string name="str_14_bob">14 bob</string>
+    <string name="str_text">“O’qilayotgan kitoblar” bo’limi xozircha bo’sh</string>
+    <string name="str_davom_ettirish">Davom ettirish</string>
     <string name="str_dic">Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit auctor malesuada enim. Et quisque tellus enim dumbl tente lore Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit auctor malesuada enim. Et quisque tellus enim dumbl tente lore Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit fef</string>
+    <string name="str_saqlab_qo_yilganlar">Saqlab qo’yilganlar</string>
     <string name="str_15">15</string>
     <string name="str_00_00">00:00</string>
 </resources>

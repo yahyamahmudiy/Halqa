@@ -13,7 +13,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.halqa.fragment.mainflow.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_bookAboutFragment"
             app:destination="@id/bookAboutFragment" />
@@ -23,9 +23,33 @@
         android:name="com.example.halqa.fragment.mainflow.saved.SavedFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" />
+
+    <fragment
+        android:id="@+id/audioFragmentBM"
+        android:name="com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment"
+        android:label="fragmentAudioBM"
+        tools:layout="@layout/fragment_audio_bm" />
+
+    <fragment
+        android:id="@+id/booksFragmentBM"
+        android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
+        android:label="fragmentAudioBM"
+        tools:layout="@layout/fragment_books_bm" />
     <fragment
         android:id="@+id/bookAboutFragment"
         android:name="com.example.halqa.fragment.mainflow.bookabout.BookAboutFragment"
         android:label="fragment_book_about"
         tools:layout="@layout/fragment_book_about" />
+
+    <fragment
+        android:id="@+id/audioFragmentSV"
+        android:name="com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment"
+        android:label="fragmentAudioSV"
+        tools:layout="@layout/fragment_audio_sv" />
+
+    <fragment
+        android:id="@+id/booksFragmentSV"
+        android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
+        android:label="fragmentBooksSV"
+        tools:layout="@layout/fragment_books_sv" />
 </navigation>
