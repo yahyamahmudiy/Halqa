@@ -1,49 +1,77 @@
 package com.example.halqa.fragment.mainflow.bookabout
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.activityViewModels
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
-import com.example.halqa.adapter.ChapAdapter
+import com.example.halqa.activity.MainActivity
+import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
-import com.example.halqa.model.Chapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
-    private lateinit var binding: FragmentBookAboutBinding
-    private lateinit var adapter: ChapAdapter
-    private lateinit var chapList: ArrayList<Chapter>
+    private val binding by viewBinding(FragmentBookAboutBinding::bind)
+    private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBookAboutBinding.bind(view)
+
         initViews()
+        bottomSheetBehavior =
+            BottomSheetBehavior.from(view.findViewById(R.id.audioControlBottomSheet))
+        closeAudioControlBottomSheet()
     }
 
     private fun initViews() {
-        adapter = ChapAdapter()
-        chapList = ArrayList()
+        binding.apply {
+            ivMenu.setOnClickListener {
+                (requireActivity() as MainActivity).openDrawerLayout()
+            }
 
-
-
-        binding.ivMenu.setOnClickListener{
-            binding.drawerLayout.openDrawer(GravityCompat.END, true)
+            bottomAudioPlayView.setOnClickListener {
+                openAudioControlBottomSheet()
+            }
         }
 
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
-        chapList.add(Chapter("", ""))
+        binding.audioControlBottomSheet.apply {
+            ivBack.setOnClickListener {
+                closeAudioControlBottomSheet()
+            }
+        }
 
-        adapter.submitList(chapList)
-
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
-        binding.recyclerView.adapter = adapter
+        setPageSelectionObserver()
     }
 
+    private fun openAudioControlBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun closeAudioControlBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun setPageSelectionObserver() {
+        bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
+            //control chapter
+            Log.d("TAG", "setPageSelectionObserver: $it")
+        }
+    }
+
+    private fun bottomSheetStateListener() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
+    }
 }
