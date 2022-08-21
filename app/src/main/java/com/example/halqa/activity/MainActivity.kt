@@ -67,7 +67,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setStartDestination(){
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
         navGraph.setStartDestination(R.id.mainFlowFragment)
+
+        navController.graph = navGraph
     }
 
     private fun setMenu() {
