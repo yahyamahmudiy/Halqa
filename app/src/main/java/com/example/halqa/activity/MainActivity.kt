@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
@@ -19,6 +20,7 @@ import com.example.halqa.model.Chapter
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var navGraph: NavGraph
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
@@ -53,15 +55,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         when {
-            !false -> navGraph.setStartDestination(R.id.mainFlowFragment)
-            false -> navGraph.setStartDestination(R.id.languageFlowFragment)
+            false -> navGraph.setStartDestination(R.id.mainFlowFragment)
+            !false -> navGraph.setStartDestination(R.id.languageFlowFragment)
         }
 
         navController.graph = navGraph
 
         setMenu()
+    }
+
+    fun setStartDestination(){
+        navGraph.setStartDestination(R.id.mainFlowFragment)
     }
 
     private fun setMenu() {

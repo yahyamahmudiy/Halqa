@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
+import com.example.halqa.activity.MainActivity
 import com.example.halqa.databinding.FragmentLanguageBinding
 
 class LanguageFragment : Fragment(R.layout.fragment_language) {
@@ -18,8 +19,6 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
 
     private fun initViews() {
         selectLanguage()
-
-
     }
 
     fun selectLanguage() {
@@ -52,6 +51,10 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_blue)
                 btnContinue.setTextColor(resources.getColor(R.color.white))
                 btnContinue.isClickable = true
+            }
+
+            btnContinue.setOnClickListener {
+                (requireActivity() as MainActivity).setStartDestination()
             }
         }
     }
