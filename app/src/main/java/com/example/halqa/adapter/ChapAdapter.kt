@@ -8,7 +8,9 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 
-class ChapAdapter: ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+
+    lateinit var onChapterClick: ((Int) -> Unit)
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
         override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
@@ -27,15 +29,18 @@ class ChapAdapter: ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = ItemBookChapViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemBookChapViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder.ItemBookChapView(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        when(holder){
-            is ViewHolder.ItemBookChapView ->{
-
+        when (holder) {
+            is ViewHolder.ItemBookChapView -> {
+                holder.view.root.setOnClickListener {
+                    onChapterClick.invoke(position)
+                }
             }
         }
     }

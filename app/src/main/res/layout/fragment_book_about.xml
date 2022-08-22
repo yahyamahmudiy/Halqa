@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".fragment.mainflow.bookabout.BookAboutFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,7 +26,7 @@
             app:layout_constraintStart_toStartOf="@id/ivBookBackground"
             app:layout_constraintTop_toTopOf="@id/ivBookBackground" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +66,9 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="161dp"
             android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/main_color"
             app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -132,6 +129,7 @@
                     android:src="@drawable/ic_book_right" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tvAuthor"
@@ -286,7 +284,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnReadbook"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -294,22 +292,23 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_button_grey_12dp"
-            android:backgroundTint="#E2E2E2"
             android:text="Kitobni o'qish"
             android:textAllCaps="false"
             android:textColor="#B3B9C0"
+            app:backgroundTint="#E2E2E2"
             app:cardCornerRadius="12dp"
             app:layout_constraintEnd_toStartOf="@id/ivDownload"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivBook" />
+            app:layout_constraintTop_toBottomOf="@id/ll" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivDownload"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="30dp"
-            android:src="@drawable/ic_download_rectangle"
+            android:background="@drawable/bg_button_blue_12dp"
+            android:src="@drawable/ic_download_blue_icon"
             app:layout_constraintBottom_toBottomOf="@id/btnReadbook"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnReadbook" />
@@ -367,7 +366,7 @@
             android:background="@drawable/top_cornered_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/ivBookBottom"
@@ -403,12 +402,12 @@
                 app:layout_constraintTop_toBottomOf="@id/tvBookNameBottom" />
 
             <ImageView
-                android:padding="2dp"
-                android:src="@drawable/ic_something"
                 android:id="@+id/ivSomething"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="14dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_something"
                 app:layout_constraintBottom_toBottomOf="@id/ivBookBottom"
                 app:layout_constraintEnd_toStartOf="@id/ivPlayPause"
                 app:layout_constraintTop_toTopOf="@id/ivBookBottom" />
@@ -424,83 +423,25 @@
                 app:layout_constraintTop_toTopOf="@id/ivBookBottom" />
 
             <SeekBar
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:thumb="@null"
-                app:trackColor="#C3E2FF"
-                android:progressTint="@color/main_color"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
                 android:progress="12"
-                app:layout_constraintStart_toStartOf="parent"
+                android:progressTint="@color/main_color"
+                android:thumb="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:trackColor="#C3E2FF" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/white"
-        android:fitsSystemWindows="true">
+    <include
+        android:id="@+id/audioControlBottomSheet"
+        layout="@layout/audio_control_screen"
+        android:visibility="gone" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="24dp">
-
-            <TextView
-                android:id="@+id/tvBookName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Halqa"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivDownloadAll"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ivDownloadAll" />
-
-            <TextView
-                android:id="@+id/tvBobCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="2dp"
-                android:text="120 bob"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/tvBookName"
-                app:layout_constraintStart_toEndOf="@id/tvBookName"
-                app:layout_constraintTop_toTopOf="@id/tvBookName" />
-
-            <ImageView
-                android:id="@+id/ivDownloadAll"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_download_blue_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="25dp"
-                android:background="@color/white"
-                android:overScrollMode="never"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivDownloadAll" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

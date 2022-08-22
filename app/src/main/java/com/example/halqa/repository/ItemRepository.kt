@@ -4,13 +4,13 @@ import com.example.halqa.db.ItemDao
 import com.example.halqa.model.Item
 import javax.inject.Inject
 
-class PhotoHomeRepository @Inject constructor(private val photoHomeDao: ItemDao) {
+class ItemRepository @Inject constructor(private val itemDao: ItemDao) {
 
     /**
      *Room db Related
      */
 
-    suspend fun getPhotosFromDB() = photoHomeDao.getFromDB()
-    suspend fun insertPhotosToDB(pin: Item) = photoHomeDao.insertToDB(pin)
-    suspend fun deletePhotosFromDB() = photoHomeDao.deleteFromDB()
+    suspend fun getPhotosFromDB() = itemDao.getFromDB()
+    suspend fun insertPhotosToDB(pin: Item) = itemDao.insertToDB(pin)
+    suspend fun deletePhotosFromDB() = itemDao.deleteFromDB()
 }
