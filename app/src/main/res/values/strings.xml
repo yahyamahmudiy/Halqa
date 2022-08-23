@@ -21,6 +21,7 @@
     <string name="str_saqlab_qo_yilganlar">Saqlab qo’yilganlar</string>
     <string name="str_15">15</string>
     <string name="str_00_00">00:00</string>
+    <string name="app_shior">Bugun mohiyatga qaytish fursati keldi, millat o\'zligini tanishga intilarkan, albatta, Xudoni tanishga majburdir.</string>
 
     <string-array name="halqa">
         <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-1-bob.mp3?alt=media&amp;token=91c4cf43-cbf5-4438-b140-47b56c6be9bb</item>
