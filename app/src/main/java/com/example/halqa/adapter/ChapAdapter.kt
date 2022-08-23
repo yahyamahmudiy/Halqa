@@ -1,6 +1,5 @@
 package com.example.halqa.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +10,8 @@ import com.example.halqa.model.Chapter
 
 class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
 
-    lateinit var onChapterClick: ((Int) -> Unit)
+    lateinit var onChapterClick: ((Chapter) -> Unit)
+    private val chapter = Chapter()
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -40,16 +40,27 @@ class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
         when (holder) {
             is ViewHolder.ItemBookChapView -> {
                 holder.view.root.setOnClickListener {
-                    onChapterClick.invoke(position)
+                    onChapterClick.invoke(chapter.apply {
+                        chapNumber = position
+                        chapName = getChapterName(item)
+                        isAudioClick = false
+                    })
+                }
+
+                holder.view.ivPlay.setOnClickListener {
+                    onChapterClick.invoke(chapter.apply {
+                        chapNumber = position
+                        chapName = getChapterName(item)
+                        isAudioClick = true
+                    })
                 }
 
                 holder.view.apply {
                     if (currentList.size == 33) {
                         if (position != 32)
                             tvChapNumber.text = "${position + 1}-bob"
-                        tvChapName.text = item.substring(0, item.indexOf("{"))
-                        tvChapComment.text =
-                            item.subSequence(item.indexOf("{") + 1, item.length - 1)
+                        tvChapName.text = getChapterName(item)
+                        tvChapComment.text = getChapterTeller(item)
                     } else {
                         tvChapNumber.text = ""
                         tvChapName.text = item
@@ -59,4 +70,11 @@ class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
             }
         }
     }
+
+    private fun getChapterTeller(item: String): CharSequence =
+        item.subSequence(item.indexOf("{") + 1, item.length - 1)
+
+    private fun getChapterName(item: String): String =
+        if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
+
 }

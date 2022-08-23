@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.ChapAdapter
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
     private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
+    private lateinit var chapter: Chapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        chapter = Chapter(-1, "")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         navController.graph = navGraph
     }
 
-     fun checkSaved() {
+    fun checkSaved() {
         if (SharedPref(this).getBoolean("introDone")) {
             navGraph.setStartDestination(R.id.mainFlowFragment)
         } else {

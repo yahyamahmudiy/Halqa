@@ -2,8 +2,11 @@ package com.example.halqa.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -14,8 +17,6 @@ import com.example.halqa.manager.SharedPref
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var navController: NavController
-    lateinit var navGraph: NavGraph
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +32,11 @@ class SplashActivity : AppCompatActivity() {
     fun setScreen() {
         // This is used to hide the status bar and make
         // the splash screen as a full screen activity.
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+            window.statusBarColor = Color.TRANSPARENT
+        }
 
         countDownTimer()
     }
