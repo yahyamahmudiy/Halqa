@@ -16,6 +16,7 @@ import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 
 class MainActivity : AppCompatActivity() {
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
         when {
             false -> navGraph.setStartDestination(R.id.mainFlowFragment)
             !false -> navGraph.setStartDestination(R.id.languageFlowFragment)
@@ -69,6 +71,14 @@ class MainActivity : AppCompatActivity() {
         navGraph.setStartDestination(R.id.mainFlowFragment)
 
         navController.graph = navGraph
+    }
+
+     fun checkSaved() {
+        if (SharedPref(this).getBoolean("introDone")) {
+            navGraph.setStartDestination(R.id.mainFlowFragment)
+        } else {
+            navGraph.setStartDestination(R.id.languageFlowFragment)
+        }
     }
 
     private fun setMenu() {

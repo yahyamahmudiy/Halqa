@@ -21,4 +21,57 @@
     <string name="str_saqlab_qo_yilganlar">Saqlab qo’yilganlar</string>
     <string name="str_15">15</string>
     <string name="str_00_00">00:00</string>
+    <string name="app_shior">Bugun mohiyatga qaytish fursati keldi, millat o\'zligini tanishga intilarkan, albatta, Xudoni tanishga majburdir.</string>
+
+    <string-array name="halqa">
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-1-bob.mp3?alt=media&amp;token=91c4cf43-cbf5-4438-b140-47b56c6be9bb</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-2-bob.mp3?alt=media&amp;token=0488d024-2865-4ad8-9c2e-cd2d31b4d28a</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-3-bob.mp3?alt=media&amp;token=b30a9e41-e99c-4396-8051-f8b29d689879</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-4-bob.mp3?alt=media&amp;token=0f20809f-5acd-4e94-9e5f-1d40168dedc5</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-5-bob.mp3?alt=media&amp;token=a6f85917-1ea2-4af0-9c12-78ef47acaeab</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-6-bob.mp3?alt=media&amp;token=f1c338c4-91a1-4355-87b1-a925ad2faa53</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-7-bob.mp3?alt=media&amp;token=6ed1441d-86a8-4aa9-b7cd-b8d42a0921f8</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-8-bob.mp3?alt=media&amp;token=d6902ef5-fde2-473e-8f8a-20db991c16f2</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-9-bob.mp3?alt=media&amp;token=1708a784-2200-49d5-836e-c6dcd7be4dcd</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-10-bob.mp3?alt=media&amp;token=73e6cbaf-e43b-4c11-ac2e-1939e6a6bae3</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-11-bob.mp3?alt=media&amp;token=1a2b1b9f-dd9a-47b0-b476-f433151989a3</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-12-bob.mp3?alt=media&amp;token=33f7a26d-3785-4742-a621-0c073a365308</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-13-bob.mp3?alt=media&amp;token=fb0c0ab3-b01b-4e30-87bb-65c9db22e7ba</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-14-bob.mp3?alt=media&amp;token=f38bdb94-432f-468d-b4f5-69ee2c6c9a1b</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-15-bob.mp3?alt=media&amp;token=6da28631-713f-41f1-b625-7406a3d735fd</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-16-bob.mp3?alt=media&amp;token=b676b3df-c364-4c57-97e2-cf87e2e7cf77</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-17-bob.mp3?alt=media&amp;token=6cc0c8d6-01dc-4bee-a87c-e7380ad323f0</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-18-bob.mp3?alt=media&amp;token=b76cbaa6-ef1f-4b60-ba8f-9f3b1cd92938</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-19-bob.mp3?alt=media&amp;token=08afd531-70c1-43e5-95a2-21f788915e85</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-20-bob.mp3?alt=media&amp;token=5aaeddeb-4f00-4ca3-9443-50495905b549</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-21-bob.mp3?alt=media&amp;token=fbc0f5e0-04be-49bc-8d23-7d4a6fccb4d6</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-22-bob.mp3?alt=media&amp;token=7658e98a-6541-4815-895b-9f57f55596e6</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-23-bob.mp3?alt=media&amp;token=e4fae33b-9e2b-466a-9d7c-24366dd5deda</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-24-bob.mp3?alt=media&amp;token=2a7b2d47-2e09-4670-820a-2f972d24af30</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-25-bob.mp3?alt=media&amp;token=4208fed0-867b-4b3d-8134-27779800c719</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-26-bob.mp3?alt=media&amp;token=be84cd61-2f25-4e1a-88be-e7eb29d42090</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-27-bob.mp3?alt=media&amp;token=92e92fc6-66e0-4f62-8f1d-f6dcb743089d</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-28-bob.mp3?alt=media&amp;token=416deb0a-12b0-4436-84bd-82551db3559d</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-29-bob.mp3?alt=media&amp;token=40cb4d33-7106-4d11-8b96-315ad4dcd4cb</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-30-bob.mp3?alt=media&amp;token=24a4ff30-f047-4c99-92b3-4b1ccac17823</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-31-bob.mp3?alt=media&amp;token=c9bcbf96-3c77-4cf1-9085-b05455958352</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Halqa-32-bob-yakuniy-qism.mp3?alt=media&amp;token=21ee3390-5191-4934-91c3-8175732057e1</item>
+    </string-array>
+
+    <string-array name="jangchi">
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-1-bob.mp3?alt=media&amp;token=2ebdeeb1-eca6-4d00-a11c-7e08716495ec</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-2-bob.mp3?alt=media&amp;token=271a04ef-b0b5-451c-b145-504b42b8bf95</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-3-bob.mp3?alt=media&amp;token=1dd9a4d3-b829-4fd5-951a-3367e2ebe7e6</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-4-bob.mp3?alt=media&amp;token=5d25ed73-0739-4151-83a3-ad2cb7f37c6a</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-5-bob.mp3?alt=media&amp;token=24fb181f-bb9a-4888-bea3-68ec413cc0b9</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-6-bob.mp3?alt=media&amp;token=8a5c5b63-aba6-4c14-b880-7cf3c447c99e</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-7-bob.mp3?alt=media&amp;token=f6dcbbb8-1ad2-4e23-bcd1-9de78cca73a4</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-8-bob.mp3?alt=media&amp;token=03ad368e-29e9-47f5-b433-d2f61122dcd5</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-9-bob.mp3?alt=media&amp;token=44c7e40d-b616-4987-beaf-35526b38b09f</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-10-bob.mp3?alt=media&amp;token=686a5743-18e7-437f-a599-8431e4db9105</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa–f2d7b.appspot.com/o/Jangchi-11-bob.mp3?alt=media&amp;token=fa032dba-5efe-41ce-8634-02d55e87807a</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-12-bob.mp3?alt=media&amp;token=b506ed73-87d8-4698-9178-71c161f20ddb</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-13-bob.mp3?alt=media&amp;token=7e8fd187-5dee-4700-a5b2-61398dded84d</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/halqa-f2d7b.appspot.com/o/Jangchi-14-bob.mp3?alt=media&amp;token=c0ae2efb-5e21-424e-8b03-11bbdf476e99</item>
+    </string-array>
 </resources>
