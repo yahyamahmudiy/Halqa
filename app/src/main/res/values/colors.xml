@@ -10,8 +10,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#B3B9C0</color>
     <color name="main_color">#177EE6</color>
+    <color name="light_main_color">#97CAFB</color>
     <color name="main_background">#F8FAFF</color>
     <color name="card_view_color">#062D303A</color>
     <color name="drawer_background_color">#B3174D84</color>
+    <color name="dark_color">#252525</color>
+    <color name="dark_text_book_name_color">#333333</color>
+    <color name="dark_text_seekbar_color">#4F4F4F</color>
+    <color name="dark_mode_text">#A5A6A7</color>
+    <color name="dark_mode_seekbar_track">#767676</color>
+    <color name="dark_mode_background">#252525</color>
+    <color name="dark_mode_light_blue">#C3E2FF</color>
 
 </resources>

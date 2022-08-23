@@ -1,5 +1,6 @@
 package com.example.halqa.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,16 +9,16 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 
-class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
 
     lateinit var onChapterClick: ((Int) -> Unit)
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
-        override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -40,6 +41,20 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
             is ViewHolder.ItemBookChapView -> {
                 holder.view.root.setOnClickListener {
                     onChapterClick.invoke(position)
+                }
+
+                holder.view.apply {
+                    if (currentList.size == 33) {
+                        if (position != 32)
+                            tvChapNumber.text = "${position + 1}-bob"
+                        tvChapName.text = item.substring(0, item.indexOf("{"))
+                        tvChapComment.text =
+                            item.subSequence(item.indexOf("{") + 1, item.length - 1)
+                    } else {
+                        tvChapNumber.text = ""
+                        tvChapName.text = item
+                        tvChapComment.text = ""
+                    }
                 }
             }
         }

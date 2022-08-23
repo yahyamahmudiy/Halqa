@@ -2,10 +2,14 @@ package com.example.halqa.fragment.mainflow.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
+import com.example.halqa.constants.Constants.BOOK_KEY
+import com.example.halqa.constants.Constants.HALQA
+import com.example.halqa.constants.Constants.JANGCHI
 import com.example.halqa.databinding.FragmentLanguageBinding
 import com.example.halqa.databinding.FragmentMainBinding
 
@@ -20,11 +24,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initViews() {
         binding.apply {
             cvHalqa.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_bookAboutFragment)
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_bookAboutFragment, bundleOf(
+                        BOOK_KEY to HALQA
+                    )
+                )
             }
 
             cvJangchi.setOnClickListener {
-
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_bookAboutFragment, bundleOf(
+                        BOOK_KEY to JANGCHI
+                    )
+                )
             }
         }
     }

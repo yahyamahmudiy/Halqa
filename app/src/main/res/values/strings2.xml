@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chapters_halqa_latin">
+        <item>
+BRITANIYALIK JURNALISTLAR{ }
+        </item>
+
+        <item>
+VATANDAN HIJRAT{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+MUSLIMANING DUNYoSI{ }
+        </item>
+
+        <item>
+OLIJANOB YO‘LTO‘SAR VA EHSON HAKIM UYIDA{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+ERKINLIK ISTAB{Shafiqaning hikoyasi}
+        </item>
+
+        <item>
+ASRLAR UCHRASHUVI{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+TIRILGAN QALB{Shafiqaning hikoyasi}
+        </item>
+
+        <item>
+BUYuK FARYoD{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+YO‘LGA QAYTISh{Shafiqaning hikoyasi}
+        </item>
+
+        <item>
+AVLODLARNI O‘RTAGAN DARD{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+HAQNI TOPISh VA HAQ TOMON YO‘L{Shafiqa hikoyasining oxiri,Anjelina hikoyasining boshlanishi}
+        </item>
+
+        <item>
+ISTIBDOD O‘LKASI{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+BOLQON: BITMAYDIGAN JAROHAT{Anjelinaning hikoyasi}
+        </item>
+
+        <item>
+XOIN VA ZOLIM QARShISIDA{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+ZAHARLANGAN SUV{Anjelinaning hikoyasi}
+        </item>
+
+        <item>
+IBLISLAR ISKANJASI{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+“HIND SORI YuZLANDIM”[ Шоҳ ва шоир Заҳириддин Муҳаммад Бобур (1483 – 1530) сатри.]{Anjelinaning hikoyasi}
+        </item>
+
+        <item>
+“ROBBIM, KO‘KSIMNI OCh!”[ Тоҳа сурасининг 25-ояти мазмуни.]{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+FITNA OTAShI{Anjelinaning hikoyasi}
+        </item>
+
+        <item>
+ChOH EGALARI[ Қуръонда зикр этилган қисса.]{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+FITNA OTAShI ALANGA OLDI{Sabriniso xonimning hikoyasi}
+        </item>
+
+        <item>
+QALB EShIKLARINING OChILIShI{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+QAMOQ OSTONASIDA{Sabriniso xonimning hikoyasi}
+        </item>
+
+        <item>
+SINOVLAR SARI{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+QANOTSIZ UChGAN AYoL{Sabriniso xonimning hikoyasi}
+        </item>
+
+        <item>
+HAQQA NAZAR{Abdulloh Yorqinning hikoyasi}
+        </item>
+
+        <item>
+IYMON NURI{Sabriniso xonimning hikoyasi tugaydi, Anjelina hikoyasining davomi}
+        </item>
+
+        <item>
+“SAHAR VAQTI KO‘RDIM KO‘ZIM SULTONINI”[ Уйғур шоири Абдураҳим Ўткир сатри.]{Abdulloh Yorqin hikoyasining so‘ngi, Umar Sayfullin hikoyasining boshlanishi}
+        </item>
+
+        <item>
+QIZIL ATIRGUL{Anjelina hikoyasining so‘ngi va Humayro hikoyasining avvali}
+        </item>
+
+        <item>
+FIG‘ON{Umar Sayfullinning hikoyasi}
+        </item>
+
+        <item>
+SAJDADAGI AYoL{Humayroning hikoyasi}
+        </item>
+
+        <item>
+TO‘FON{So‘nggi bob}
+        </item>
+
+        <item>
+MUALLIF SHUKRONASI{ }
+        </item>
+
+    </string-array>
+
+    <string-array name="chapters_jangchi_latin">
+        <item>
+ZULM
+        </item>
+        <item>
+HUKM
+        </item>
+        <item>
+HIMOYA
+        </item>
+        <item>
+“TAKLIF”
+        </item>
+        <item>
+QUVILGANNING REJALARI
+        </item>
+        <item>
+XIYONATLI O‘TMISH
+        </item>
+        <item>
+FITNA
+        </item>
+        <item>
+XUDONI TANISH
+        </item>
+        <item>
+TOLUT
+        </item>
+        <item>
+QOCHISH
+        </item>
+        <item>
+TOLUT TAXTGA CHIQDI
+        </item>
+        <item>
+IBLIS MAJLISI
+        </item>
+        <item>
+DARYODAN KECHIB O‘TGANLAR
+        </item>
+        <item>
+NUSRAT JANGI
+        </item>
+        <item>
+XOTIMA
+        </item>
+        <item>
+                SHUKRONA SO‘ZI
+        </item>
+    </string-array>
+
+
+</resources>

@@ -41,13 +41,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         initViews()
-        setObserver()
-    }
-
-    private fun setObserver() {
-        bookPageSelected.getIsClickedFromAudioControlFr().observe(this) {
-            openDrawerLayout()
-        }
     }
 
     private fun initViews() {
@@ -66,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         setMenu()
     }
 
-    fun setStartDestination(){
+    fun setStartDestination() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -85,19 +78,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshAdapter() {
-        adapter.submitList(ArrayList<Chapter>().apply {
-            for (i in 0..20) {
-                this.add(Chapter("", ""))
-            }
-        })
-
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        binding.recyclerView.adapter = adapter
+        submitList(resources.getStringArray(R.array.chapters_halqa_latin).toList())
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
             closeDrawerLayout()
         }
+    }
+
+    fun submitList(list: List<String>) {
+        adapter.submitList(list)
+        binding.recyclerView.adapter = adapter
     }
 
     fun openDrawerLayout() {
