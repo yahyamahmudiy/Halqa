@@ -10,16 +10,16 @@ import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.databinding.TextLayoutBinding
 import com.example.halqa.model.BookText
 
-class BookTextAdapter : ListAdapter<BookText, BookTextAdapter.VH>(DiffUtil()) {
+class BookTextAdapter : ListAdapter<String, BookTextAdapter.VH>(DiffUtil()) {
 
     private var fontSize: Float = 12f
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<BookText>() {
-        override fun areItemsTheSame(oldItem: BookText, newItem: BookText): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: BookText, newItem: BookText): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -31,7 +31,10 @@ class BookTextAdapter : ListAdapter<BookText, BookTextAdapter.VH>(DiffUtil()) {
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.binding.tvText.textSize = fontSize
+        holder.binding.apply {
+            tvText.textSize = fontSize
+            tvText.text = currentList[position]
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

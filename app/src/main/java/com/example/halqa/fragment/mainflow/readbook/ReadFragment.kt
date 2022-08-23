@@ -1,8 +1,6 @@
 package com.example.halqa.fragment.mainflow.readbook
 
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,13 +8,13 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
-import com.example.halqa.model.BookText
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -58,7 +56,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
 
             ivBack.setOnClickListener {
-                Log.d("TAG", "initViews: came")
                 requireActivity().onBackPressed()
             }
 
@@ -77,9 +74,22 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         controlTextSizeChangeWithSeekbar()
 
+        controlRecyclerViewScroll()
+
         controlOnBackPressed()
 
         refreshAdapter()
+    }
+
+    private fun controlRecyclerViewScroll() {
+        binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val lManager = recyclerView.layoutManager as LinearLayoutManager
+                val firstElementPosition = lManager.findFirstVisibleItemPosition()
+                binding.seekBarPage.progress = firstElementPosition
+                binding.tvCurrentPage.text = (firstElementPosition + 1).toString()
+            }
+        })
     }
 
     private fun controlOnBackPressed() {
@@ -128,7 +138,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                 p2: Boolean
             ) {
                 if (p2) {
-                    binding.rvText.smoothScrollToPosition(currentProgress)
+                    binding.rvText.scrollToPosition(currentProgress)
                     binding.tvCurrentPage.text = currentProgress.toString()
                 }
             }
@@ -177,10 +187,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun refreshAdapter() {
         adapter = BookTextAdapter().apply {
-            this.submitList(ArrayList<BookText>().apply {
-                for (i in 0..31)
-                    this.add(BookText(""))
-            })
+            this.submitList(resources.getStringArray(R.array.text_of_chapters_halqa_latin).toList())
         }
         binding.rvText.adapter = adapter
     }

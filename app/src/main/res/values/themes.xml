@@ -37,4 +37,7 @@
     <style name="materialThemeOverlay">
         <item name="colorPrimary">@color/white</item>
     </style>
+    <style name="seekBarStyle">
+        <item name="colorControlHighlight">#C3E2FF</item>
+    </style>
 </resources>
