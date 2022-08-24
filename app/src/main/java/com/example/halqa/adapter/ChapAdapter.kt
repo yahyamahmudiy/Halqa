@@ -1,6 +1,9 @@
 package com.example.halqa.adapter
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,8 +41,19 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
         val item = getItem(position)
         when (holder) {
             is ViewHolder.ItemBookChapView -> {
+                holder.view.apply {
+                    tvChapName.text = item.chapName
+                    tvChapNumber.text = item.chapNumber
+                    if (item.chapComment?.isEmpty() == true || item.chapComment == null){
+                        tvChapComment.visibility = GONE
+                    }else{
+                        tvChapComment.visibility = VISIBLE
+                        tvChapComment.text = item.chapComment
+                    }
+                }
                 holder.view.root.setOnClickListener {
                     onChapterClick.invoke(position)
+
                 }
             }
         }

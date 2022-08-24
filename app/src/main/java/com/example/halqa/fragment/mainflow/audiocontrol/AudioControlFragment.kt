@@ -8,11 +8,18 @@ import androidx.fragment.app.activityViewModels
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.AudioControlScreenBinding
+import com.example.halqa.helper.SharePref
 
 class AudioControlFragment : Fragment(R.layout.audio_control_screen) {
 
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var binding: AudioControlScreenBinding
+    private var isBool = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isBool = SharePref(requireContext()).isSaved
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,6 +28,7 @@ class AudioControlFragment : Fragment(R.layout.audio_control_screen) {
         initViews()
         setPageSelectionObserver()
     }
+
 
     private fun setPageSelectionObserver() {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {

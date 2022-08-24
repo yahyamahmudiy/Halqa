@@ -11,12 +11,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.model.Chapter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,13 +81,13 @@ class MainActivity : AppCompatActivity() {
     private fun setMenu() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
-        refreshAdapter()
     }
 
-    private fun refreshAdapter() {
+    fun refreshAdapter(stringArray: Array<String>, commentArray: Array<String>?) {
+
         adapter.submitList(ArrayList<Chapter>().apply {
-            for (i in 0..20) {
-                this.add(Chapter("", ""))
+            for (i in 0..stringArray.size - 1) {
+                this.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
             }
         })
 
