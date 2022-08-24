@@ -10,7 +10,7 @@ import com.example.halqa.adapter.ViewPagerAdapter
 import com.example.halqa.databinding.FragmentSavedBinding
 import com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment
 import com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 import com.google.android.material.tabs.TabLayout
 
 class SavedFragment : Fragment(R.layout.fragment_saved) {
@@ -24,7 +24,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAdapter()
-        isBool = SharePref(requireContext()).isSaved
+        isBool = SharedPref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

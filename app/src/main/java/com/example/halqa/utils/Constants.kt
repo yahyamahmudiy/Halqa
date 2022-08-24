@@ -6,4 +6,8 @@ object Constants {
     const val HALQA = "Halqa"
     const val JANGCHI = "Jangchi"
 
+    const val NOTSAVED = "NOTSAVED"
+    const val SAVING = "SAVING"
+    const val SAVED = "SAVED"
+
 }

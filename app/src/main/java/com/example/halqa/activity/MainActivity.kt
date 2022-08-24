@@ -19,8 +19,9 @@ import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var navGraph: NavGraph

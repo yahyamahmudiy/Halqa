@@ -2,23 +2,36 @@ package com.example.halqa.fragment.mainflow.bookabout
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
+import com.example.halqa.activity.viewmodel.SplashViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
+import com.example.halqa.utils.Constants.NOTSAVED
+import com.example.halqa.utils.Constants.SAVED
+import com.example.halqa.utils.Constants.SAVING
+import com.example.halqa.utils.UiStateList
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+@AndroidEntryPoint
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private val binding by viewBinding(FragmentBookAboutBinding::bind)
@@ -27,10 +40,12 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private var isBool = true
     private var book: String? = null
     private val TAG = "BookAboutFragment"
+    private val viewModel: BookAboutViewModel by viewModels()
+    private var save: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isBool = SharePref(requireContext()).isSaved
+        isBool = SharedPref(requireContext()).isSaved
         arguments?.let {
             book = it.getString(BOOK)
         }
@@ -41,8 +56,20 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
         if (book == HALQA){
             initHalqa()
+            save = SharedPref(requireContext()).isSavedAudioHalqa
         }else if (book == JANGCHI){
             initJangchi()
+            save = SharedPref(requireContext()).isSavedAudioJangchi
+        }
+
+        binding.ivDownload.setOnClickListener {
+            if (save == NOTSAVED){
+
+            }else if (save == SAVING){
+
+            }else if (save == SAVED){
+
+            }
         }
 
         initLanguageConst()
@@ -52,6 +79,31 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             BottomSheetBehavior.from(view.findViewById(R.id.audioControlBottomSheet))
         disableBottomSheetDragging()
         closeAudioControlBottomSheet()
+
+        viewModel.getBookAudios(book!!)
+
+        setUpObserver()
+    }
+
+    private fun setUpObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allBookAudios.collect {
+                    when (it) {
+                        UiStateList.LOADING -> {
+                            //show progress
+                        }
+
+                        is UiStateList.SUCCESS -> {
+                            Log.d(TAG, "setUpObserver: $it")
+                        }
+                        is UiStateList.ERROR -> {
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     private fun initLanguageConst() {

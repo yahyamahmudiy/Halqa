@@ -4,27 +4,29 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.halqa.model.BookData
 import com.example.halqa.model.Item
 
-@Database(entities = arrayOf(Item::class), version = 1, exportSchema = false)
+@Database(entities = [Item::class, BookData::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun getPhotoHomeDao(): ItemDao
+
+    abstract fun itemDao(): ItemDao
 
     companion object{
-        @Volatile
-        private var DB_INSTANCE: AppDatabase? = null
+        private var instance: AppDatabase? = null
 
         fun getAppDBInstance(context: Context): AppDatabase {
-            if (DB_INSTANCE == null){
-                DB_INSTANCE = Room.databaseBuilder(
+            if (instance == null){
+                instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "DB_ITEM"
                 )
+                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
             }
-            return DB_INSTANCE!!
+            return instance as AppDatabase
         }
     }
 }

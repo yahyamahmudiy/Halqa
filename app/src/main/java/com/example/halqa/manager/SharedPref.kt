@@ -1,6 +1,8 @@
 package com.example.halqa.manager
 
 import android.content.Context
+import androidx.core.content.edit
+import com.example.halqa.utils.Constants.NOTSAVED
 
 class SharedPref(context: Context) {
     private val pref = context.getSharedPreferences("halqa", Context.MODE_PRIVATE)
@@ -10,6 +12,26 @@ class SharedPref(context: Context) {
         editor.putString(key, value)
         editor.apply()
     }
+
+    var isSaved: Boolean
+        get() = pref.getBoolean("isSaved", true)
+        set(value) = pref.edit { this.putBoolean("isSaved", value) }
+
+    var isSavedAudioHalqa: String?
+        get() = pref.getString("isSaved", NOTSAVED)
+        set(value) = pref.edit { this.putString("isSaved", value) }
+
+    var isSavedAudioJangchi: String?
+        get() = pref.getString("isSaved", NOTSAVED)
+        set(value) = pref.edit { this.putString("isSaved", value) }
+
+    var isOneCreate: Boolean
+        get() {
+            return pref.getBoolean("KEY2", true)
+        }
+        set(value) {
+            pref.edit().putBoolean("KEY2", value).apply()
+        }
 
     fun getString(key: String): String? {
         return pref.getString(key, null)

@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.databinding.FragmentMainBinding
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.utils.Constants.BOOK
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
@@ -20,7 +20,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isBool = SharePref(requireContext()).isSaved
+        isBool = SharedPref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

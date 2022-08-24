@@ -8,7 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.databinding.FragmentLanguageBinding
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 
 class LanguageFragment : Fragment(R.layout.fragment_language) {
     private val binding by viewBinding(FragmentLanguageBinding::bind)
@@ -59,7 +59,7 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
 
             btnContinue.setOnClickListener {
                 (requireActivity() as MainActivity).setStartDestination()
-                SharePref(requireContext()).isSaved = isBool
+                SharedPref(requireContext()).isSaved = isBool
             }
         }
     }
