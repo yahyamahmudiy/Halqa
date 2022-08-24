@@ -84,17 +84,12 @@ class MainActivity : AppCompatActivity() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
     }
-    fun refreshAdapter(stringArray: Array<String>, commentArray: Array<String>?) {
+    fun refreshAdapter(stringArray: List<String>) {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        var list = ArrayList<Chapter>()
-
-        for (i in 0..stringArray.size - 1) {
-            list.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
-        }
 
         binding.recyclerView.adapter = adapter
 
-        adapter.submitList(list)
+        adapter.submitList(stringArray)
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)

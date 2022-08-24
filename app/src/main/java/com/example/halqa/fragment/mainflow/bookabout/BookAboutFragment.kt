@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -19,9 +20,11 @@ import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.activity.viewmodel.SplashViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
-import com.example.halqa.manager.SharedPref
+import com.example.halqa.extension.setImage
+import com.example.halqa.manager.SharedPre
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
+import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
 import com.example.halqa.utils.Constants.NOTSAVED
@@ -42,12 +45,14 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private val TAG = "BookAboutFragment"
     private val viewModel: BookAboutViewModel by viewModels()
     private var save: String? = null
+    private lateinit var bookName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isBool = SharedPref(requireContext()).isSaved
         arguments?.let {
             book = it.getString(BOOK)
+            bookName = it.get(BOOK).toString()
         }
     }
 
@@ -134,10 +139,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa)
-            }else{
+            } else {
                 tvBookName.text = requireContext().getString(R.string.str_halqa_kirill)
                 tvAuthorName.text = requireContext().getString(R.string.str_akrom_malik_kirill)
-                tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName1.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa_kirill)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa_kirill)
@@ -155,9 +161,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi)
-            }else{
+            } else {
                 tvBookName.text = requireContext().getString(R.string.str_jangchi_kirill)
-                tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName1.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi_kirill)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi_kirill)
@@ -172,6 +179,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun initViews() {
 
+        setData(bookName)
+        if (bookName == JANGCHI) {
+            setJangchiMenu()
+        } else {
+            setHalqaMenu()
+        }
+
         binding.apply {
 
             ivBack.setOnClickListener {
@@ -180,16 +194,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
             ivMenu.setOnClickListener {
                 (requireActivity() as MainActivity).openDrawerLayout()
+            }
 
-                if (isBool == true && book == HALQA){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_halqa_lotin), requireActivity().resources.getStringArray(R.array.bob_halqa_comment_lotin))
-                }else if (isBool == false && book == HALQA){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_halqa_kirill), requireActivity().resources.getStringArray(R.array.bob_halqa_comment_kirill))
-                }else if (isBool == true && book == JANGCHI){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_jangchi_lotin), null)
-                }else if (isBool == false && book == JANGCHI){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_jangchi_kirill), null)
-                }
+            btnReadbook.setOnClickListener {
+                openReadFragment()
             }
 
             bottomAudioPlayView.setOnClickListener {
@@ -204,6 +212,32 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         }
 
         setPageSelectionObserver()
+    }
+
+    private fun setHalqaMenu() {
+        if (SharedPref(requireContext()).getString("til") == "Lotin")
+            setMenuList(
+                resources.getStringArray(R.array.chapters_halqa_latin).toList()
+            )
+        else
+            setMenuList(
+                resources.getStringArray(R.array.chapters_halqa_crill).toList()
+            )
+    }
+
+    private fun setMenuList(list: List<String>) {
+        (requireActivity() as MainActivity).refreshAdapter(list)
+    }
+
+    private fun setJangchiMenu() {
+        if (SharedPref(requireContext()).getString("til") == "Lotin")
+            setMenuList(
+                resources.getStringArray(R.array.chapters_jangchi_latin).toList()
+            )
+        else
+            setMenuList(
+                resources.getStringArray(R.array.chapter_jangchi_crill).toList()
+            )
     }
 
     private fun setData(bookName: String) {
@@ -226,12 +260,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun setPageSelectionObserver() {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
-            if (it.isAudioClick) {
-                setDataToBottomSheet(it)
-                openAudioControlBottomSheet()
-            } else {
-                openReadFragment()
-            }
+            setDataToBottomSheet(it)
+            openAudioControlBottomSheet()
         }
     }
 
@@ -246,6 +276,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
 
     private fun openReadFragment() {
-        findNavController().navigate(R.id.action_bookAboutFragment_to_readFragment)
+        findNavController().navigate(
+            R.id.action_bookAboutFragment_to_readFragment,
+            bundleOf(BOOK_KEY to bookName)
+        )
     }
 }

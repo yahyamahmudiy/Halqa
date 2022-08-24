@@ -1,20 +1,30 @@
 package com.example.halqa.fragment.mainflow.readbook
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
+import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
+<<<<<<< HEAD
+import com.example.halqa.extension.setImage
+=======
+>>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
+import com.example.halqa.manager.SharedPref
+import com.example.halqa.utils.Constants.BOOK_KEY
+import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -22,8 +32,28 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private val binding by viewBinding(FragmentReadBinding::bind)
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
+<<<<<<< HEAD
+    private var isSelected = false
+    private var page: String?= null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments.let {
+            page = it?.getString("page")
+=======
+    private lateinit var bookName: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            bookName = it.get(BOOK_KEY).toString()
+>>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,9 +108,34 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         controlOnBackPressed()
 
+        controlBookmark()
+
         refreshAdapter()
+
+        setUpBookPageSelectionObserver()
     }
 
+    private fun setUpBookPageSelectionObserver() {
+        bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
+            if (it.chapNumber == 32)
+                binding.rvText.scrollToPosition(it.chapNumber + 1)
+            else
+                binding.rvText.scrollToPosition(it.chapNumber)
+
+        }
+    }
+
+    private fun controlBookmark() {
+        binding.btnBookmark.setOnClickListener {
+            val page = binding.tvCurrentPage.text.toString()
+            SharedPref(requireContext()).saveString("page", page)
+        }
+        if (page!!.isNotEmpty()){
+            binding.rvText.scrollToPosition(page!!.toInt())
+            binding.tvCurrentPage.text = page
+        }
+
+    }
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -187,10 +242,19 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun refreshAdapter() {
         adapter = BookTextAdapter().apply {
-            this.submitList(resources.getStringArray(R.array.text_of_chapters_halqa_latin).toList())
+            this.submitList(resources.getStringArray(getNeededArray()).toList())
         }
         binding.rvText.adapter = adapter
     }
+
+    private fun getNeededArray(): Int = if (bookName == JANGCHI) {
+        if (SharedPref(requireContext()).getString("til") == "Lotin")
+            R.array.text_of_chapters_jangchi_latin
+        else R.array.text_of_chapters_jangchi_crill
+    } else if (SharedPref(requireContext()).getString("til") == "Lotin")
+        R.array.text_of_chapters_halqa_latin
+    else R.array.text_of_chapters_halqa_crill
+
 
     private fun changeModeToDark() {
         binding.apply {

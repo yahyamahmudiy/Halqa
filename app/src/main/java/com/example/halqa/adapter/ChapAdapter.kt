@@ -10,16 +10,17 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 
-class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
 
     lateinit var onChapterClick: ((Chapter) -> Unit)
+    private val chapter = Chapter()
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
-        override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -41,19 +42,32 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
         when (holder) {
             is ViewHolder.ItemBookChapView -> {
                 holder.view.root.setOnClickListener {
-                    onChapterClick.invoke(item)
+                    onChapterClick.invoke(chapter.apply {
+                        chapNumber = position
+                        chapName = getChapterName(item)
+                    })
                 }
                 holder.view.apply {
-                    tvChapName.text = item.chapName
-                    tvChapNumber.text = item.chapNumber
-                    if (item.chapComment?.isEmpty() == true || item.chapComment == null){
-                        tvChapComment.visibility = GONE
-                    }else{
-                        tvChapComment.visibility = VISIBLE
-                        tvChapComment.text = item.chapComment
+                    if (currentList.size == 33) {
+                        if (position != 32)
+                            tvChapNumber.text = "${position + 1}-bob"
+                        else tvChapNumber.text = ""
+                        tvChapName.text = getChapterName(item)
+                        tvChapComment.text = getChapterTeller(item)
+                    } else {
+                        tvChapNumber.text = ""
+                        tvChapName.text = item
+                        tvChapComment.text = ""
                     }
                 }
             }
         }
     }
+
+    private fun getChapterTeller(item: String): CharSequence =
+        item.subSequence(item.indexOf("{") + 1, item.length - 1)
+
+    private fun getChapterName(item: String): String =
+        if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
+
 }
