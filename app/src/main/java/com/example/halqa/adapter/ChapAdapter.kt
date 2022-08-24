@@ -1,5 +1,6 @@
 package com.example.halqa.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -59,6 +60,7 @@ class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
                     if (currentList.size == 33) {
                         if (position != 32)
                             tvChapNumber.text = "${position + 1}-bob"
+                        else tvChapNumber.text = ""
                         tvChapName.text = getChapterName(item)
                         tvChapComment.text = getChapterTeller(item)
                     } else {
@@ -75,6 +77,10 @@ class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
         item.subSequence(item.indexOf("{") + 1, item.length - 1)
 
     private fun getChapterName(item: String): String =
-        if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
-
+        try {
+            if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
+        } catch (e: Exception) {
+            Log.d("TAG", "getChapterName: $item")
+            ""
+        }
 }

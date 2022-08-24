@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:max="33"
+            android:max="34"
             android:min="1"
             android:progress="1"
             android:progressBackgroundTint="#C3E2FF"

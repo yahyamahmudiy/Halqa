@@ -2,6 +2,7 @@ package com.example.halqa.fragment.mainflow.bookabout
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import com.example.halqa.constants.Constants.JANGCHI
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
 import com.example.halqa.extension.setImage
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -23,6 +25,15 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private val binding by viewBinding(FragmentBookAboutBinding::bind)
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var bookName: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            bookName = it.get(BOOK_KEY).toString()
+        }
+    }
 
     private fun setMenuList(list: List<String>) {
         (requireActivity() as MainActivity).submitList(list)
@@ -44,17 +55,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun initViews() {
 
-        arguments.let {
-            setData(it?.get(BOOK_KEY).toString())
-            if (it?.get(BOOK_KEY).toString() == JANGCHI) {
-                setMenuList(
-                    resources.getStringArray(R.array.chapters_jangchi_latin).toList()
-                )
-            } else {
-                setMenuList(
-                    resources.getStringArray(R.array.chapters_halqa_latin).toList()
-                )
-            }
+        setData(bookName)
+        if (bookName == JANGCHI) {
+            setJangchiMenu()
+        } else {
+            setHalqaMenu()
         }
 
         binding.apply {
@@ -65,6 +70,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
             ivMenu.setOnClickListener {
                 (requireActivity() as MainActivity).openDrawerLayout()
+            }
+
+            btnReadbook.setOnClickListener {
+                openReadFragment()
             }
 
             bottomAudioPlayView.setOnClickListener {
@@ -79,6 +88,28 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         }
 
         setPageSelectionObserver()
+    }
+
+    private fun setHalqaMenu() {
+        if (SharedPref(requireContext()).getString("til") == "Lotin")
+            setMenuList(
+                resources.getStringArray(R.array.chapters_halqa_latin).toList()
+            )
+        else
+            setMenuList(
+                resources.getStringArray(R.array.chapters_halqa_crill).toList()
+            )
+    }
+
+    private fun setJangchiMenu() {
+        if (SharedPref(requireContext()).getString("til") == "Lotin")
+            setMenuList(
+                resources.getStringArray(R.array.chapters_jangchi_latin).toList()
+            )
+        else
+            setMenuList(
+                resources.getStringArray(R.array.chapter_jangchi_crill).toList()
+            )
     }
 
     private fun setData(bookName: String) {
@@ -97,9 +128,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         }
     }
 
-    private fun setBookData(bobNumber: String, drawable: Int) {
+    private fun setBookData(chapterNumber: String, drawable: Int) {
         binding.apply {
-            tvChapterNumber.text = bobNumber
+            tvChapterNumber.text = chapterNumber
             ivBookMain.setImage(drawable)
             ivBookBottomMain.setImage(drawable)
             ivBookBackground.setImage(drawable)
@@ -117,12 +148,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun setPageSelectionObserver() {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
-            if (it.isAudioClick) {
-                setDataToBottomSheet(it)
-                openAudioControlBottomSheet()
-            } else {
-                openReadFragment()
-            }
+            setDataToBottomSheet(it)
+            openAudioControlBottomSheet()
         }
     }
 
@@ -137,6 +164,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
 
     private fun openReadFragment() {
-        findNavController().navigate(R.id.action_bookAboutFragment_to_readFragment)
+        findNavController().navigate(
+            R.id.action_bookAboutFragment_to_readFragment,
+            bundleOf(BOOK_KEY to bookName)
+        )
     }
 }
