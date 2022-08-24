@@ -16,7 +16,11 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_bookAboutFragment"
-            app:destination="@id/bookAboutFragment" />
+            app:destination="@id/bookAboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/savedFragment"
@@ -41,11 +45,12 @@
         android:label="fragment_book_about"
         tools:layout="@layout/fragment_book_about">
         <action
-            android:id="@+id/action_bookAboutFragment_to_audioControlFragment"
-            app:destination="@id/audioControlFragment"
-            app:exitAnim="@anim/bottom_to_top"
-            app:popEnterAnim="@anim/bottom_to_top"
-            app:popExitAnim="@anim/bottom_to_top" />
+            android:id="@+id/action_bookAboutFragment_to_readFragment"
+            app:destination="@id/readFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -59,8 +64,10 @@
         android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
         android:label="fragmentBooksSV"
         tools:layout="@layout/fragment_books_sv" />
+
     <fragment
-        android:id="@+id/audioControlFragment"
-        android:name="com.example.halqa.fragment.mainflow.audiocontrol.AudioControlFragment"
-        android:label="AudioControlFragment" />
+        android:id="@+id/readFragment"
+        android:name="com.example.halqa.fragment.mainflow.readbook.ReadFragment"
+        android:label="fragment_read"
+        tools:layout="@layout/fragment_read" />
 </navigation>

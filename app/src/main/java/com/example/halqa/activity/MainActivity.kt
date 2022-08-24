@@ -11,10 +11,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
     private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
+    private lateinit var chapter: Chapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,21 +44,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         initViews()
-        setObserver()
-    }
-
-    private fun setObserver() {
-        bookPageSelected.getIsClickedFromAudioControlFr().observe(this) {
-            openDrawerLayout()
-        }
     }
 
     private fun initViews() {
+        chapter = Chapter(-1, "")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
         when {
             false -> navGraph.setStartDestination(R.id.mainFlowFragment)
             !false -> navGraph.setStartDestination(R.id.languageFlowFragment)
@@ -66,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         setMenu()
     }
 
-    fun setStartDestination(){
+    fun setStartDestination() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -76,6 +74,14 @@ class MainActivity : AppCompatActivity() {
         navGraph.setStartDestination(R.id.mainFlowFragment)
 
         navController.graph = navGraph
+    }
+
+    fun checkSaved() {
+        if (SharedPref(this).getBoolean("introDone")) {
+            navGraph.setStartDestination(R.id.mainFlowFragment)
+        } else {
+            navGraph.setStartDestination(R.id.languageFlowFragment)
+        }
     }
 
     private fun setMenu() {
@@ -91,13 +97,19 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    private fun refreshAdapter() {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        binding.recyclerView.adapter = adapter
+        submitList(resources.getStringArray(R.array.chapters_halqa_latin).toList())
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
             closeDrawerLayout()
         }
+    }
+
+    fun submitList(list: List<String>) {
+        adapter.submitList(list)
+        binding.recyclerView.adapter = adapter
     }
 
     fun openDrawerLayout() {

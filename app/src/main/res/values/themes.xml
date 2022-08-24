@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="round_corner">
@@ -34,5 +36,8 @@
 
     <style name="materialThemeOverlay">
         <item name="colorPrimary">@color/white</item>
+    </style>
+    <style name="seekBarStyle">
+        <item name="colorControlHighlight">#C3E2FF</item>
     </style>
 </resources>

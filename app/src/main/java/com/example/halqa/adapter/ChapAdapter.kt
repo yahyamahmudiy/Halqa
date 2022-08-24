@@ -11,16 +11,17 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 
-class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
 
-    lateinit var onChapterClick: ((Int) -> Unit)
+    lateinit var onChapterClick: ((Chapter) -> Unit)
+    private val chapter = Chapter()
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
-        override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -41,19 +42,8 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
         val item = getItem(position)
         when (holder) {
             is ViewHolder.ItemBookChapView -> {
-                holder.view.apply {
-                    tvChapName.text = item.chapName
-                    tvChapNumber.text = item.chapNumber
-                    if (item.chapComment?.isEmpty() == true || item.chapComment == null){
-                        tvChapComment.visibility = GONE
-                    }else{
-                        tvChapComment.visibility = VISIBLE
-                        tvChapComment.text = item.chapComment
-                    }
-                }
                 holder.view.root.setOnClickListener {
                     onChapterClick.invoke(position)
-
                 }
             }
         }

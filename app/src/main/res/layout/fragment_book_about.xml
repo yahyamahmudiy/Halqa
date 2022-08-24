@@ -1,7 +1,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="281dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/halqa"
+            android:src="@drawable/halqa_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,12 +34,12 @@
             android:layout_marginStart="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvBookName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvName" />
+            app:layout_constraintTop_toTopOf="@id/tvBookName" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tvBookName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="51dp"
@@ -55,9 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
             android:src="@drawable/ic_menu"
-            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvBookName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvName" />
+            app:layout_constraintTop_toTopOf="@id/tvBookName" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/ivBook"
@@ -65,70 +66,72 @@
             android:layout_height="162dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="161dp"
+            android:layout_marginBottom="-40dp"
             android:elevation="10dp"
             android:outlineSpotShadowColor="@color/main_color"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toBottomOf="@id/ivBookBackground"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/ivBookImage"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBookMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/halqa_2" />
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewAudio"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivBook"
-            app:layout_constraintStart_toStartOf="@id/ivBook">
-
-            <ImageView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:padding="3dp"
-                android:src="@drawable/ic_headphone" />
-        </androidx.cardview.widget.CardView>
+                android:gravity="bottom"
+                android:padding="8dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivBook"
-            app:layout_constraintStart_toEndOf="@id/cardViewAudio"
-            app:layout_goneMarginStart="2dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewAudio"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:padding="3dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_headphone" />
+                </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_book_left" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_book_right" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="3dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_book_left" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_book_right" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.cardview.widget.CardView>
 
 
@@ -137,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/str_author"
+            android:text="Muallif:"
             android:textColor="#DFDFDF"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/ivBook"
@@ -148,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/str_akrom_malik"
+            android:text="Akrom Malik"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/ivBook"
@@ -159,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/str_read"
+            android:text="O'qidi:"
             android:textColor="#DFDFDF"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/ivBook"
@@ -170,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/str_abdukarim_mirzayev"
+            android:text="Abdukarim Mirzayev"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/ivBook"
@@ -181,7 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/str_shams_solih"
+            android:text="Shams Solih"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/ivBook"
@@ -194,6 +197,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="4dp"
+            android:text="120-bob"
             android:textColor="#DFDFDF"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/ivBookBackground"
@@ -292,7 +296,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_button_grey_12dp"
-            android:text="@string/str_reading_book"
+            android:text="Kitobni o'qish"
             android:textAllCaps="false"
             android:textColor="#B3B9C0"
             app:backgroundTint="#E2E2E2"
@@ -314,12 +318,11 @@
             app:layout_constraintTop_toTopOf="@id/btnReadbook" />
 
         <TextView
-            android:id="@+id/tvRateBook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="28dp"
-            android:text="@string/str_rate_book"
+            android:text="Kitobga baho bering"
             android:textColor="#828282"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -341,6 +344,7 @@
             app:mrb_secondaryProgressTint="#E8B006" />
 
         <TextView
+            android:id="@+id/tvBookDescription"
             android:id="@+id/tvDic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -370,15 +374,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/ivBookBottom"
-                android:layout_width="30dp"
-                android:layout_height="44dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:src="@drawable/halqa_2"
+                android:outlineSpotShadowColor="@color/main_color"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivBookBottomMain"
+                    android:layout_width="30dp"
+                    android:layout_height="44dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/halqa_2" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tvBookNameBottom"
@@ -443,7 +458,6 @@
 
     <include
         android:id="@+id/audioControlBottomSheet"
-        layout="@layout/audio_control_screen"
-        android:visibility="gone" />
+        layout="@layout/audio_control_screen"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
