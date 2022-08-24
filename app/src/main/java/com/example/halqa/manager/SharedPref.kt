@@ -18,12 +18,12 @@ class SharedPref(context: Context) {
         set(value) = pref.edit { this.putBoolean("isSaved", value) }
 
     var isSavedAudioHalqa: String?
-        get() = pref.getString("isSaved", NOTSAVED)
-        set(value) = pref.edit { this.putString("isSaved", value) }
+        get() = pref.getString("isSaveHalqa", NOTSAVED)
+        set(value) = pref.edit { this.putString("isSaveHalqa", value) }
 
     var isSavedAudioJangchi: String?
-        get() = pref.getString("isSaved", NOTSAVED)
-        set(value) = pref.edit { this.putString("isSaved", value) }
+        get() = pref.getString("isSaveJangchi", NOTSAVED)
+        set(value) = pref.edit { this.putString("isSaveJangchi", value) }
 
     var isOneCreate: Boolean
         get() {

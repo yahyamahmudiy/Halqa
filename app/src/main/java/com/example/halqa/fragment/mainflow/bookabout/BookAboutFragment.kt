@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,11 +16,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
-import com.example.halqa.activity.viewmodel.SplashViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
-import com.example.halqa.extension.setImage
-import com.example.halqa.manager.SharedPre
+import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
 import com.example.halqa.utils.Constants.BOOK_KEY
@@ -34,6 +31,7 @@ import com.example.halqa.utils.UiStateList
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 

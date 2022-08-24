@@ -18,10 +18,6 @@ import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
-<<<<<<< HEAD
-import com.example.halqa.extension.setImage
-=======
->>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.JANGCHI
@@ -35,23 +31,22 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
-<<<<<<< HEAD
     private var isSelected = false
     private var page: String?= null
+    private lateinit var bookName: String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments.let {
             page = it?.getString("page")
-=======
-    private lateinit var bookName: String
 
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
             bookName = it.get(BOOK_KEY).toString()
->>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
         }
     }
 
