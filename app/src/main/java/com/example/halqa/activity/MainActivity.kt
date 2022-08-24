@@ -3,6 +3,7 @@ package com.example.halqa.activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
     private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
-    private lateinit var chapter: Chapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        chapter = Chapter(-1, "")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -88,28 +86,22 @@ class MainActivity : AppCompatActivity() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
     }
-
     fun refreshAdapter(stringArray: Array<String>, commentArray: Array<String>?) {
-
-        adapter.submitList(ArrayList<Chapter>().apply {
-            for (i in 0..stringArray.size - 1) {
-                this.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
-            }
-        })
-
-    private fun refreshAdapter() {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        submitList(resources.getStringArray(R.array.chapters_halqa_latin).toList())
+        var list = ArrayList<Chapter>()
+
+        for (i in 0..stringArray.size - 1) {
+            list.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
+        }
+
+        binding.recyclerView.adapter = adapter
+
+        adapter.submitList(list)
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
             closeDrawerLayout()
         }
-    }
-
-    fun submitList(list: List<String>) {
-        adapter.submitList(list)
-        binding.recyclerView.adapter = adapter
     }
 
     fun openDrawerLayout() {

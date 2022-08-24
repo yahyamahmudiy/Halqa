@@ -39,7 +39,7 @@ class AudioControlFragment : Fragment(R.layout.audio_control_screen) {
     private fun initViews() {
         binding.apply {
             ivMenu.setOnClickListener {
-                bookPageSelected.setIsClickedFromAudioControlFr(true)
+              //  bookPageSelected.setIsClickedFromAudioControlFr(true)
             }
 
             ivBack.setOnClickListener {

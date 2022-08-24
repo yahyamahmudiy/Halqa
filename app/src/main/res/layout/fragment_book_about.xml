@@ -75,7 +75,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivBookMain"
+                android:id="@+id/ivBookImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -318,6 +318,7 @@
             app:layout_constraintTop_toTopOf="@id/btnReadbook" />
 
         <TextView
+            android:id="@+id/tvRateBook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -345,7 +346,6 @@
 
         <TextView
             android:id="@+id/tvBookDescription"
-            android:id="@+id/tvDic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -457,6 +457,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
+        android:visibility="gone"
         android:id="@+id/audioControlBottomSheet"
         layout="@layout/audio_control_screen"/>
 

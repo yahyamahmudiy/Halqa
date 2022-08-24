@@ -2,25 +2,21 @@ package com.example.halqa.fragment.mainflow.bookabout
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
-import com.example.halqa.constants.Constants.BOOK_KEY
-import com.example.halqa.constants.Constants.HALQA
-import com.example.halqa.constants.Constants.JANGCHI
 import com.example.halqa.databinding.FragmentBookAboutBinding
+import com.example.halqa.extension.firstCap
 import com.example.halqa.helper.SharePref
+import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
-import com.example.halqa.extension.firstCap
-import com.example.halqa.extension.setImage
-import com.example.halqa.model.Chapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
@@ -38,10 +34,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         arguments?.let {
             book = it.getString(BOOK)
         }
-    }
-
-    private fun setMenuList(list: List<String>) {
-        (requireActivity() as MainActivity).submitList(list)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,19 +76,19 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         binding.apply {
             ivBookImage.setImageResource(R.drawable.halqa_2)
             if (isBool) {
-                tvName.text = requireContext().getString(R.string.str_halqa)
+                tvBookName.text = requireContext().getString(R.string.str_halqa)
                 tvAuthorName.text = requireContext().getString(R.string.str_akrom_malik)
                 tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa)
-                tvDic.text = requireContext().getString(R.string.str_dic_halqa)
+                tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa)
             }else{
-                tvName.text = requireContext().getString(R.string.str_halqa_kirill)
+                tvBookName.text = requireContext().getString(R.string.str_halqa_kirill)
                 tvAuthorName.text = requireContext().getString(R.string.str_akrom_malik_kirill)
                 tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa_kirill)
-                tvDic.text = requireContext().getString(R.string.str_dic_halqa_kirill)
+                tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa_kirill)
             }
         }
     }
@@ -105,18 +97,18 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         binding.apply {
             ivBookImage.setImageResource(R.drawable.img_jangchi)
             if (isBool) {
-                tvName.text = requireContext().getString(R.string.str_jangchi)
+                tvBookName.text = requireContext().getString(R.string.str_jangchi)
                 tvAuthorName.text = requireContext().getString(R.string.str_akrom_malik)
                 tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi)
-                tvDic.text = requireContext().getString(R.string.str_dic_jangchi)
+                tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi)
             }else{
-                tvName.text = requireContext().getString(R.string.str_jangchi_kirill)
+                tvBookName.text = requireContext().getString(R.string.str_jangchi_kirill)
                 tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi_kirill)
-                tvDic.text = requireContext().getString(R.string.str_dic_jangchi_kirill)
+                tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi_kirill)
             }
         }
     }
@@ -127,19 +119,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun initViews() {
-
-        arguments.let {
-            setData(it?.get(BOOK_KEY).toString())
-            if (it?.get(BOOK_KEY).toString() == JANGCHI) {
-                setMenuList(
-                    resources.getStringArray(R.array.chapters_jangchi_latin).toList()
-                )
-            } else {
-                setMenuList(
-                    resources.getStringArray(R.array.chapters_halqa_latin).toList()
-                )
-            }
-        }
 
         binding.apply {
 
@@ -182,22 +161,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             audioControlBottomSheet.apply {
                 tvName.text = bookName
             }
-            if (bookName == HALQA) {
-                setBookData("32-bob", R.drawable.halqa_2)
-
-            } else {
-                setBookData("14-bob", R.drawable.img_jangchi)
-            }
-        }
-    }
-
-    private fun setBookData(bobNumber: String, drawable: Int) {
-        binding.apply {
-            tvChapterNumber.text = bobNumber
-            ivBookMain.setImage(drawable)
-            ivBookBottomMain.setImage(drawable)
-            ivBookBackground.setImage(drawable)
-            audioControlBottomSheet.ivBook.setImage(drawable)
         }
     }
 

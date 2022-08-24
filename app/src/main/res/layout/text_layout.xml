@@ -8,7 +8,7 @@
         android:id="@+id/tvText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/str_dic"
+        android:text="@string/str_dic_halqa"
         android:textColor="#828282"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
