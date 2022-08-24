@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.halqa.adapter.ViewPagerAdapter
 import com.example.halqa.fragment.mainflow.bookmark.audio.AudioBMFragment
 import com.example.halqa.fragment.mainflow.bookmark.books.BooksBMFragment
+import com.example.halqa.helper.SharePref
 import com.google.android.material.tabs.TabLayout
 
 class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
@@ -18,10 +19,12 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var vpFilter: ViewPager
     private lateinit var tlFilter: TabLayout
+    private var isBool = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAdapter()
+        isBool = SharePref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +44,11 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
 
         refreshAdapter()
 
+        if (isBool){
+            binding.tvText.text = requireContext().getString(R.string.str_text)
+        }else{
+            binding.tvText.text = requireContext().getString(R.string.str_text_kirill)
+        }
     }
 
     private fun setAdapter() {

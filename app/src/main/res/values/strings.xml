@@ -12,14 +12,521 @@
     <string name="str_audio">Audio</string>
     <string name="str_halqa">Halqa</string>
     <string name="str_abdukarim_mirzayev">Abdukarim Mirzayev</string>
-    <string name="str_32_bob">32 bob</string>
+    <string name="str_32_bob_halqa">32 bob</string>
     <string name="str_jangchi">Jangchi</string>
-    <string name="str_14_bob">14 bob</string>
+    <string name="str_14_bob_jangchi">14 bob</string>
     <string name="str_text">“O’qilayotgan kitoblar” bo’limi xozircha bo’sh</string>
     <string name="str_davom_ettirish">Davom ettirish</string>
-    <string name="str_dic">Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit auctor malesuada enim. Et quisque tellus enim dumbl tente lore Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit auctor malesuada enim. Et quisque tellus enim dumbl tente lore Kitob haqida qisqacha ma’lumot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada quisque tincidunt a viverra euismod. Diam lacus vulputate vulputate nunc, dolor. Elit, vitae sed hendrerit fef</string>
+    <string name="str_dic_halqa">Halqa qissasi minglab o’zbek kitobxonlari qalbidan joy oldi. Unda iymonli insonning hayot mashaqqatlarini yengib g’olib bo’lishi, matonatning yuksak mukofoti haqida so’z boradi. Qissasidagi voqealar oxirgi yuz yillikda bo‘lib o‘tadi. Qahramonlar qismati sizni goh Malayziya, goh Hind ummoni, goh Hind o‘lkasi, Afg‘on sahrolari, qadim Turkiston zamini, Bolqon yarimoroli va Uyg‘ur diyorlariga yetaklaydi. Asar iymon va kufr, mo‘min va shayton orasidagi kurash, zolimning halokati, mazlumning saodati haqida hikoya qiladi.
+Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning navbatdagi nashri kitobxonlarimiz uchun yaxshi hadya bo’ladi degan umiddamiz.</string>
+    <string name="str_dic_jangchi">Jangchi qissasi qadim Falastin, Shom va Isroil o‘lkalarida kechgan tarixiy voqealardan so‘zlaydi. Ushbu qissa o’z motivi bilan o’zbek adabiyotida yangi yo’nalishni ochdi. Payg’ambarlar – xalqning najodkorlari haqidagi timsollar zamonaviy adabiyotimizda deyarli uchramaydi. Qahramonlar boshidan kechgan fojialar va ularning sabablari hech qachon eskirmaydi. Roqib, uning onasi Ashua, zolim hukmdor Jolut, unga qarshi kurashgan, asl kasbi cho’pon bo’lgan Tolut haqidagi bu qissa kitobxonlarning sevimli asarlari qatoridan joy olib ulgurdi. O‘quvchi “Jangchi” qissasidan bugungi kuni uchun ibrat ola bilishidan umidvormiz. Asarning alohida kitob bo’lib nashr etilishi o’quvchilarni xushnud qiladi deb ishonamiz.</string>
     <string name="str_saqlab_qo_yilganlar">Saqlab qo’yilganlar</string>
+    <string name="str_author">Muallif:</string>
+    <string name="str_read">O\'qidi:</string>
+    <string name="str_shams_solih">Shams Solih</string>
+    <string name="str_reading_book">Kitobni o\'qish</string>
+    <string name="str_rate_book">Kitobga baho bering</string>
+    <string name="str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh">“Saqlangan kitoblar” bo’limi xozircha bo’sh</string>
     <string name="str_15">15</string>
     <string name="str_00_00">00:00</string>
     <string name="app_shior">Bugun mohiyatga qaytish fursati keldi, millat o\'zligini tanishga intilarkan, albatta, Xudoni tanishga majburdir.</string>
+
+    <string name="str_biografiya_kirill">Aкром Малик 1991 йилда Тошкент вилояти Пискент туманида тугъилган. Тошкент давлат миллий университети магистри, Aлишер Навоий ижод билимдони, Ҳалқа, Жанги ва яна бир неча китоблар муаллифи</string>
+    <string name="str_akrom_malik_kirill">Aкром Малик</string>
+    <string name="str_kitoblar_kirill">Китоблар</string>
+    <string name="str_audio_kirill">Aудио</string>
+    <string name="str_halqa_kirill">Ҳалқа</string>
+    <string name="str_abdukarim_mirzayev_kirill">Aбдукарим Мирзайев</string>
+    <string name="str_32_bob_halqa_kirill">32 боб</string>
+    <string name="str_jangchi_kirill">Жангчи</string>
+    <string name="str_14_bob_jangchi_kirill">14 боб</string>
+    <string name="str_text_kirill">“Ўқилаётган китоблар” бўлими хозирча бўш</string>
+    <string name="str_davom_ettirish_kirill">Давом эттириш</string>
+    <string name="str_dic_halqa_kirill">Ҳалқа қиссаси минглаб ўзбек китобхонлари қалбидан жой олди. Унда иймонли инсоннинг ҳаёт машаққатларини енгиб ғолиб бўлиши, матонатнинг юксак мукофоти ҳақида сўз боради. Қиссасидаги воқеалар охирги юз йилликда бўлиб ўтади. Қаҳрамонлар қисмати сизни гоҳ Малайзия, гоҳ Ҳинд уммони, гоҳ Ҳинд ўлкаси, Афғон саҳролари, қадим Туркистон замини, Болқон яримороли ва Уйғур диёрларига етаклайди. Асар иймон ва куфр, мўмин ва шайтон орасидаги кураш, золимнинг ҳалокати, мазлумнинг саодати ҳақида ҳикоя қилади.
+Ер юзининг турли нуқталарида бўладиган воқеалар ёритилган бу қиссанинг навбатдаги нашри китобхонларимиз учун яхши ҳадя бўлади деган умиддамиз.</string>
+    <string name="str_dic_jangchi_kirill">Жангчи қиссаси қадим Фаластин, Шом ва Исроил ўлкаларида кечган тарихий воқеалардан сўзлайди. Ушбу қисса ўз мотиви билан ўзбек адабиётида янги йўналишни очди. Пайғамбарлар – халқнинг нажодкорлари ҳақидаги тимсоллар замонавий адабиётимизда деярли учрамайди. Қаҳрамонлар бошидан кечган фожиалар ва уларнинг сабаблари ҳеч қачон эскирмайди. Роқиб, унинг онаси Ашуа, золим ҳукмдор Жолут, унга қарши курашган, асл касби чўпон бўлган Толут ҳақидаги бу қисса китобхонларнинг севимли асарлари қаторидан жой олиб улгурди. Ўқувчи “Жангчи” қиссасидан бугунги куни учун ибрат ола билишидан умидвормиз. Асарнинг алоҳида китоб бўлиб нашр этилиши ўқувчиларни хушнуд қилади деб ишонамиз.</string>
+    <string name="str_saqlab_qo_yilganlar_kirill">Сақлаб қўйилганлар</string>
+    <string name="str_author_kirill">Муаллиф:</string>
+    <string name="str_read_kirill">Ўқиди:</string>'
+    <string name="str_shams_solih_kirill">Шамс Солиҳ</string>
+    <string name="str_reading_book_kirill">Китобни ўқиш</string>
+    <string name="str_rate_book_kirill">Китобга баҳо беринг</string>
+    <string name="str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh_kirill">“Saqlangan kitoblar” bo’limi xozircha bo’sh</string>
+
+    <string-array name="bob_halqa_comment_lotin">
+        <item></item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item></item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Shafiqaning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Shafiqaning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Shafiqaning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Shafiqa hikoyasining oxiri, Anjelina hikoyasining boshlanishi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Anjelinaning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Anjelinaning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item></item>
+        <item>[ Шоҳ ва шоир Заҳириддин Муҳаммад Бобур (1483 – 1530) сатри.]
+(Anjelinaning hikoyasi)</item>
+        <item>(Anjelinaning hikoyasi)</item>
+        <item>[ Қуръонда зикр этилган қисса.]
+(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Sabriniso xonimning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Sabriniso xonimning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Sabriniso xonimning hikoyasi)</item>
+        <item>(Abdulloh Yorqinning hikoyasi)</item>
+        <item>(Sabriniso xonimning hikoyasi tugaydi, Anjelina hikoyasining davomi)</item>
+        <item>[ Уйғур шоири Абдураҳим Ўткир сатри.]
+(Abdulloh Yorqin hikoyasining so‘ngi, Umar Sayfullin hikoyasining boshlanishi)</item>
+        <item>(Anjelina hikoyasining so‘ngi va Humayro hikoyasining avvali)</item>
+        <item>(Umar Sayfullinning hikoyasi)</item>
+        <item>(Humayroning hikoyasi)</item>
+        <item>(So‘nggi bob)</item>
+        <item></item>
+
+    </string-array>
+
+    <string-array name="bob_halqa_lotin">
+        <item>BIRINCHI BOB
+BRITANIYALIK JURNALISTLAR
+        </item>
+        <item>
+            IKKINChI BOB
+VATANDAN HIJRAT
+        </item>
+        <item>
+            UChINChI BOB
+MUSLIMANING DUNYoSI
+        </item>
+        <item>
+            TO‘RTINChI BOB
+OLIJANOB YO‘LTO‘SAR VA EHSON
+HAKIM UYIDA
+        </item>
+        <item>
+            BESHINCHI BOB
+ERKINLIK ISTAB
+        </item>
+        <item>
+            OLTINCHI BOB
+ASRLAR UCHRASHUVI
+        </item>
+        <item>
+            YETTINCHI BOB
+TIRILGAN QALB
+        </item>
+        <item>
+            Sakkizinchi bob
+BUYuK FARYoD
+        </item>
+        <item>
+            To‘qqizinchi bob
+YO‘LGA QAYTISh
+        </item>
+        <item>
+            O‘ninchi bob
+AVLODLARNI O‘RTAGAN DARD
+        </item>
+        <item>
+            O‘N BIRINChI BOB
+HAQNI TOPISh VA HAQ TOMON YUL
+        </item>
+        <item>
+            O‘N IKKINChI BOB
+ISTIBDOD O‘LKASI
+        </item>
+        <item>
+            O‘N UCHINCHI BOB
+BOLQON: BITMAYDIGAN JAROHAT
+        </item>
+        <item>
+            O‘N TO‘RTINChI BOB
+XOIN VA ZOLIM QARShISIDA
+        </item>
+        <item>
+            O‘N BEShINChI BOB
+ZAHARLANGAN SUV
+        </item>
+        <item>
+            O‘N OLTINChI BOB
+IBLISLAR ISKANJASI
+        </item>
+        <item>
+            O‘N YeTTINChI BOB
+“HIND SORI YuZLANDIM”
+        </item>
+        <item>
+            O‘N SAKKIZINChI BOB
+“ROBBIM, KO‘KSIMNI OCh!”[ Тоҳа сурасининг 25-ояти мазмуни.]
+(Abdulloh Yorqinning hikoyasi)
+        </item>
+        <item>
+            O‘N TO‘QQIZINChI BOB
+FITNA OTAShI
+        </item>
+        <item>
+            YIGIRMANChI BOB
+ChOH EGALARI
+        </item>
+        <item>
+            YIGIRMA BIRINChI BOB
+FITNA OTAShI ALANGA OLDI
+        </item>
+        <item>
+            YIGIRMA IKKINChI BOB
+QALB EShIKLARINING OChILIShI
+        </item>
+        <item>
+            YIGIRMA UChINChI BOB
+QAMOQ OSTONASIDA
+        </item>
+        <item>
+            YIGIRMA TO‘RTINChI BOB
+SINOVLAR SARI
+        </item>
+        <item>
+            YIGIRMA BEShINChI BOB
+QANOTSIZ UChGAN AYoL
+        </item>
+        <item>
+            YIGIRMA OLTINChI BOB
+HAQQA NAZAR
+        </item>
+        <item>
+            YIGIRMA YeTTINChI BOB
+IYMON NURI
+        </item>
+        <item>
+            YIGIRMA SAKKIZINChI BOB
+“SAHAR VAQTI KO‘RDIM KO‘ZIM SULTONINI”
+        </item>
+        <item>
+            YIGIRMA TO‘QQIZINChI BOB
+QIZIL ATIRGUL
+        </item>
+        <item>
+            O‘TTIZINChI BOB
+FIG‘ON
+        </item>
+        <item>
+            O‘TTIZ BIRINChI BOB
+SAJDADAGI AYoL
+        </item>
+        <item>
+            O‘TTIZ IKKINChI BOB
+TO‘FON
+        </item>
+        <item>
+            QISSA TUGADI
+MUALLIF SHUKRONASI
+        </item>
+
+    </string-array>
+
+    <string-array name="bob_halqa_comment_kirill">
+        <item></item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item></item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Шафиқанинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Шафиқанинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Шафиқанинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Шафиқа ҳикоясининг охири,
+Анжелина ҳикоясининг бошланиши)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Анжелинанинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Анжелинанинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item></item>
+        <item>[ Тоҳа сурасининг 25-ояти мазмуни.]
+(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Анжелинанинг ҳикояси)</item>
+        <item>[ Қуръонда зикр этилган қисса.]
+(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Сабринисо хонимнинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Сабринисо хонимнинг ҳикояси)</item>
+        <item>(Абдуллоҳ Ёрқиннинг ҳикояси)</item>
+        <item>(Сабринисо хонимнинг ҳикояси тугайди, Анжелина ҳикоясининг давоми)</item>
+        <item>[ Уйғур шоири Абдураҳим Ўткир сатри.]
+(Абдуллоҳ Ёрқин ҳикоясининг сўнги, Умар Сайфуллин ҳикоясининг бошланиши)</item>
+        <item>(Анжелина ҳикоясининг сўнги ва Ҳумайро ҳикоясининг аввали)</item>
+        <item>(Умар Сайфуллиннинг ҳикояси)</item>
+        <item>(Ҳумайронинг ҳикояси)</item>
+        <item>(Сўнгги боб)</item>
+        <item></item>
+
+    </string-array>
+
+    <string-array name="bob_halqa_kirill">
+        <item>
+            БИРИНЧИ БОБ
+БРИТАНИЯЛИК ЖУРНАЛИСТЛАР
+        </item>
+        <item>
+            ИККИНЧИ БОБ
+ВАТАНДАН ҲИЖРАТ
+        </item>
+        <item>
+            УЧИНЧИ БОБ
+МУСЛИМАНИНГ ДУНЁСИ
+        </item>
+        <item>
+            ТЎРТИНЧИ БОБ
+ОЛИЖАНОБ ЙЎЛТЎСАР ВА ЭҲСОН
+ҲАКИМ УЙИДА
+        </item>
+        <item>
+            БЕШИНЧИ БОБ
+ЭРКИНЛИК ИСТАБ
+        </item>
+        <item>
+            ОЛТИНЧИ БОБ
+АСРЛАР УЧРАШУВИ
+        </item>
+
+        <item>
+            ЕТТИНЧИ БОБ
+ТИРИЛГАН ҚАЛБ
+        </item>
+
+        <item>
+            САККИЗИНЧИ БОБ
+БУЮК ФАРЁД
+        </item>
+        <item>
+            ТЎҚҚИЗИНЧИ БОБ
+ЙЎЛГА ҚАЙТИШ
+        </item>
+        <item>
+            ЎНИНЧИ БОБ
+АВЛОДЛАРНИ ЎРТАГАН ДАРД
+        </item>
+        <item>
+            ЎН БИРИНЧИ БОБ
+ҲАҚНИ ТОПИШ ВА ҲАҚ ТОМОН ЙЎЛ
+        </item>
+        <item>
+            ЎН ИККИНЧИ БОБ
+ИСТИБДОД ЎЛКАСИ
+        </item>
+        <item>
+            ЎН УЧИНЧИ БОБ
+БОЛҚОН: БИТМАЙДИГАН ЖАРОҲАТ
+        </item>
+        <item>
+            ЎН ТЎРТИНЧИ БОБ
+ХОИН ВА ЗОЛИМ ҚАРШИСИДА
+        </item>
+        <item>
+            ЎН БЕШИНЧИ БОБ
+ЗАҲАРЛАНГАН СУВ
+        </item>
+        <item>
+            ЎН ОЛТИНЧИ БОБ
+ИБЛИСЛАР ИСКАНЖАСИ
+(Абдуллоҳ Ёрқиннинг ҳикояси)
+        </item>
+        <item>
+            ЎН ЕТТИНЧИ БОБ
+“ҲИНД СОРИ ЮЗЛАНДИМ”
+        </item>
+        <item>
+            ЎН САККИЗИНЧИ БОБ
+“РОББИМ, КЎКСИМНИ ОЧ!”
+        </item>
+        <item>
+            ЎН ТЎҚҚИЗИНЧИ БОБ
+ФИТНА ОТАШИ
+(Анжелинанинг ҳикояси)
+        </item>
+        <item>
+            ЙИГИРМАНЧИ БОБ
+ЧОҲ ЭГАЛАРИ
+        </item>
+        <item>
+            ЙИГИРМА БИРИНЧИ БОБ
+ФИТНА ОТАШИ АЛАНГА ОЛДИ
+        </item>
+        <item>
+            ЙИГИРМА ИККИНЧИ БОБ
+ҚАЛБ ЭШИКЛАРИНИНГ ОЧИЛИШИ</item>
+        <item>
+            ЙИГИРМА УЧИНЧИ БОБ
+ҚАМОҚ ОСТОНАСИДА</item>
+        <item>
+            ЙИГИРМА ТЎРТИНЧИ БОБ
+СИНОВЛАР САРИ</item>
+        <item>
+            ЙИГИРМА БЕШИНЧИ БОБ
+ҚАНОТСИЗ УЧГАН АЁЛ</item>
+        <item>
+            ЙИГИРМА ОЛТИНЧИ БОБ
+ҲАҚҚА НАЗАР</item>
+        <item>
+            ЙИГИРМА ЕТТИНЧИ БОБ
+ИЙМОН НУРИ</item>
+        <item>
+            ЙИГИРМА САККИЗИНЧИ БОБ
+“САҲАР ВАҚТИ КЎРДИМ КЎЗИМ СУЛТОНИНИ”</item>
+        <item>
+            ЙИГИРМА ТЎҚҚИЗИНЧИ БОБ
+ҚИЗИЛ АТИРГУЛ</item>
+        <item>
+            ЎТТИЗИНЧИ БОБ
+ФИҒОН</item>
+        <item>
+            ЎТТИЗ БИРИНЧИ БОБ
+САЖДАДАГИ АЁЛ</item>
+        <item>ЎТТИЗ ИККИНЧИ БОБ
+ТЎФОН</item>
+        <item>
+            ҚИССА ТУГАДИ
+МУАЛЛИФ ШУКРОНАСИ</item>
+
+    </string-array>
+
+    <string-array name="bob_jangchi_lotin">
+        <item>
+            BIRINCHI BOB
+ZULM
+        </item>
+        <item>
+            IKKINCHI BOB
+HUKM
+        </item>
+        <item>
+            UCHINCHI BOB
+HIMOYA
+        </item>
+        <item>
+            TO‘RTINCHI BOB
+“TAKLIF”
+        </item>
+        <item>
+BESHINCHI BOB
+QUVILGANNING REJALARI
+        </item>
+        <item>
+            OLTINCHI BOB
+XIYONATLI O‘TMISH
+        </item>
+        <item>
+            YETTINCHI BOB
+FITNA
+        </item>
+        <item>
+            SAKKIZINCHI BOB
+XUDONI TANISH
+        </item>
+        <item>
+            TO‘QQIZINCHI BOB
+TOLUT
+        </item>
+        <item>
+            O‘NINCHI BOB
+QOCHISH
+        </item>
+        <item>
+            O‘N BIRINCHI BOB
+TOLUT TAXTGA CHIQDI
+        </item>
+        <item>
+O‘N IKKINCHI BOB
+IBLIS MAJLISI
+        </item>
+        <item>
+O‘N UCHINCHI BOB
+DARYODAN KECHIB O‘TGANLAR
+        </item>
+        <item>
+O‘N TO‘RTINCHI BOB
+NUSRAT JANGI
+        </item>
+        <item>
+XOTIMA
+        </item>
+        <item>
+           SHUKRONA SO‘ZI
+        </item>
+    </string-array>
+
+    <string-array name="bob_jangchi_kirill">
+        <item>
+            БИРИНЧИ БОБ
+ЗУЛМ
+        </item>
+        <item>
+ИККИНЧИ БОБ
+ҲУКМ
+        </item>
+        <item>
+УЧИНЧИ БОБ
+ҲИМОЯ
+        </item>
+        <item>
+ТЎРТИНЧИ БОБ
+“ТАКЛИФ”
+        </item>
+        <item>
+БЕШИНЧИ БОБ
+ҚУВИЛГАННИНГ РЕЖАЛАРИ
+        </item>
+        <item>
+ОЛТИНЧИ БОБ
+ХИЁНАТЛИ ЎТМИШ
+        </item>
+        <item>
+ЕТТИНЧИ БОБ
+ФИТНА
+        </item>
+        <item>
+САККИЗИНЧИ БОБ
+ХУДОНИ ТАНИШ
+        </item>
+        <item>
+ТЎҚҚИЗИНЧИ БОБ
+ТОЛУТ
+        </item>
+        <item>
+ЎНИНЧИ БОБ
+ҚОЧИШ
+        </item>
+        <item>
+        ЎН БИРИНЧИ БОБ
+ТОЛУТ ТАХТГА ЧИҚДИ
+         </item>
+        <item>
+ЎН ИККИНЧИ БОБ
+ИБЛИС МАЖЛИСИ
+         </item>
+        <item>
+ЎН УЧИНЧИ БОБ
+ДАРЁДАН КЕЧИБ ЎТГАНЛАР
+         </item>
+        <item>
+ЎН ТЎРТИНЧИ БОБ
+НУСРАТ ЖАНГИ
+        </item>
+        <item>
+            ХОТИМА
+        </item>
+        <item>
+           ШУКРОНА СЎЗИ
+       </item>
+
+    </string-array>
 </resources>

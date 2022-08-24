@@ -30,13 +30,14 @@
                 android:src="@drawable/img_empty" />
 
             <TextView
+                android:id="@+id/tvIsNotSaved"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="70dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center"
-                android:text="“Saqlangan kitoblar” bo’limi xozircha bo’sh"
+                android:text="@string/str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh"
                 android:textColor="#ADC1D4"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/iv_img" />
@@ -86,6 +87,7 @@
             android:id="@+id/vp_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toBottomOf="@id/tl_filter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

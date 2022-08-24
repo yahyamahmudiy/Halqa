@@ -31,6 +31,7 @@
                 android:src="@drawable/img_empty" />
 
             <TextView
+                android:id="@+id/tvText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="70dp"
