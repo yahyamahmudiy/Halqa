@@ -1,7 +1,9 @@
-package com.example.halqa.constants
+package com.example.halqa.utils
 
 object Constants {
-    const val BOOK_KEY = "BookKey"
+
+    const val BOOK = "book"
     const val HALQA = "Halqa"
     const val JANGCHI = "Jangchi"
+
 }

@@ -10,6 +10,7 @@ import com.example.halqa.adapter.ViewPagerAdapter
 import com.example.halqa.databinding.FragmentSavedBinding
 import com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment
 import com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment
+import com.example.halqa.helper.SharePref
 import com.google.android.material.tabs.TabLayout
 
 class SavedFragment : Fragment(R.layout.fragment_saved) {
@@ -18,10 +19,12 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var vpFilter: ViewPager
     private lateinit var tlFilter: TabLayout
+    private var isBool = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAdapter()
+        isBool = SharePref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +63,12 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         })
 
 
+        if (isBool){
+            binding.tvIsNotSaved.text = requireContext().getString(R.string.str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh)
+        }else{
+            binding.tvIsNotSaved.text = requireContext().getString(R.string.str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh_kirill)
+        }
+
     }
 
     private fun changeIconVisible(view: View, position: Int) {
@@ -70,8 +79,15 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         pagerAdapter = ViewPagerAdapter(childFragmentManager)
         pagerAdapter.addFragment(BooksSVFragment())
         pagerAdapter.addFragment(AudioSVFragment())
-        pagerAdapter.addTitle(getString(R.string.str_kitoblar))
-        pagerAdapter.addTitle(getString(R.string.str_audio))
+        if (isBool){
+            pagerAdapter.addTitle(getString(R.string.str_kitoblar))
+            pagerAdapter.addTitle(getString(R.string.str_audio))
+            binding.text.text = requireActivity().getString(R.string.str_saqlab_qo_yilganlar)
+        }else{
+            pagerAdapter.addTitle(getString(R.string.str_kitoblar_kirill))
+            pagerAdapter.addTitle(getString(R.string.str_audio_kirill))
+            binding.text.text = requireActivity().getString(R.string.str_saqlab_qo_yilganlar_kirill)
+        }
     }
 
 

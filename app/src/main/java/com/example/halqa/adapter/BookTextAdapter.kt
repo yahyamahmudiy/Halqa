@@ -1,6 +1,7 @@
 package com.example.halqa.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -31,6 +32,7 @@ class BookTextAdapter : ListAdapter<String, BookTextAdapter.VH>(DiffUtil()) {
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
+        Log.d("TAG", "onBindViewHolder: ${currentList[position]}")
         holder.binding.apply {
             tvText.textSize = fontSize
             tvText.text = currentList[position]

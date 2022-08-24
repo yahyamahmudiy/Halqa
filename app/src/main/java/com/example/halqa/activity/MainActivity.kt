@@ -12,12 +12,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
     private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
-    private lateinit var chapter: Chapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        chapter = Chapter(-1, "")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -83,22 +82,23 @@ class MainActivity : AppCompatActivity() {
     private fun setMenu() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
-        refreshAdapter()
     }
-
-    private fun refreshAdapter() {
+    fun refreshAdapter(stringArray: Array<String>, commentArray: Array<String>?) {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        submitList(resources.getStringArray(R.array.chapters_halqa_latin).toList())
+        var list = ArrayList<Chapter>()
+
+        for (i in 0..stringArray.size - 1) {
+            list.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
+        }
+
+        binding.recyclerView.adapter = adapter
+
+        adapter.submitList(list)
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
             closeDrawerLayout()
         }
-    }
-
-    fun submitList(list: List<String>) {
-        adapter.submitList(list)
-        binding.recyclerView.adapter = adapter
     }
 
     fun openDrawerLayout() {
