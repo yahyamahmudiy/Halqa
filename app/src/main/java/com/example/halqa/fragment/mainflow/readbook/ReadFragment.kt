@@ -1,11 +1,13 @@
 package com.example.halqa.fragment.mainflow.readbook
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,10 @@ import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
+<<<<<<< HEAD
+import com.example.halqa.extension.setImage
+=======
+>>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.JANGCHI
@@ -29,6 +35,15 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
+<<<<<<< HEAD
+    private var isSelected = false
+    private var page: String?= null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments.let {
+            page = it?.getString("page")
+=======
     private lateinit var bookName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +51,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         arguments?.let {
             bookName = it.get(BOOK_KEY).toString()
+>>>>>>> 4c0e3e69f05bec125e28aba0e424c38a39754c22
         }
     }
 
@@ -92,6 +108,8 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         controlOnBackPressed()
 
+        controlBookmark()
+
         refreshAdapter()
 
         setUpBookPageSelectionObserver()
@@ -107,6 +125,17 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         }
     }
 
+    private fun controlBookmark() {
+        binding.btnBookmark.setOnClickListener {
+            val page = binding.tvCurrentPage.text.toString()
+            SharedPref(requireContext()).saveString("page", page)
+        }
+        if (page!!.isNotEmpty()){
+            binding.rvText.scrollToPosition(page!!.toInt())
+            binding.tvCurrentPage.text = page
+        }
+
+    }
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

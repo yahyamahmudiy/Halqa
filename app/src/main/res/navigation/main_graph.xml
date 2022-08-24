@@ -8,7 +8,17 @@
         android:id="@+id/bookmarkFragment"
         android:name="com.example.halqa.fragment.mainflow.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark">
+
+        <action
+            android:id="@+id/action_booksFragmentBM_to_readFragment"
+            app:destination="@id/readFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.halqa.fragment.mainflow.main.MainFragment"
@@ -38,7 +48,9 @@
         android:id="@+id/booksFragmentBM"
         android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
         android:label="fragmentAudioBM"
-        tools:layout="@layout/fragment_books_bm" />
+        tools:layout="@layout/fragment_books_bm" >
+
+    </fragment>
     <fragment
         android:id="@+id/bookAboutFragment"
         android:name="com.example.halqa.fragment.mainflow.bookabout.BookAboutFragment"
@@ -70,5 +82,10 @@
         android:id="@+id/readFragment"
         android:name="com.example.halqa.fragment.mainflow.readbook.ReadFragment"
         android:label="fragment_read"
-        tools:layout="@layout/fragment_read" />
+        tools:layout="@layout/fragment_read" >
+        <argument
+            android:name="page"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 </navigation>
