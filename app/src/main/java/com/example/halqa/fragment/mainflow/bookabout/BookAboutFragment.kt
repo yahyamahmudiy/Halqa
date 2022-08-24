@@ -14,9 +14,11 @@ import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
 import com.example.halqa.extension.setImage
+import com.example.halqa.helper.SharePref
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
+import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -36,16 +38,16 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         isBool = SharePref(requireContext()).isSaved
         arguments?.let {
             book = it.getString(BOOK)
-            bookName = it.get(BOOK_KEY).toString()
+            bookName = it.get(BOOK).toString()
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (book == HALQA){
+        if (book == HALQA) {
             initHalqa()
-        }else if (book == JANGCHI){
+        } else if (book == JANGCHI) {
             initJangchi()
         }
 
@@ -59,14 +61,14 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun initLanguageConst() {
-        if (isBool){
+        if (isBool) {
             binding.apply {
                 tvAuthor.text = requireContext().getString(R.string.str_author)
                 tvRead.text = requireContext().getString(R.string.str_read)
                 btnReadbook.text = requireContext().getString(R.string.str_reading_book)
                 tvRateBook.text = requireContext().getString(R.string.str_rate_book)
             }
-        }else{
+        } else {
             binding.apply {
                 tvAuthor.text = requireContext().getString(R.string.str_author_kirill)
                 tvRead.text = requireContext().getString(R.string.str_read_kirill)
@@ -86,10 +88,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa)
-            }else{
+            } else {
                 tvBookName.text = requireContext().getString(R.string.str_halqa_kirill)
                 tvAuthorName.text = requireContext().getString(R.string.str_akrom_malik_kirill)
-                tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName1.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_32_bob_halqa_kirill)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_halqa_kirill)
@@ -107,9 +110,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi)
-            }else{
+            } else {
                 tvBookName.text = requireContext().getString(R.string.str_jangchi_kirill)
-                tvReadName1.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName1.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvReadName2.text = requireContext().getString(R.string.str_shams_solih_kirill)
                 tvChap.text = requireContext().getString(R.string.str_14_bob_jangchi_kirill)
                 tvBookDescription.text = requireContext().getString(R.string.str_dic_jangchi_kirill)
@@ -139,16 +143,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
             ivMenu.setOnClickListener {
                 (requireActivity() as MainActivity).openDrawerLayout()
-
-                if (isBool == true && book == HALQA){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_halqa_lotin), requireActivity().resources.getStringArray(R.array.bob_halqa_comment_lotin))
-                }else if (isBool == false && book == HALQA){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_halqa_kirill), requireActivity().resources.getStringArray(R.array.bob_halqa_comment_kirill))
-                }else if (isBool == true && book == JANGCHI){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_jangchi_lotin), null)
-                }else if (isBool == false && book == JANGCHI){
-                    (requireActivity() as MainActivity).refreshAdapter(requireActivity().resources.getStringArray(R.array.bob_jangchi_kirill), null)
-                }
             }
 
             btnReadbook.setOnClickListener {
@@ -180,6 +174,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             )
     }
 
+    private fun setMenuList(list: List<String>) {
+        (requireActivity() as MainActivity).refreshAdapter(list)
+    }
+
     private fun setJangchiMenu() {
         if (SharedPref(requireContext()).getString("til") == "Lotin")
             setMenuList(
@@ -209,8 +207,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun setBookData(chapterNumber: String, drawable: Int) {
         binding.apply {
-            tvChapterNumber.text = chapterNumber
-            ivBookMain.setImage(drawable)
             ivBookBottomMain.setImage(drawable)
             ivBookBackground.setImage(drawable)
             audioControlBottomSheet.ivBook.setImage(drawable)

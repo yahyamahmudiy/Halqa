@@ -2,7 +2,6 @@ package com.example.halqa.fragment.mainflow.readbook
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
@@ -16,10 +15,10 @@ import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
-import com.example.halqa.constants.Constants.BOOK_KEY
-import com.example.halqa.constants.Constants.JANGCHI
 import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.utils.Constants.BOOK_KEY
+import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 

@@ -5,5 +5,6 @@ object Constants {
     const val BOOK = "book"
     const val HALQA = "Halqa"
     const val JANGCHI = "Jangchi"
+    const val BOOK_KEY = "bookKey"
 
 }
