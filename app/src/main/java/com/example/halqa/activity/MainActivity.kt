@@ -3,6 +3,7 @@ package com.example.halqa.activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -52,10 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
 
-        when {
-            false -> navGraph.setStartDestination(R.id.mainFlowFragment)
-            !false -> navGraph.setStartDestination(R.id.languageFlowFragment)
-        }
+        checkSaved()
 
         navController.graph = navGraph
 
@@ -74,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         navController.graph = navGraph
     }
 
-    fun checkSaved() {
+    private fun checkSaved() {
         if (SharedPref(this).getBoolean("introDone")) {
             navGraph.setStartDestination(R.id.mainFlowFragment)
         } else {
