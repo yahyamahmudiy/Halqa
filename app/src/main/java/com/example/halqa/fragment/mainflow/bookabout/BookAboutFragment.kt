@@ -88,15 +88,19 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun downloadBtnClick() {
-        if (save == NOTSAVED){
+        when (save) {
+            NOTSAVED -> {
+                viewModel.getBookAudios(book!!)
+                setUpObserver()
+            }
+            SAVING -> {
 
-        }else if (save == SAVING){
+            }
+            SAVED -> {
 
-        }else if (save == SAVED){
-
+            }
         }
-        viewModel.getBookAudios(book!!)
-        setUpObserver()
+
     }
 
     private fun downloadIcon(){
@@ -338,15 +342,12 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         val downloadID = downloadManager.enqueue(request)
         lastDownloadID = downloadID
         Log.d("TAG", "setUpObserver downloadID: $downloadID")
-        viewModel.checkIsDownloadIDChange(bookData.id)
-
 
         audioDownloadReceiver.onDownloadCompleted = { ID ->
             downloadedAudioID = ID!!
             Log.d("TAG", "setUpObserver ID: $ID")
             downloadList.add(ID)
-            viewModel.updateDownloadStatus(true, ID)
-            viewModel.checkIsDownloadIDChange(bookData.id)
+
             if (downloadList.size == downloadSize){
                 if (book == HALQA){
                     SharedPref(requireContext()).isSavedAudioHalqa = SAVED
