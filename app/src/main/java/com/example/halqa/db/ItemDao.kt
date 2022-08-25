@@ -24,4 +24,9 @@ interface ItemDao {
     @Query("SELECT * FROM halqabook WHERE bookName = :bookName")
     suspend fun getBookAudios(bookName: String): List<BookData>
 
+    @Query("SELECT downloadID FROM halqabook WHERE id=:id")
+    suspend fun getDownloadId(id: Int?): Long
+
+    @Query("UPDATE halqabook SET isDownload=:isDownload WHERE downloadID=:ID")
+    suspend fun updateDownload(isDownload: Boolean, ID: Long?): Int
 }

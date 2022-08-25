@@ -457,6 +457,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
+        android:visibility="gone"
         android:id="@+id/audioControlBottomSheet"
         layout="@layout/audio_control_screen"/>
 

@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_book_right.xml" value="0.184" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_headphone.xml" value="0.1835" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_blue.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_blue_left.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_circe_blue.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_circle.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_light_blue.xml" value="0.184" />
+        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_white.xml" value="0.184" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/audio_control_screen.xml" value="0.1" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/fragment_book_about.xml" value="0.176" />

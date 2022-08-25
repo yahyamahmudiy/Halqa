@@ -1,6 +1,10 @@
 package com.example.halqa.fragment.mainflow.bookabout
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
+import android.content.Context
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,14 +17,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookData
 import com.example.halqa.model.Chapter
+import com.example.halqa.receiver.AudioDownloadReceiver
 import com.example.halqa.utils.Constants.BOOK
+import com.example.halqa.utils.Constants.BOOK_EXTRA
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
@@ -44,6 +52,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private val viewModel: BookAboutViewModel by viewModels()
     private var save: String? = null
     private lateinit var bookName: String
+    private var lastDownloadID: Long = 0L
+    private var downloadedAudioID: Long = 0L
+    private lateinit var audioDownloadReceiver: AudioDownloadReceiver
+    private var downloadList: ArrayList<Long> = ArrayList()
+    private var downloadSize: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,22 +70,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (book == HALQA){
-            initHalqa()
-            save = SharedPref(requireContext()).isSavedAudioHalqa
-        }else if (book == JANGCHI){
-            initJangchi()
-            save = SharedPref(requireContext()).isSavedAudioJangchi
-        }
+        downloadIcon()
 
         binding.ivDownload.setOnClickListener {
-            if (save == NOTSAVED){
-
-            }else if (save == SAVING){
-
-            }else if (save == SAVED){
-
-            }
+            downloadBtnClick()
         }
 
         initLanguageConst()
@@ -83,9 +84,36 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         disableBottomSheetDragging()
         closeAudioControlBottomSheet()
 
-        viewModel.getBookAudios(book!!)
+        registerDownloadBroadcast()
+    }
 
+    private fun downloadBtnClick() {
+        if (save == NOTSAVED){
+
+        }else if (save == SAVING){
+
+        }else if (save == SAVED){
+
+        }
+        viewModel.getBookAudios(book!!)
         setUpObserver()
+    }
+
+    private fun downloadIcon(){
+        if (book == HALQA){
+            initHalqa()
+            save = SharedPref(requireContext()).isSavedAudioHalqa
+        }else if (book == JANGCHI){
+            initJangchi()
+            save = SharedPref(requireContext()).isSavedAudioJangchi
+        }
+        if (save == NOTSAVED){
+            binding.ivDownload.setImageResource(R.drawable.ic_download_blue_icon)
+        }else if (save == SAVING){
+           // Glide.with(requireActivity()).load(R.drawable.loding_blue).into(binding.ivDownload)
+        }else if (save == SAVED){
+            binding.ivDownload.setImageResource(R.drawable.ic_play_white)
+        }
     }
 
     private fun setUpObserver() {
@@ -95,10 +123,21 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     when (it) {
                         UiStateList.LOADING -> {
                             //show progress
+                            if (book == HALQA) {
+                                SharedPref(requireContext()).isSavedAudioHalqa = SAVING
+                            }else{
+                                SharedPref(requireContext()).isSavedAudioJangchi = SAVING
+                            }
+                            downloadIcon()
                         }
 
                         is UiStateList.SUCCESS -> {
-                            Log.d(TAG, "setUpObserver: $it")
+                            Log.d("TAG", "setUpObserver: $it")
+                            downloadSize = it.data.size
+                            downloadList.clear()
+                            it.data.forEach { bookDate ->
+                                downloadFile(bookDate)
+                            }
                         }
                         is UiStateList.ERROR -> {
                         }
@@ -272,11 +311,58 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun getChapterData(chapter: Chapter): String =
         "${chapter.chapNumber + 1}-bob. ${chapter.chapName.firstCap()}"
 
-
     private fun openReadFragment() {
         findNavController().navigate(
             R.id.action_bookAboutFragment_to_readFragment,
             bundleOf(BOOK_KEY to bookName)
+        )
+    }
+
+    private fun downloadFile(bookData: BookData) {
+        Log.d("TAG", "setUpObserver downloadFile: $bookData")
+        val folderName = "${bookData.bookName}${BOOK_EXTRA}/${bookData.bookName}"
+        val request = DownloadManager.Request(Uri.parse(bookData.url))
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setTitle(bookData.bookName)
+            .setDescription("${bookData.bookName} audio kitob ${bookData.bob}")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(false)
+            .setDestinationInExternalFilesDir(
+                context,
+                folderName,
+                "${bookData.bookName}${bookData.bob}.mp3"
+            )
+        val downloadManager =
+            requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadID = downloadManager.enqueue(request)
+        lastDownloadID = downloadID
+        Log.d("TAG", "setUpObserver downloadID: $downloadID")
+        viewModel.checkIsDownloadIDChange(bookData.id)
+
+
+        audioDownloadReceiver.onDownloadCompleted = { ID ->
+            downloadedAudioID = ID!!
+            Log.d("TAG", "setUpObserver ID: $ID")
+            downloadList.add(ID)
+            viewModel.updateDownloadStatus(true, ID)
+            viewModel.checkIsDownloadIDChange(bookData.id)
+            if (downloadList.size == downloadSize){
+                if (book == HALQA){
+                    SharedPref(requireContext()).isSavedAudioHalqa = SAVED
+                }else{
+                    SharedPref(requireContext()).isSavedAudioJangchi = SAVED
+                }
+                downloadIcon()
+            }
+        }
+    }
+
+    private fun registerDownloadBroadcast() {
+        audioDownloadReceiver = AudioDownloadReceiver()
+        requireActivity().registerReceiver(
+            audioDownloadReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
         )
     }
 }
