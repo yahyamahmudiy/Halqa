@@ -129,8 +129,8 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             binding.rvText.scrollToPosition(page!!.toInt())
             binding.tvCurrentPage.text = page
         }
-
     }
+
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

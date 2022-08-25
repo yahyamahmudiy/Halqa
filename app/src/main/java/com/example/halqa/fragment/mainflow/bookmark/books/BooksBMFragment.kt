@@ -1,6 +1,7 @@
 package com.example.halqa.fragment.mainflow.bookmark.books
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,9 +24,9 @@ class BooksBMFragment : Fragment(R.layout.fragment_books_bm) {
         binding.tvDavomEttirish.setOnClickListener {
             val bundle = Bundle()
             var page = SharedPref(requireContext()).getString("page")
+            Log.d("TAG", "initView: $page")
             bundle.putString("page", page)
             findNavController().navigate(R.id.action_booksFragmentBM_to_readFragment, bundle)
         }
     }
-
 }

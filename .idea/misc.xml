@@ -3,15 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_book_right.xml" value="0.184" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_headphone.xml" value="0.1835" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_blue.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_blue_left.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_circe_blue.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_circle.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_light_blue.xml" value="0.184" />
-        <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/drawable/ic_play_white.xml" value="0.184" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/audio_control_screen.xml" value="0.1" />
         <entry key="..\:/Android Loyihalar/Halqa/new_halqa/app/src/main/res/layout/fragment_book_about.xml" value="0.176" />
@@ -74,7 +66,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/drawable/top_cornered_background.xml" value="0.1875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_main.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/audio_control_screen.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/audio_control_screen.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_bm.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_sv.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_book_about.xml" value="0.2" />
