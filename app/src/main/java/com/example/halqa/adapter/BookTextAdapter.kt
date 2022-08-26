@@ -32,6 +32,7 @@ class BookTextAdapter : ListAdapter<String, BookTextAdapter.VH>(DiffUtil()) {
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
+        Log.d("TAG", "onBindViewHolder: ${currentList[position]}")
         holder.binding.apply {
             tvText.textSize = fontSize
             tvText.text = currentList[position]

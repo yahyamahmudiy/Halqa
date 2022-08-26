@@ -128,7 +128,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         }
         if (page!!.isNotEmpty()) {
             binding.rvText.scrollToPosition(page!!.toInt())
-            binding.tvCurrentPage.text = page
         }
     }
 
