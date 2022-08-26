@@ -1,5 +1,6 @@
 package com.example.halqa.fragment.mainflow.readbook
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,11 +18,12 @@ import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
-import com.example.halqa.constants.Constants.BOOK_KEY
-import com.example.halqa.constants.Constants.JANGCHI
 import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.utils.Constants.BOOK_KEY
+import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlin.math.ceil
 
 
 class ReadFragment : Fragment(R.layout.fragment_read) {
@@ -30,7 +33,16 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
+    private var isSelected = false
+    private var page: String? = null
     private lateinit var bookName: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments.let {
+            page = it?.getString("page")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +105,8 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         controlOnBackPressed()
 
+        controlBookmark()
+
         refreshAdapter()
 
         setUpBookPageSelectionObserver()
@@ -100,21 +114,32 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun setUpBookPageSelectionObserver() {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
-            if (it.chapNumber == 32)
-                binding.rvText.scrollToPosition(it.chapNumber + 1)
-            else
-                binding.rvText.scrollToPosition(it.chapNumber)
+            (binding.rvText.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                it.chapNumber * 2,
+                100
+            )
+        }
+    }
 
+    private fun controlBookmark() {
+        binding.btnBookmark.setOnClickListener {
+            val page = binding.tvCurrentPage.text.toString()
+            SharedPref(requireContext()).saveString("page", page)
+        }
+        if (page!!.isNotEmpty()) {
+            binding.rvText.scrollToPosition(page!!.toInt())
+            binding.tvCurrentPage.text = page
         }
     }
 
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val lManager = recyclerView.layoutManager as LinearLayoutManager
-                val firstElementPosition = lManager.findFirstVisibleItemPosition()
-                binding.seekBarPage.progress = firstElementPosition
-                binding.tvCurrentPage.text = (firstElementPosition + 1).toString()
+                val lastElementPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                binding.seekBarPage.progress = lastElementPosition
+                binding.tvCurrentPage.text =
+                    ceil((lastElementPosition + 1).toDouble() / 2).toInt().toString()
             }
         })
     }
@@ -134,8 +159,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                         requireActivity().onBackPressed()
                     }
                 }
-            }
-            )
+            })
     }
 
     private fun controlTextSizeChangeWithSeekbar() {
@@ -165,8 +189,9 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                 p2: Boolean
             ) {
                 if (p2) {
-                    binding.rvText.scrollToPosition(currentProgress)
-                    binding.tvCurrentPage.text = currentProgress.toString()
+                    binding.rvText.scrollToPosition(currentProgress * 2)
+                    if (currentProgress == 0) binding.tvCurrentPage.text = "1"
+                    else binding.tvCurrentPage.text = currentProgress.toString()
                 }
             }
 
@@ -226,7 +251,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     } else if (SharedPref(requireContext()).getString("til") == "Lotin")
         R.array.text_of_chapters_halqa_latin
     else R.array.text_of_chapters_halqa_crill
-
 
     private fun changeModeToDark() {
         binding.apply {

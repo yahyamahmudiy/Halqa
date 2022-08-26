@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.AudioControlScreenBinding
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 
 class AudioControlFragment : Fragment(R.layout.audio_control_screen) {
 
@@ -18,7 +18,7 @@ class AudioControlFragment : Fragment(R.layout.audio_control_screen) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isBool = SharePref(requireContext()).isSaved
+        isBool = SharedPref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

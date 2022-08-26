@@ -7,16 +7,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.fragment.NavHostFragment
 import com.example.halqa.R
+import com.example.halqa.activity.viewmodel.SplashViewModel
+import com.example.halqa.db.AppDatabase
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookData
+import com.example.halqa.utils.Constants.HALQA
+import com.example.halqa.utils.Constants.JANGCHI
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +35,32 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun setScreen() {
-        // This is used to hide the status bar and make
-        // the splash screen as a full screen activity.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
             window.statusBarColor = Color.TRANSPARENT
+        }
+        val sharedPref = SharedPref(this)
+
+        if (sharedPref.isOneCreate){
+            //val appDatabase = AppDatabase.getAppDBInstance(this)
+
+            val halqaList = resources.getStringArray(R.array.halqa).toList()
+
+            halqaList.forEachIndexed { index, item ->
+                val halqa = BookData(bob = "${index + 1}-bob" , bookName = HALQA, url = item, isDownload = false)
+                //appDatabase.itemDao().createPost(halqa)
+                viewModel.createPost(halqa)
+            }
+            val jangchiList = resources.getStringArray(R.array.jangchi).toList()
+
+            jangchiList.forEachIndexed { index, item ->
+                val halqa = BookData(bob = "${index + 1}-bob" , bookName = JANGCHI, url = item, isDownload = false)
+                //appDatabase.itemDao().createPost(halqa)
+                viewModel.createPost(halqa)
+            }
+
+            sharedPref.isOneCreate = false
         }
 
         countDownTimer()

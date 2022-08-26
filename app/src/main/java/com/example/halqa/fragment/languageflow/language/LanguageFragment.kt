@@ -8,11 +8,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.databinding.FragmentLanguageBinding
-import com.example.halqa.helper.SharePref
+import com.example.halqa.manager.SharedPref
 
 class LanguageFragment : Fragment(R.layout.fragment_language) {
     private val binding by viewBinding(FragmentLanguageBinding::bind)
     private var isBool = true
+    private var language = "Lotin"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +27,7 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
     fun selectLanguage() {
         binding.apply {
             btnLotin.setOnClickListener {
+                language = "Lotin"
                 btnLotin.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_blue)
                 btnLotin.setTextColor(resources.getColor(R.color.white))
@@ -42,6 +44,7 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
             }
 
             btnKirill.setOnClickListener {
+                language = "Krill"
                 btnKirill.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_blue)
                 btnKirill.setTextColor(resources.getColor(R.color.white))
@@ -59,7 +62,8 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
 
             btnContinue.setOnClickListener {
                 (requireActivity() as MainActivity).setStartDestination()
-                SharePref(requireContext()).isSaved = isBool
+                SharedPref(requireContext()).isSaved = isBool
+                SharedPref(requireContext()).saveString("til", language)
             }
         }
     }

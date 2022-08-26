@@ -63,8 +63,6 @@
                 app:layout_constraintLeft_toRightOf="@id/ivHalqa"
                 app:layout_constraintTop_toBottomOf="@+id/tvHalqa" />
 
-
-
             <TextView
                 android:id="@+id/tv_davom_ettirish"
                 android:layout_width="wrap_content"

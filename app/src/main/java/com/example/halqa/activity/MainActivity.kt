@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
@@ -19,8 +20,9 @@ import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.Chapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var navGraph: NavGraph
@@ -83,17 +85,13 @@ class MainActivity : AppCompatActivity() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
     }
-    fun refreshAdapter(stringArray: Array<String>, commentArray: Array<String>?) {
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-        var list = ArrayList<Chapter>()
 
-        for (i in 0..stringArray.size - 1) {
-            list.add(Chapter("${i+1}-bob", stringArray[i], commentArray?.get(i)))
-        }
+    fun refreshAdapter(stringArray: List<String>) {
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
         binding.recyclerView.adapter = adapter
 
-        adapter.submitList(list)
+        adapter.submitList(stringArray)
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
@@ -106,7 +104,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun closeDrawerLayout() {
+    fun closeDrawerLayout() {
         binding.drawerLayout.closeDrawer(GravityCompat.END, true)
     }
+
+    fun isDrawerOpen(): Boolean = binding.drawerLayout.isDrawerVisible(GravityCompat.END)
 }

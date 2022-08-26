@@ -1,6 +1,5 @@
 package com.example.halqa.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -11,16 +10,17 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 
-class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
+class ChapAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffUtil()) {
 
     lateinit var onChapterClick: ((Chapter) -> Unit)
+    private val chapter = Chapter()
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
-        override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -42,7 +42,10 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
         when (holder) {
             is ViewHolder.ItemBookChapView -> {
                 holder.view.root.setOnClickListener {
-                    onChapterClick.invoke(item)
+                    onChapterClick.invoke(chapter.apply {
+                        chapNumber = position
+                        chapName = getChapterName(item)
+                    })
                 }
                 holder.view.apply {
                     if (currentList.size == 33) {
@@ -55,13 +58,6 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
                         tvChapNumber.text = ""
                         tvChapName.text = item
                         tvChapComment.text = ""
-                    tvChapName.text = item.chapName
-                    tvChapNumber.text = item.chapNumber
-                    if (item.chapComment?.isEmpty() == true || item.chapComment == null){
-                        tvChapComment.visibility = GONE
-                    }else{
-                        tvChapComment.visibility = VISIBLE
-                        tvChapComment.text = item.chapComment
                     }
                 }
             }
@@ -72,10 +68,6 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
         item.subSequence(item.indexOf("{") + 1, item.length - 1)
 
     private fun getChapterName(item: String): String =
-        try {
-            if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
-        } catch (e: Exception) {
-            Log.d("TAG", "getChapterName: $item")
-            ""
-        }
+        if (currentList.size == 33) item.substring(0, item.indexOf("{")) else item
+
 }

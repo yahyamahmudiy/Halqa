@@ -26,7 +26,7 @@ class AppModule {
     @Provides
     @Singleton
     fun dao(appDatabase: AppDatabase): ItemDao {
-        return appDatabase.getPhotoHomeDao()
+        return appDatabase.itemDao()
     }
 
 }
