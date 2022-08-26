@@ -25,6 +25,7 @@ import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
+import com.example.halqa.extension.makeVerticallyScrollable
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.mediaplayer.AudioController
 import com.example.halqa.model.BookData
@@ -55,7 +56,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private val TAG = "BookAboutFragment"
     private val viewModel: BookAboutViewModel by viewModels()
     private var save: String? = null
-    private lateinit var bookName: String
     private var lastDownloadID: Long = 0L
     private var downloadedAudioID: Long = 0L
     private lateinit var audioDownloadReceiver: AudioDownloadReceiver
@@ -70,7 +70,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         isBool = SharedPref(requireContext()).isSaved
         arguments?.let {
             book = it.getString(BOOK)
-            bookName = it.get(BOOK).toString()
         }
     }
 
@@ -85,9 +84,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
         initLanguageConst()
 
-        initViews()
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.audioControlBottomSheet))
+        initViews()
         disableBottomSheetDragging()
         closeAudioControlBottomSheet()
 
@@ -143,7 +142,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                         }
 
                         is UiStateList.SUCCESS -> {
-                            Log.d("TAG", "setUpObserver: $it")
                             downloadSize = it.data.size
                             downloadList.clear()
                             it.data.forEach { bookDate ->
@@ -227,8 +225,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun initViews() {
 
-        setData(bookName)
-        if (bookName == JANGCHI) {
+        setData(book!!)
+
+        binding.tvBookDescription.makeVerticallyScrollable()
+        if (book == JANGCHI) {
             setJangchiMenu()
         } else {
             setHalqaMenu()
@@ -258,10 +258,16 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 closeAudioControlBottomSheet()
             }
             ivNext.setOnClickListener {
-                audioController.playSource(getFilePath(getUri(BookData())))
+                audioController.playSource(getFilePath(getUri(BookData().apply {
+                    bookName = "Jangchi"
+                    bob = "1-bob"
+                })))
             }
             ivPrevious.setOnClickListener {
-                audioController.playSource(getFilePath(getUri(BookData())))
+                audioController.playSource(getFilePath(getUri(BookData().apply {
+                    bookName = "Jangchi"
+                    bob = "1-bob"
+                })))
             }
             ivNext15.setOnClickListener {
                 audioController.forward15Seconds()
@@ -270,7 +276,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 audioController.backward15Seconds()
             }
             ivPlayPause.setOnClickListener {
-                if (audioController.isPlaying) {
+                if (audioController.isPlaying()) {
                     audioController.pauseMediaPlayer()
                     ivPlayPause.setImageResource(R.drawable.ic_play_blue)
                 } else {
@@ -279,6 +285,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 }
             }
         }
+
+        setSeekBarCorrespondingly()
 
         setPageSelectionObserver()
 
@@ -348,7 +356,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun openReadFragment() {
         findNavController().navigate(
             R.id.action_bookAboutFragment_to_readFragment,
-            bundleOf(BOOK_KEY to bookName)
+            bundleOf(BOOK_KEY to book)
         )
     }
 
@@ -440,14 +448,15 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun setSeekBarCorrespondingly() {
         val handler = Handler()
         binding.audioControlBottomSheet.apply {
-            seekBar.max = audioController.duration
+            seekBar.max = audioController.duration()
+            tvFullDuration.text = getDuration(audioController.duration() / 1000)
             handler.postDelayed(object : Runnable {
                 override fun run() {
                     try {
                         seekBar.progress =
-                            audioController.currentPosition
+                            audioController.currentPosition()
                         tvPassingDuration.text =
-                            getDuration(audioController.currentPosition / 1000).toString()
+                            getDuration(audioController.currentPosition() / 1000)
                         handler.postDelayed(this, 1000)
                     } catch (e: Exception) {
                         seekBar.progress = 0

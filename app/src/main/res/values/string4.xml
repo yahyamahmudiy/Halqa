@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="halqa">
         <item>https://drive.google.com/file/d/1slArDL8wgYNzqgl1hGmm-Cgrvt2SeNNP/view?usp=sharing</item>
         <item>https://drive.google.com/file/d/1IQ7TiHdlWC_Ts7UpM8-tedB72VRO8i7K/view?usp=sharing</item>
@@ -35,20 +36,38 @@
         <item>https://drive.google.com/file/d/1ONSzEbl9_kNXa5sYDyl8-71dpD37FEKE/view?usp=sharing</item>
     </string-array>
 
+<!--    <string-array name="jangchi">-->
+<!--        <item>https://drive.google.com/file/d/1Y33jZ_T00OW4zrwznoFocTSRQyk3tcUy/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1Pl4SPnCln-x0mO3fWLtl1KG02Hr6Z782/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1kQPwPMxIS0PvEii5CdjSqS5t2HtnDex3/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1uG8EX5sTt1HIC9Ip6cTeugcstm5XQQkO/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1VOeUKmqd6qs0WJSoZrWwyIcccOB0M1v-/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1JTkGyxvMWMXARbUfVZY3V5YEpXW86t9e/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1jJyl-d76ijEMIA4b-UUskW67YNCszW8R/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/10D4NFBVXHKSDQHxZRx_6_jaMFCYdGlli/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1vy6WuZCZMeUxIxr0jMG7lPvz9J0tXVlT/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/16qL38Q6X7NAG_lcjuxU6HsfmTMvrV9M8/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1Mjwc6L1g6tblg-eQM7fJ43UYnBdA2A3n/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1LkigUpUncqt6shsY4PXgaWEdXWhRtao1/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1GLPAv71PZBwNQjtRwuRu6_1WlGzmxkp8/view?usp=sharing</item>-->
+<!--        <item>https://drive.google.com/file/d/1DCafPYLocfiII1okK3qtRhBBKg286atU/view?usp=sharing</item>-->
+<!--    </string-array>-->
+
     <string-array name="jangchi">
-        <item>https://drive.google.com/file/d/1Y33jZ_T00OW4zrwznoFocTSRQyk3tcUy/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1Pl4SPnCln-x0mO3fWLtl1KG02Hr6Z782/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1kQPwPMxIS0PvEii5CdjSqS5t2HtnDex3/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1uG8EX5sTt1HIC9Ip6cTeugcstm5XQQkO/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1VOeUKmqd6qs0WJSoZrWwyIcccOB0M1v-/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1JTkGyxvMWMXARbUfVZY3V5YEpXW86t9e/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1jJyl-d76ijEMIA4b-UUskW67YNCszW8R/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/10D4NFBVXHKSDQHxZRx_6_jaMFCYdGlli/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1vy6WuZCZMeUxIxr0jMG7lPvz9J0tXVlT/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/16qL38Q6X7NAG_lcjuxU6HsfmTMvrV9M8/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1Mjwc6L1g6tblg-eQM7fJ43UYnBdA2A3n/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1LkigUpUncqt6shsY4PXgaWEdXWhRtao1/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1GLPAv71PZBwNQjtRwuRu6_1WlGzmxkp8/view?usp=sharing</item>
-        <item>https://drive.google.com/file/d/1DCafPYLocfiII1okK3qtRhBBKg286atU/view?usp=sharing</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1Y33jZ_T00OW4zrwznoFocTSRQyk3tcUy</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1Pl4SPnCln-x0mO3fWLtl1KG02Hr6Z782</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1kQPwPMxIS0PvEii5CdjSqS5t2HtnDex3</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1uG8EX5sTt1HIC9Ip6cTeugcstm5XQQkO</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1VOeUKmqd6qs0WJSoZrWwyIcccOB0M1v-</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1JTkGyxvMWMXARbUfVZY3V5YEpXW86t9e</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1jJyl-d76ijEMIA4b-UUskW67YNCszW8R</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=10D4NFBVXHKSDQHxZRx_6_jaMFCYdGlli</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1vy6WuZCZMeUxIxr0jMG7lPvz9J0tXVlT</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=16qL38Q6X7NAG_lcjuxU6HsfmTMvrV9M8</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1Mjwc6L1g6tblg-eQM7fJ43UYnBdA2A3n</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1LkigUpUncqt6shsY4PXgaWEdXWhRtao1</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1GLPAv71PZBwNQjtRwuRu6_1WlGzmxkp8</item>
+        <item>https://drive.google.com/uc?export=download&amp;id=1DCafPYLocfiII1okK3qtRhBBKg286atU</item>
     </string-array>
+
 </resources>
