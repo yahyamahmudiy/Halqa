@@ -54,7 +54,7 @@ class SharedPref(context: Context) {
     }
 
     fun getInt(key: String): Int {
-        return pref.getInt(key, 0)
+        return pref.getInt(key, 12)
     }
 
     fun saveFloat(key: String, value: Float) {

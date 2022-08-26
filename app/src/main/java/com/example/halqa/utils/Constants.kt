@@ -10,5 +10,6 @@ object Constants {
     const val NOTSAVED = "NOTSAVED"
     const val SAVING = "SAVING"
     const val SAVED = "SAVED"
-
+    const val FONT_SIZE = "fontSize"
+    const val BRIGHTNESS = "brightness"
 }
