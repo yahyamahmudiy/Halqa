@@ -12,6 +12,7 @@
     <string name="str_kitoblar">Kitoblar</string>
     <string name="str_audio">Audio</string>
     <string name="str_halqa">Halqa</string>
+    <string name="str_bob_lotin">bob</string>
     <string name="str_abdukarim_mirzayev">Abdukarim Mirzayev</string>
     <string name="str_32_bob_halqa">32 bob</string>
     <string name="str_jangchi">Jangchi</string>
@@ -37,6 +38,7 @@ Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning nav
     <string name="str_kitoblar_kirill">Китоблар</string>
     <string name="str_audio_kirill">Aудио</string>
     <string name="str_halqa_kirill">Ҳалқа</string>
+    <string name="str_bob_kirill">боб</string>
     <string name="str_abdukarim_mirzayev_kirill">Aбдукарим Мирзайев</string>
     <string name="str_32_bob_halqa_kirill">32 боб</string>
     <string name="str_jangchi_kirill">Жангчи</string>

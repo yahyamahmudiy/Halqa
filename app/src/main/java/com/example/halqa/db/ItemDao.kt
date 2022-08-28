@@ -5,18 +5,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.halqa.model.BookData
-import com.example.halqa.model.Item
+import com.example.halqa.model.BookmarkData
 
 @Dao
 interface ItemDao {
-    @Query("SELECT * FROM item_table")
-    suspend fun getFromDB(): List<Item>
+    @Query("SELECT * FROM bookmark_table")
+    suspend fun getBookmarkFromDB(): List<BookmarkData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertToDB(pin: Item)
+    suspend fun insertBookmarkToDB(bookmark: BookmarkData)
 
-    @Query("DELETE FROM item_table ")
-    suspend fun deleteFromDB()
+    @Query("DELETE FROM bookmark_table ")
+    suspend fun deleteBookmarkFromDB()
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createPost(halqa: BookData)

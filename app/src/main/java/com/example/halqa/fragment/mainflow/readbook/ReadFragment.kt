@@ -7,9 +7,10 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
-import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,20 +20,23 @@ import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookmarkData
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ReadFragment : Fragment(R.layout.fragment_read) {
 
+    private val viewModel: ReadViewModel by viewModels()
     private val binding by viewBinding(FragmentReadBinding::bind)
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
     private var isSelected = false
-    private var page: String?= null
+    private var page: String? = null
     private lateinit var bookName: String
 
     override fun onAttach(context: Context) {
@@ -42,6 +46,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,6 +62,11 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.readingSettings))
         closeAudioControlBottomSheet()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        saveToDB()
     }
 
     private fun closeAudioControlBottomSheet() {
@@ -81,7 +91,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
 
             ivBack.setOnClickListener {
-                requireActivity().onBackPressed()
+                findNavController().navigateUp()
             }
 
             ivMenu.setOnClickListener {
@@ -122,15 +132,20 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun controlBookmark() {
         binding.btnBookmark.setOnClickListener {
-            val page = binding.tvCurrentPage.text.toString()
-            SharedPref(requireContext()).saveString("page", page)
+            saveToDB()
         }
-        if (page!!.isNotEmpty()){
+        if (page != null) {
             binding.rvText.scrollToPosition(page!!.toInt())
             binding.tvCurrentPage.text = page
         }
-
     }
+
+    private fun saveToDB() {
+        val page = binding.tvCurrentPage.text.toString()
+        val bookName = binding.tvBookName.text.toString()
+        viewModel.insertPhotoHomeDB(BookmarkData(0, bookName, page))
+    }
+
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -167,7 +182,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             override fun onProgressChanged(
                 seekBar: SeekBar?,
                 currentProgress: Int,
-                p2: Boolean
+                p2: Boolean,
             ) {
                 if (p2) {
                     adapter.changeFontSize(currentProgress.toFloat())
@@ -185,7 +200,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             override fun onProgressChanged(
                 seekBar: SeekBar?,
                 currentProgress: Int,
-                p2: Boolean
+                p2: Boolean,
             ) {
                 if (p2) {
                     binding.rvText.scrollToPosition(currentProgress)
