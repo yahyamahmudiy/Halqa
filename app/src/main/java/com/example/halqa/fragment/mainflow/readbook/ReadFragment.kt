@@ -158,9 +158,9 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         binding.btnBookmark.setOnClickListener {
             saveToDB()
         }
+
         if (page != null) {
-            val page = binding.tvCurrentPage.text.toString()
-            sharedPref.saveString("page", page)
+            binding.rvText.scrollToPosition(page!!.toInt())
         }
     }
 
