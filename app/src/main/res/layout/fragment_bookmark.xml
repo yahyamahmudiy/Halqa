@@ -16,8 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:background="@drawable/main_gradient"
+            android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -66,6 +66,7 @@
             app:tabIndicator="@drawable/tab_background"
             app:tabIndicatorColor="@null"
             app:tabIndicatorGravity="stretch"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="#177EE6"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="#828282" />

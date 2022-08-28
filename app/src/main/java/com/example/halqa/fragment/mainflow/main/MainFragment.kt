@@ -38,7 +38,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 tvAbdukarimMirzayev.text =
                     requireContext().getString(R.string.str_abdukarim_mirzayev)
                 tvKitoblar.text = requireContext().getString(R.string.str_kitoblar)
-                tvHalqa.text = requireContext().getString(R.string.str_halqa)
+                tvBookName.text = requireContext().getString(R.string.str_halqa)
                 tvInform.text = requireContext().getString(R.string.str_akrom_malik)
                 tvBob.text = requireContext().getString(R.string.str_32_bob_halqa)
                 tvJangchi.text = requireContext().getString(R.string.str_jangchi)
@@ -54,7 +54,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 tvAbdukarimMirzayev.text =
                     requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvKitoblar.text = requireContext().getString(R.string.str_kitoblar_kirill)
-                tvHalqa.text = requireContext().getString(R.string.str_halqa_kirill)
+                tvBookName.text = requireContext().getString(R.string.str_halqa_kirill)
                 tvInform.text = requireContext().getString(R.string.str_akrom_malik_kirill)
                 tvBob.text = requireContext().getString(R.string.str_32_bob_halqa_kirill)
                 tvJangchi.text = requireContext().getString(R.string.str_jangchi_kirill)

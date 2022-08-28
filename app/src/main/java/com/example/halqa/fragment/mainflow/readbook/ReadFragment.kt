@@ -11,6 +11,8 @@ import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,18 +22,20 @@ import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookmarkData
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.BRIGHTNESS
 import com.example.halqa.utils.Constants.FONT_SIZE
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.ceil
 
-
+@AndroidEntryPoint
 class ReadFragment : Fragment(R.layout.fragment_read) {
 
+    private val viewModel: ReadViewModel by viewModels()
     private val binding by viewBinding(FragmentReadBinding::bind)
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
@@ -68,6 +72,11 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         closeAudioControlBottomSheet()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        saveToDB()
+    }
+
     private fun closeAudioControlBottomSheet() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
@@ -99,7 +108,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
 
             ivBack.setOnClickListener {
-                requireActivity().onBackPressed()
+                findNavController().navigateUp()
             }
 
             ivMenu.setOnClickListener {
@@ -143,12 +152,18 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun controlBookmark() {
         binding.btnBookmark.setOnClickListener {
+            saveToDB()
+        }
+        if (page != null) {
             val page = binding.tvCurrentPage.text.toString()
             sharedPref.saveString("page", page)
         }
-        if (page!!.isNotEmpty()) {
-            binding.rvText.scrollToPosition(page!!.toInt())
-        }
+    }
+
+    private fun saveToDB() {
+        val page = binding.tvCurrentPage.text.toString()
+        val bookName = binding.tvBookName.text.toString()
+        viewModel.insertPhotoHomeDB(BookmarkData(0, bookName, page))
     }
 
     private fun controlRecyclerViewScroll() {
@@ -189,7 +204,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             override fun onProgressChanged(
                 seekBar: SeekBar?,
                 currentProgress: Int,
-                p2: Boolean
+                p2: Boolean,
             ) {
                 if (p2) {
                     adapter.changeFontSize(currentProgress.toFloat())
@@ -209,7 +224,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             override fun onProgressChanged(
                 seekBar: SeekBar?,
                 currentProgress: Int,
-                p2: Boolean
+                p2: Boolean,
             ) {
                 if (p2) {
                     if (bookName == HALQA)

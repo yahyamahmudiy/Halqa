@@ -85,7 +85,6 @@
         tools:layout="@layout/fragment_read" >
         <argument
             android:name="page"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivHalqa"
+                android:id="@+id/iv_book_image"
                 android:layout_width="70dp"
                 android:layout_height="87dp"
                 android:layout_margin="10dp"
@@ -37,7 +37,7 @@
                 app:shapeAppearanceOverlay="@style/round_corner" />
 
             <TextView
-                android:id="@+id/tvHalqa"
+                android:id="@+id/tv_bookName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -47,7 +47,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_inform"
-                app:layout_constraintLeft_toRightOf="@id/ivHalqa"
+                app:layout_constraintLeft_toRightOf="@id/iv_book_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -60,13 +60,13 @@
                 android:text="2-bop, 20-bet"
                 android:textColor="#9597A1"
                 android:textSize="14sp"
-                app:layout_constraintLeft_toRightOf="@id/ivHalqa"
-                app:layout_constraintTop_toBottomOf="@+id/tvHalqa" />
+                app:layout_constraintLeft_toRightOf="@id/iv_book_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bookName" />
 
 
 
             <TextView
-                android:id="@+id/tv_davom_ettirish"
+                android:id="@+id/tv_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -76,7 +76,7 @@
                 android:text="@string/str_davom_ettirish"
                 android:textColor="#177EE6"
                 android:textSize="14sp"
-                app:layout_constraintLeft_toRightOf="@id/ivHalqa"
+                app:layout_constraintLeft_toRightOf="@id/iv_book_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_inform" />
 
             <ImageView
