@@ -47,9 +47,9 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         refreshAdapter()
 
         if (isBool){
-            binding.tvText.text = requireContext().getString(R.string.str_text)
+            binding.tvIsNotSaved.text = requireContext().getString(R.string.str_text)
         }else{
-            binding.tvText.text = requireContext().getString(R.string.str_text_kirill)
+            binding.tvIsNotSaved.text = requireContext().getString(R.string.str_text_kirill)
         }
     }
 
