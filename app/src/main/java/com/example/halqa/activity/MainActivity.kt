@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         adapter = ChapAdapter()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
     }
+
     fun refreshAdapter(stringArray: List<String>) {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
@@ -102,7 +104,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun closeDrawerLayout() {
+    fun closeDrawerLayout() {
         binding.drawerLayout.closeDrawer(GravityCompat.END, true)
     }
+
+    fun isDrawerOpen(): Boolean = binding.drawerLayout.isDrawerVisible(GravityCompat.END)
 }

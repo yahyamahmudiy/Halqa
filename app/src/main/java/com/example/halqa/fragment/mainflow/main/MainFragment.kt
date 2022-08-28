@@ -31,32 +31,36 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun language() {
-        if (isBool){
+        if (isBool) {
             binding.apply {
                 tvBio.text = requireContext().getString(R.string.str_biografiya)
                 tvAkromMalikMain.text = requireContext().getString(R.string.str_akrom_malik)
-                tvAbdukarimMirzayev.text = requireContext().getString(R.string.str_abdukarim_mirzayev)
+                tvAbdukarimMirzayev.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev)
                 tvKitoblar.text = requireContext().getString(R.string.str_kitoblar)
                 tvBookName.text = requireContext().getString(R.string.str_halqa)
                 tvInform.text = requireContext().getString(R.string.str_akrom_malik)
                 tvBob.text = requireContext().getString(R.string.str_32_bob_halqa)
                 tvJangchi.text = requireContext().getString(R.string.str_jangchi)
                 tvAkromMalikIkki.text = requireContext().getString(R.string.str_akrom_malik)
-                tvAbdukarimMirzayevIkki.text = requireContext().getString(R.string.str_abdukarim_mirzayev)
+                tvAbdukarimMirzayevIkki.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev)
                 tvBob2.text = requireContext().getString(R.string.str_14_bob_jangchi)
             }
-        }else{
+        } else {
             binding.apply {
                 tvBio.text = requireContext().getString(R.string.str_biografiya_kirill)
                 tvAkromMalikMain.text = requireContext().getString(R.string.str_akrom_malik_kirill)
-                tvAbdukarimMirzayev.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvAbdukarimMirzayev.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvKitoblar.text = requireContext().getString(R.string.str_kitoblar_kirill)
                 tvBookName.text = requireContext().getString(R.string.str_halqa_kirill)
                 tvInform.text = requireContext().getString(R.string.str_akrom_malik_kirill)
                 tvBob.text = requireContext().getString(R.string.str_32_bob_halqa_kirill)
                 tvJangchi.text = requireContext().getString(R.string.str_jangchi_kirill)
                 tvAkromMalikIkki.text = requireContext().getString(R.string.str_akrom_malik_kirill)
-                tvAbdukarimMirzayevIkki.text = requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvAbdukarimMirzayevIkki.text =
+                    requireContext().getString(R.string.str_abdukarim_mirzayev_kirill)
                 tvBob2.text = requireContext().getString(R.string.str_14_bob_jangchi_kirill)
             }
         }
@@ -65,11 +69,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initViews() {
         binding.apply {
             cvHalqa.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_bookAboutFragment, bundleOf(BOOK to HALQA))
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_bookAboutFragment,
+                    bundleOf(BOOK to HALQA)
+                )
             }
 
             cvJangchi.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_bookAboutFragment, bundleOf(BOOK to JANGCHI))
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_bookAboutFragment,
+                    bundleOf(BOOK to JANGCHI)
+                )
             }
         }
     }

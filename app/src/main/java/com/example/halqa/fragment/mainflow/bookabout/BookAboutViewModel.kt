@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.halqa.model.BookData
 import com.example.halqa.repository.ItemRepository
 import com.example.halqa.utils.UiStateList
+import com.example.halqa.utils.UiStateObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -17,6 +18,8 @@ constructor(private val repository: ItemRepository): ViewModel() {
     private val _allBookAudios =
         MutableStateFlow<UiStateList<BookData>>(UiStateList.EMPTY)
     val allBookAudios = _allBookAudios
+    private val _downloadId =
+        MutableStateFlow<UiStateObject<Long>>(UiStateObject.EMPTY)
 
     fun getBookAudios(bookName: String) = viewModelScope.launch {
         _allBookAudios.value = UiStateList.LOADING

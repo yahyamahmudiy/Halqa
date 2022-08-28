@@ -70,5 +70,4 @@ class BooksBMFragment : Fragment(R.layout.fragment_books_bm) {
 
         }
     }
-
 }

@@ -1,9 +1,16 @@
 package com.example.halqa.fragment.mainflow.bookabout
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
+import android.content.Context
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.SeekBar
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,9 +25,14 @@ import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
+import com.example.halqa.extension.makeVerticallyScrollable
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.mediaplayer.AudioController
+import com.example.halqa.model.BookData
 import com.example.halqa.model.Chapter
+import com.example.halqa.receiver.AudioDownloadReceiver
 import com.example.halqa.utils.Constants.BOOK
+import com.example.halqa.utils.Constants.BOOK_EXTRA
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
@@ -31,6 +43,7 @@ import com.example.halqa.utils.UiStateList
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
@@ -43,49 +56,74 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private val TAG = "BookAboutFragment"
     private val viewModel: BookAboutViewModel by viewModels()
     private var save: String? = null
-    private lateinit var bookName: String
+    private var lastDownloadID: Long = 0L
+    private var downloadedAudioID: Long = 0L
+    private lateinit var audioDownloadReceiver: AudioDownloadReceiver
+    private var downloadList: ArrayList<Long> = ArrayList()
+    private var downloadSize: Int = 0
+
+    @Inject
+    lateinit var audioController: AudioController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isBool = SharedPref(requireContext()).isSaved
         arguments?.let {
             book = it.getString(BOOK)
-            bookName = it.get(BOOK).toString()
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (book == HALQA){
-            initHalqa()
-            save = SharedPref(requireContext()).isSavedAudioHalqa
-        }else if (book == JANGCHI){
-            initJangchi()
-            save = SharedPref(requireContext()).isSavedAudioJangchi
-        }
+        downloadIcon()
 
         binding.ivDownload.setOnClickListener {
-            if (save == NOTSAVED){
-
-            }else if (save == SAVING){
-
-            }else if (save == SAVED){
-
-            }
+            downloadBtnClick()
         }
 
         initLanguageConst()
 
-        initViews()
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.audioControlBottomSheet))
+        initViews()
         disableBottomSheetDragging()
         closeAudioControlBottomSheet()
 
-        viewModel.getBookAudios(book!!)
+        registerDownloadBroadcast()
+    }
 
-        setUpObserver()
+    private fun downloadBtnClick() {
+        when (save) {
+            NOTSAVED -> {
+                viewModel.getBookAudios(book!!)
+                setUpObserver()
+            }
+            SAVING -> {
+
+            }
+            SAVED -> {
+
+            }
+        }
+
+    }
+
+    private fun downloadIcon() {
+        if (book == HALQA) {
+            initHalqa()
+            save = SharedPref(requireContext()).isSavedAudioHalqa
+        } else if (book == JANGCHI) {
+            initJangchi()
+            save = SharedPref(requireContext()).isSavedAudioJangchi
+        }
+        if (save == NOTSAVED) {
+            binding.ivDownload.setImageResource(R.drawable.ic_download_blue_icon)
+        } else if (save == SAVING) {
+            // Glide.with(requireActivity()).load(R.drawable.loding_blue).into(binding.ivDownload)
+        } else if (save == SAVED) {
+            binding.ivDownload.setImageResource(R.drawable.ic_play_white)
+        }
     }
 
     private fun setUpObserver() {
@@ -95,10 +133,20 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     when (it) {
                         UiStateList.LOADING -> {
                             //show progress
+                            if (book == HALQA) {
+                                SharedPref(requireContext()).isSavedAudioHalqa = SAVING
+                            } else {
+                                SharedPref(requireContext()).isSavedAudioJangchi = SAVING
+                            }
+                            downloadIcon()
                         }
 
                         is UiStateList.SUCCESS -> {
-                            Log.d(TAG, "setUpObserver: $it")
+                            downloadSize = it.data.size
+                            downloadList.clear()
+                            it.data.forEach { bookDate ->
+                                downloadFile(bookDate)
+                            }
                         }
                         is UiStateList.ERROR -> {
                         }
@@ -110,14 +158,14 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun initLanguageConst() {
-        if (isBool){
+        if (isBool) {
             binding.apply {
                 tvAuthor.text = requireContext().getString(R.string.str_author)
                 tvRead.text = requireContext().getString(R.string.str_read)
                 btnReadbook.text = requireContext().getString(R.string.str_reading_book)
                 tvRateBook.text = requireContext().getString(R.string.str_rate_book)
             }
-        }else{
+        } else {
             binding.apply {
                 tvAuthor.text = requireContext().getString(R.string.str_author_kirill)
                 tvRead.text = requireContext().getString(R.string.str_read_kirill)
@@ -177,8 +225,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun initViews() {
 
-        setData(bookName)
-        if (bookName == JANGCHI) {
+        setData(book!!)
+
+        binding.tvBookDescription.makeVerticallyScrollable()
+        if (book == JANGCHI) {
             setJangchiMenu()
         } else {
             setHalqaMenu()
@@ -207,9 +257,40 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             ivBack.setOnClickListener {
                 closeAudioControlBottomSheet()
             }
+            ivNext.setOnClickListener {
+                audioController.playSource(getFilePath(getUri(BookData().apply {
+                    bookName = "Jangchi"
+                    bob = "1-bob"
+                })))
+            }
+            ivPrevious.setOnClickListener {
+                audioController.playSource(getFilePath(getUri(BookData().apply {
+                    bookName = "Jangchi"
+                    bob = "1-bob"
+                })))
+            }
+            ivNext15.setOnClickListener {
+                audioController.forward15Seconds()
+            }
+            ivPrevious15.setOnClickListener {
+                audioController.backward15Seconds()
+            }
+            ivPlayPause.setOnClickListener {
+                if (audioController.isPlaying()) {
+                    audioController.pauseMediaPlayer()
+                    ivPlayPause.setImageResource(R.drawable.ic_play_blue)
+                } else {
+                    audioController.playMediaPlayer()
+                    ivPlayPause.setImageResource(R.drawable.ic_pause_blue)
+                }
+            }
         }
 
+        setSeekBarCorrespondingly()
+
         setPageSelectionObserver()
+
+        controlOnBackPressed()
     }
 
     private fun setHalqaMenu() {
@@ -272,11 +353,126 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun getChapterData(chapter: Chapter): String =
         "${chapter.chapNumber + 1}-bob. ${chapter.chapName.firstCap()}"
 
-
     private fun openReadFragment() {
         findNavController().navigate(
             R.id.action_bookAboutFragment_to_readFragment,
-            bundleOf(BOOK_KEY to bookName)
+            bundleOf(BOOK_KEY to book)
         )
+    }
+
+    private fun downloadFile(bookData: BookData) {
+        Log.d("TAG", "downloadFile: $bookData")
+        val folderName = "${bookData.bookName}${BOOK_EXTRA}/${bookData.bookName}"
+        val request = DownloadManager.Request(Uri.parse(bookData.url))
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setTitle(bookData.bookName)
+            .setDescription("${bookData.bookName} audio kitob ${bookData.bob}")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(false)
+            .setDestinationInExternalFilesDir(
+                context,
+                folderName,
+                "${bookData.bookName}${bookData.bob}.mp3"
+            )
+        val downloadManager =
+            requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadID = downloadManager.enqueue(request)
+        lastDownloadID = downloadID
+        Log.d("TAG", "setUpObserver downloadID: $downloadID")
+
+        audioDownloadReceiver.onDownloadCompleted = { ID ->
+            downloadedAudioID = ID!!
+            Log.d("TAG", "setUpObserver ID: $ID")
+            downloadList.add(ID)
+
+            if (downloadList.size == downloadSize) {
+                if (book == HALQA) {
+                    SharedPref(requireContext()).isSavedAudioHalqa = SAVED
+                } else {
+                    SharedPref(requireContext()).isSavedAudioJangchi = SAVED
+                }
+                downloadIcon()
+            }
+        }
+    }
+
+    private fun registerDownloadBroadcast() {
+        audioDownloadReceiver = AudioDownloadReceiver()
+        requireActivity().registerReceiver(
+            audioDownloadReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    private fun controlOnBackPressed() {
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Do custom work here
+
+                    if ((requireActivity() as MainActivity).isDrawerOpen()) {
+                        (requireActivity() as MainActivity).closeDrawerLayout()
+                        return
+                    }
+
+                    if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                        closeAudioControlBottomSheet()
+                        return
+                    }
+                    // if you want onBackPressed() to be called as normal afterwards
+                    if (isEnabled) {
+                        isEnabled = false
+                        requireActivity().onBackPressed()
+                    }
+                }
+            }
+            )
+    }
+
+
+    //audio
+    private fun getUri(bookData: BookData): String =
+        "${bookData.bookName}${BOOK_EXTRA}/${bookData.bookName}/${bookData.bookName}${bookData.bob}.mp3"
+
+    private fun getFilePath(audioPath: String): String =
+        "${requireContext().getExternalFilesDir(null)}/$audioPath"
+
+    private fun getDuration(durationInSecond: Int): CharSequence = String.format(
+        "%02d:%02d",
+        (durationInSecond / 60) % 60,
+        durationInSecond % 60
+    )
+
+    private fun setSeekBarCorrespondingly() {
+        val handler = Handler()
+        binding.audioControlBottomSheet.apply {
+            seekBar.max = audioController.duration()
+            tvFullDuration.text = getDuration(audioController.duration() / 1000)
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    try {
+                        seekBar.progress =
+                            audioController.currentPosition()
+                        tvPassingDuration.text =
+                            getDuration(audioController.currentPosition() / 1000)
+                        handler.postDelayed(this, 1000)
+                    } catch (e: Exception) {
+                        seekBar.progress = 0
+                    }
+                }
+            }, 0)
+
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                    if (p2) audioController.seekTo(p1)
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {}
+            })
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
@@ -22,9 +23,13 @@ import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.BookmarkData
 import com.example.halqa.utils.Constants.BOOK_KEY
+import com.example.halqa.utils.Constants.BRIGHTNESS
+import com.example.halqa.utils.Constants.FONT_SIZE
+import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.ceil
 
 @AndroidEntryPoint
 class ReadFragment : Fragment(R.layout.fragment_read) {
@@ -39,11 +44,12 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private var page: String? = null
     private lateinit var bookName: String
 
+    lateinit var sharedPref: SharedPref
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments.let {
             page = it?.getString("page")
-
         }
     }
 
@@ -54,6 +60,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             bookName = it.get(BOOK_KEY).toString()
         }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,7 +85,16 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     }
 
     private fun initViews() {
+        sharedPref = SharedPref(requireContext())
         binding.apply {
+            if (bookName == HALQA) {
+                seekBarPage.max = 33
+                tvFullPages.text = "33"
+            } else {
+                seekBarPage.max = 16
+                tvFullPages.text = "16"
+            }
+
             btnSettings.setOnClickListener {
                 openAudioControlBottomSheet()
             }
@@ -100,10 +116,13 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         }
 
         binding.readingSettings.apply {
-
+            seekBarTextSize.progress = sharedPref.getInt(FONT_SIZE)
+            seekBarBrightness.progress = sharedPref.getInt(BOOK_KEY)
         }
 
         controlBottomSettingsViewShowHide()
+
+        controlScreenBrightnessWithSeekbar()
 
         controlPageChangeWithSeekbar()
 
@@ -122,12 +141,17 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun setUpBookPageSelectionObserver() {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
-            if (it.chapNumber == 32)
-                binding.rvText.scrollToPosition(it.chapNumber + 1)
-            else
-                binding.rvText.scrollToPosition(it.chapNumber)
-
+            if (bookName == HALQA)
+                scrollToPosition(it.chapNumber * 2)
+            else scrollToPosition(it.chapNumber)
         }
+    }
+
+    private fun scrollToPosition(position: Int) {
+        (binding.rvText.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+            position,
+            100
+        )
     }
 
     private fun controlBookmark() {
@@ -135,8 +159,8 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             saveToDB()
         }
         if (page != null) {
-            binding.rvText.scrollToPosition(page!!.toInt())
-            binding.tvCurrentPage.text = page
+            val page = binding.tvCurrentPage.text.toString()
+            sharedPref.saveString("page", page)
         }
     }
 
@@ -149,10 +173,12 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val lManager = recyclerView.layoutManager as LinearLayoutManager
-                val firstElementPosition = lManager.findFirstVisibleItemPosition()
-                binding.seekBarPage.progress = firstElementPosition
-                binding.tvCurrentPage.text = (firstElementPosition + 1).toString()
+                val lastElementPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                binding.seekBarPage.progress = lastElementPosition
+                binding.tvCurrentPage.text = if (bookName == HALQA)
+                    ceil((lastElementPosition + 1).toDouble() / 2).toInt().toString()
+                else (lastElementPosition + 1).toString()
             }
         })
     }
@@ -172,8 +198,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                         requireActivity().onBackPressed()
                     }
                 }
-            }
-            )
+            })
     }
 
     private fun controlTextSizeChangeWithSeekbar() {
@@ -191,7 +216,9 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {}
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                sharedPref.saveInt(FONT_SIZE, p0!!.progress)
+            }
         })
     }
 
@@ -203,8 +230,11 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                 p2: Boolean,
             ) {
                 if (p2) {
-                    binding.rvText.scrollToPosition(currentProgress)
-                    binding.tvCurrentPage.text = currentProgress.toString()
+                    if (bookName == HALQA)
+                        scrollToPosition(currentProgress * 2)
+                    else scrollToPosition(currentProgress)
+                    if (currentProgress == 0) binding.tvCurrentPage.text = "1"
+                    else binding.tvCurrentPage.text = currentProgress.toString()
                 }
             }
 
@@ -258,13 +288,12 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     }
 
     private fun getNeededArray(): Int = if (bookName == JANGCHI) {
-        if (SharedPref(requireContext()).getString("til") == "Lotin")
+        if (sharedPref.getString("til") == "Lotin")
             R.array.text_of_chapters_jangchi_latin
         else R.array.text_of_chapters_jangchi_crill
-    } else if (SharedPref(requireContext()).getString("til") == "Lotin")
+    } else if (sharedPref.getString("til") == "Lotin")
         R.array.text_of_chapters_halqa_latin
     else R.array.text_of_chapters_halqa_crill
-
 
     private fun changeModeToDark() {
         binding.apply {
@@ -299,5 +328,32 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             seekBarPage.progressTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.dark_mode_light_blue))
         }
+    }
+
+    private fun controlScreenBrightnessWithSeekbar() {
+        binding.readingSettings.seekBarBrightness.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                currentProgress: Int,
+                p2: Boolean
+            ) {
+                changeScreenBrightness(currentProgress.toFloat() / 100)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                sharedPref.saveInt(BRIGHTNESS, p0!!.progress)
+            }
+        })
+    }
+
+    private fun changeScreenBrightness(level: Float) {
+        val layoutParams: WindowManager.LayoutParams =
+            requireActivity().window.attributes
+        layoutParams.screenBrightness = level
+        requireActivity().window.attributes = layoutParams
     }
 }
