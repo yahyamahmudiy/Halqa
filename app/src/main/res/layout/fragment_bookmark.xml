@@ -8,46 +8,6 @@
     tools:context=".fragment.mainflow.bookmark.BookmarkFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/isEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_gradient">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_gradient"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_empty" />
-
-            <TextView
-                android:id="@+id/tvText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="70dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:gravity="center"
-                android:text="@string/str_text"
-                android:textColor="#ADC1D4"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/iv_img" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_gradient"
@@ -75,7 +35,11 @@
             android:id="@+id/vp_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tl_filter" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/main_gradient"
+            app:layout_constraintTop_toBottomOf="@id/tl_filter" >
+
+        </androidx.viewpager.widget.ViewPager>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

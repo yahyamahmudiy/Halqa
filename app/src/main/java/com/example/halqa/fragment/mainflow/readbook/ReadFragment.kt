@@ -41,7 +41,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
-    private var isSelected = false
     private var page: String? = null
     private lateinit var bookName: String
 

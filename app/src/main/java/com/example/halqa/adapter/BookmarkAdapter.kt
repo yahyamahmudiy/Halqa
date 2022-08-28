@@ -11,7 +11,6 @@ import com.example.halqa.R
 import com.example.halqa.databinding.ItemBookmarkBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.model.BookmarkData
-import com.example.halqa.utils.UiStateList
 
 class BookmarkAdapter(context: Context) : ListAdapter<BookmarkData, BookmarkAdapter.ItemViewHolder>(ITEM_DIF) {
     var onClick: ((BookmarkData) -> Unit)? = null
@@ -19,6 +18,8 @@ class BookmarkAdapter(context: Context) : ListAdapter<BookmarkData, BookmarkAdap
     private var isBool = SharedPref(context).isSaved
     var lotin = context.getString(R.string.str_bob_lotin)
     var kirill = context.getString(R.string.str_bob_kirill)
+    var b_lotin = context.getString(R.string.str_davom_ettirish)
+    var b_kirill = context.getString(R.string.str_davom_ettirish_kirill)
 
     companion object{
         val ITEM_DIF = object : DiffUtil.ItemCallback<BookmarkData>(){
@@ -42,8 +43,10 @@ class BookmarkAdapter(context: Context) : ListAdapter<BookmarkData, BookmarkAdap
 
                 if (isBool){
                     tvInform.text = "${item.bob}-" +  lotin
+                    tvContinue.text = b_lotin
                 }else{
                     tvInform.text = "${item.bob}-" + kirill
+                    tvContinue.text = b_kirill
                 }
 
                 tvContinue.setOnClickListener {
@@ -63,7 +66,6 @@ class BookmarkAdapter(context: Context) : ListAdapter<BookmarkData, BookmarkAdap
 
     fun submitData(list: ArrayList<BookmarkData>){
         val items = ArrayList<BookmarkData>()
-        items.addAll(currentList)
         items.addAll(list)
         items.reverse()
         submitList(items)

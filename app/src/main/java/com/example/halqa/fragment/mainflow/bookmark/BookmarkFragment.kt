@@ -1,5 +1,6 @@
 package com.example.halqa.fragment.mainflow.bookmark
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -21,10 +22,14 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
     private lateinit var tlFilter: TabLayout
     private var isBool = true
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        isBool = SharedPref(requireContext()).isSaved
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAdapter()
-        isBool = SharedPref(requireContext()).isSaved
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +40,6 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
     override fun onResume() {
         super.onResume()
         setAdapter()
-        refreshAdapter()
     }
 
     private fun initView() {
@@ -43,20 +47,21 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         vpFilter = binding.vpFilter
 
         refreshAdapter()
-
-        if (isBool){
-            binding.tvText.text = requireContext().getString(R.string.str_text)
-        }else{
-            binding.tvText.text = requireContext().getString(R.string.str_text_kirill)
-        }
     }
 
     private fun setAdapter() {
         pagerAdapter = ViewPagerAdapter(childFragmentManager)
         pagerAdapter.addFragment(BooksBMFragment())
         pagerAdapter.addFragment(AudioBMFragment())
-        pagerAdapter.addTitle(getString(R.string.str_kitoblar))
-        pagerAdapter.addTitle(getString(R.string.str_audio))
+
+        if (isBool){
+            pagerAdapter.addTitle(getString(R.string.str_kitoblar))
+            pagerAdapter.addTitle(getString(R.string.str_audio))
+        }else{
+            pagerAdapter.addTitle(getString(R.string.str_kitoblar_kirill))
+            pagerAdapter.addTitle(getString(R.string.str_audio_kirill))
+        }
+
     }
 
 
