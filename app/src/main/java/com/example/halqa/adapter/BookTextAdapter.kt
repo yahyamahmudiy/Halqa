@@ -44,4 +44,8 @@ class BookTextAdapter : ListAdapter<String, BookTextAdapter.VH>(DiffUtil()) {
         this.fontSize = size
         notifyDataSetChanged()
     }
+
+    fun changeFontSizeWithoutDataSet(size: Float) {
+        this.fontSize = size
+    }
 }

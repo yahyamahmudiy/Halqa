@@ -251,6 +251,12 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             bottomAudioPlayView.setOnClickListener {
                 openAudioControlBottomSheet()
             }
+
+            ivPlayPause.setOnClickListener {
+                if (audioController.isPlaying())
+                    ivPlayPause.setImageResource(R.drawable.ic_pause_blue)
+                else ivPlayPause.setImageResource(R.drawable.ic_play_blue)
+            }
         }
 
         binding.audioControlBottomSheet.apply {
@@ -293,6 +299,30 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         controlOnBackPressed()
     }
 
+    /*
+        private fun controlBottomSheetBehaviour() {
+            var isSlidingUp = true
+            bottomSheetBehavior.addBottomSheetCallback(object :
+                BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    Log.d(TAG, "onStateChanged: $newState")
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                            bookPageSelected.setIsOpen(isSlidingUp)
+                            isSlidingUp = true
+                        }
+                        BottomSheetBehavior.STATE_SETTLING -> {
+                            if (isSlidingUp)
+                                bookPageSelected.setIsOpen(isSlidingUp)
+                        }
+                        BottomSheetBehavior.STATE_EXPANDED -> isSlidingUp = false
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
+        }
+    */
     private fun setHalqaMenu() {
         if (SharedPref(requireContext()).getString("til") == "Lotin")
             setMenuList(
@@ -430,7 +460,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             }
             )
     }
-
 
     //audio
     private fun getUri(bookData: BookData): String =

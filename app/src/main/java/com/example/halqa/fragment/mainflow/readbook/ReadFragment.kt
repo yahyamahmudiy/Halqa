@@ -3,6 +3,7 @@ package com.example.halqa.fragment.mainflow.readbook
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
@@ -115,11 +116,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
         }
 
-        binding.readingSettings.apply {
-            seekBarTextSize.progress = sharedPref.getInt(FONT_SIZE)
-            seekBarBrightness.progress = sharedPref.getInt(BOOK_KEY)
-        }
-
         controlBottomSettingsViewShowHide()
 
         controlScreenBrightnessWithSeekbar()
@@ -191,6 +187,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                     // Do custom work here
                     if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
                         closeAudioControlBottomSheet()
+                        return
                     }
                     // if you want onBackPressed() to be called as normal afterwards
                     if (isEnabled) {
@@ -284,6 +281,10 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
         adapter = BookTextAdapter().apply {
             this.submitList(resources.getStringArray(getNeededArray()).toList())
         }
+        sharedPref.getInt(FONT_SIZE).apply {
+            binding.readingSettings.seekBarTextSize.progress
+            adapter.changeFontSizeWithoutDataSet(this.toFloat())
+        }
         binding.rvText.adapter = adapter
     }
 
@@ -345,7 +346,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                sharedPref.saveInt(BRIGHTNESS, p0!!.progress)
             }
         })
     }
