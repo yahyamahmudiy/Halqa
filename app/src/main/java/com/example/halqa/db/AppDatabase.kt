@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.halqa.model.BookData
 import com.example.halqa.model.BookmarkData
 
-@Database(entities = [BookmarkData::class, BookData::class], version = 3)
+@Database(entities = [BookmarkData::class, BookData::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao

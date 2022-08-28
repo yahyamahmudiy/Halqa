@@ -98,12 +98,13 @@
 
             <TextView
                 android:id="@+id/tv_bookName"
-                android:layout_width="43dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/str_halqa"
                 android:textColor="@color/black"
+                android:layout_marginStart="12dp"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_inform"
                 app:layout_constraintLeft_toRightOf="@id/iv_book_image"

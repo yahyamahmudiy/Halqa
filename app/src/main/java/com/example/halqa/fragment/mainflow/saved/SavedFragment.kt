@@ -8,8 +8,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.adapter.ViewPagerAdapter
 import com.example.halqa.databinding.FragmentSavedBinding
-import com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment
-import com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment
+import com.example.halqa.fragment.mainflow.bookmark.audio.AudioBookmarkFragment
+import com.example.halqa.fragment.mainflow.bookmark.books.BooksBookmarkFragment
+import com.example.halqa.fragment.mainflow.saved.audio.AudioSavedFragment
+import com.example.halqa.fragment.mainflow.saved.books.BooksSavedFragment
 import com.example.halqa.manager.SharedPref
 import com.google.android.material.tabs.TabLayout
 
@@ -79,8 +81,8 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
 
     private fun setAdapter() {
         pagerAdapter = ViewPagerAdapter(childFragmentManager)
-        pagerAdapter.addFragment(BooksSVFragment())
-        pagerAdapter.addFragment(AudioSVFragment())
+        pagerAdapter.addFragment(BooksSavedFragment())
+        pagerAdapter.addFragment(AudioSavedFragment())
         if (isBool){
             pagerAdapter.addTitle(getString(R.string.str_kitoblar))
             pagerAdapter.addTitle(getString(R.string.str_audio))

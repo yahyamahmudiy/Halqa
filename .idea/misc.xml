@@ -85,12 +85,16 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_main.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/audio_control_screen.xml" value="0.5" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_bm.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_bm.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_bookmark.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_saved.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_audio_sv.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_book_about.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_bookmark.xml" value="0.15534420289855072" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_bm.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_sv.xml" value="0.5038284839203675" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_bm.xml" value="0.6462480857580398" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_bookmark.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_saved.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_books_sv.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_language.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_language_flow.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_main.xml" value="0.43460350154479915" />
@@ -98,6 +102,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_read.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/fragment_saved.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/item_book_chap_view.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/item_bookmark.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/reading_settings_layout.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/layout/text_layout.xml" value="0.203125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Halqa/app/src/main/res/menu/main_menu.xml" value="0.20416666666666666" />

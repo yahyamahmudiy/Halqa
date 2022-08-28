@@ -7,12 +7,12 @@
         android:title="" />
 
     <item
-        android:id="@+id/bookmarkFragment"
+        android:id="@+id/savedFragment"
         android:icon="@drawable/ic_bot_nav_saved"
         android:title="" />
 
     <item
-        android:id="@+id/savedFragment"
+        android:id="@+id/bookmarkFragment"
         android:icon="@drawable/ic_bot_nav_bookmark"
         android:title="" />
 

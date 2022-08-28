@@ -13,8 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BooksBMViewModel @Inject constructor(private val repository: ItemRepository) : ViewModel() {
-    val isLoading = MutableLiveData<Boolean>()
-    val errorMessage = MutableLiveData<String>()
+
     val bookmarkFromDB = MutableLiveData<ArrayList<BookmarkData>>()
 
     /**

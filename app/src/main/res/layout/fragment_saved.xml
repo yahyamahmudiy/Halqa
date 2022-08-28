@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_gradient"
-    tools:context=".fragment.mainflow.bookmark.BookmarkFragment">
+    tools:context=".fragment.mainflow.saved.SavedFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/isEmpty"

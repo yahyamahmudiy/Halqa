@@ -8,8 +8,10 @@ import com.example.halqa.R
 import com.example.halqa.databinding.FragmentBookmarkBinding
 import androidx.viewpager.widget.ViewPager;
 import com.example.halqa.adapter.ViewPagerAdapter
-import com.example.halqa.fragment.mainflow.bookmark.audio.AudioBMFragment
-import com.example.halqa.fragment.mainflow.bookmark.books.BooksBMFragment
+import com.example.halqa.fragment.mainflow.bookmark.audio.AudioBookmarkFragment
+import com.example.halqa.fragment.mainflow.bookmark.books.BooksBookmarkFragment
+import com.example.halqa.fragment.mainflow.saved.audio.AudioSavedFragment
+import com.example.halqa.fragment.mainflow.saved.books.BooksSavedFragment
 import com.example.halqa.manager.SharedPref
 import com.google.android.material.tabs.TabLayout
 
@@ -53,8 +55,8 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
 
     private fun setAdapter() {
         pagerAdapter = ViewPagerAdapter(childFragmentManager)
-        pagerAdapter.addFragment(BooksBMFragment())
-        pagerAdapter.addFragment(AudioBMFragment())
+        pagerAdapter.addFragment(BooksBookmarkFragment())
+        pagerAdapter.addFragment(AudioBookmarkFragment())
         pagerAdapter.addTitle(getString(R.string.str_kitoblar))
         pagerAdapter.addTitle(getString(R.string.str_audio))
     }

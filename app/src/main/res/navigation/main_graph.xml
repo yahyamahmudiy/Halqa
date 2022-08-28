@@ -40,15 +40,15 @@
 
     <fragment
         android:id="@+id/audioFragmentBM"
-        android:name="com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.audio.AudioBookmarkFragment"
         android:label="fragmentAudioBM"
-        tools:layout="@layout/fragment_audio_bm" />
+        tools:layout="@layout/fragment_audio_saved" />
 
     <fragment
         android:id="@+id/booksFragmentBM"
-        android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.books.BooksBookmarkFragment"
         android:label="fragmentAudioBM"
-        tools:layout="@layout/fragment_books_bm" >
+        tools:layout="@layout/fragment_books_saved" >
 
     </fragment>
     <fragment
@@ -68,15 +68,15 @@
 
     <fragment
         android:id="@+id/audioFragmentSV"
-        android:name="com.example.halqa.fragment.mainflow.saved.audio.AudioSVFragment"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.audio.AudioBookmarkFragment"
         android:label="fragmentAudioSV"
-        tools:layout="@layout/fragment_audio_sv" />
+        tools:layout="@layout/fragment_audio_bookmark" />
 
     <fragment
         android:id="@+id/booksFragmentSV"
-        android:name="com.example.halqa.fragment.mainflow.saved.books.BooksSVFragment"
+        android:name="com.example.halqa.fragment.mainflow.bookmark.books.BooksBookmarkFragment"
         android:label="fragmentBooksSV"
-        tools:layout="@layout/fragment_books_sv" />
+        tools:layout="@layout/fragment_books_bookmark" />
 
     <fragment
         android:id="@+id/readFragment"
