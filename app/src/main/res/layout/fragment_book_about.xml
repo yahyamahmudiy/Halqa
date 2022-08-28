@@ -433,8 +433,8 @@
 
             <ImageView
                 android:id="@+id/ivPlayPause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/ic_play_blue"
                 app:layout_constraintBottom_toBottomOf="@id/ivBookBottom"
@@ -460,7 +460,6 @@
 
     <include
         android:id="@+id/audioControlBottomSheet"
-        layout="@layout/audio_control_screen"
-        android:visibility="gone" />
+        layout="@layout/audio_control_screen" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
