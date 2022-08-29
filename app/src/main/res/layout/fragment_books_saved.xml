@@ -37,18 +37,18 @@
                 app:shapeAppearanceOverlay="@style/round_corner" />
 
             <TextView
-                android:id="@+id/tv_bookName"
+                android:id="@+id/tvJangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/str_jangchi"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/tv_inform"
+                app:layout_constraintStart_toStartOf="@id/tv_inform_jangchi"
                 app:layout_constraintTop_toTopOf="@id/iv_book_image" />
 
             <TextView
-                android:id="@+id/tv_inform"
+                android:id="@+id/tv_inform_jangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -57,13 +57,13 @@
                 android:text="2-bop, 20-bet"
                 android:textColor="#9597A1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_continue"
+                app:layout_constraintBottom_toTopOf="@id/tvContinueJangchi"
                 app:layout_constraintStart_toEndOf="@id/iv_book_image"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bookName" />
+                app:layout_constraintTop_toBottomOf="@+id/tvJangchi" />
 
 
             <TextView
-                android:id="@+id/tv_continue"
+                android:id="@+id/tvContinueJangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -72,7 +72,7 @@
                 android:textColor="#177EE6"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_book_image"
-                app:layout_constraintStart_toStartOf="@id/tv_inform" />
+                app:layout_constraintStart_toStartOf="@id/tv_inform_jangchi" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,7 +120,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivHalqa" />
 
             <TextView
-                android:id="@+id/tv_inform1"
+                android:id="@+id/tv_inform_halqa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -128,12 +128,12 @@
                 android:text="2-bop, 20-bet"
                 android:textColor="#9597A1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_davom_ettirish1"
+                app:layout_constraintBottom_toTopOf="@id/tvContinueHalqa"
                 app:layout_constraintStart_toStartOf="@id/tvHalqa"
                 app:layout_constraintTop_toBottomOf="@id/tvHalqa" />
 
             <TextView
-                android:id="@+id/tv_davom_ettirish1"
+                android:id="@+id/tvContinueHalqa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -142,7 +142,7 @@
                 android:textColor="#177EE6"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivHalqa"
-                app:layout_constraintStart_toStartOf="@id/tv_inform1" />
+                app:layout_constraintStart_toStartOf="@id/tv_inform_halqa" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

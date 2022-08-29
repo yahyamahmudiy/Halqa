@@ -428,11 +428,11 @@
                 android:padding="2dp"
                 android:src="@drawable/ic_something"
                 app:layout_constraintBottom_toBottomOf="@id/ivBookBottom"
-                app:layout_constraintEnd_toStartOf="@id/ivPlayPause"
+                app:layout_constraintEnd_toStartOf="@id/ivPlayPauseBottom"
                 app:layout_constraintTop_toTopOf="@id/ivBookBottom" />
 
             <ImageView
-                android:id="@+id/ivPlayPause"
+                android:id="@+id/ivPlayPauseBottom"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginEnd="30dp"

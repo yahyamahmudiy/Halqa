@@ -36,6 +36,8 @@ import com.example.halqa.utils.Constants.BOOK_EXTRA
 import com.example.halqa.utils.Constants.BOOK_KEY
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.JANGCHI
+import com.example.halqa.utils.Constants.LANGUAGE
+import com.example.halqa.utils.Constants.LATIN
 import com.example.halqa.utils.Constants.NOTSAVED
 import com.example.halqa.utils.Constants.SAVED
 import com.example.halqa.utils.Constants.SAVING
@@ -61,6 +63,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private lateinit var audioDownloadReceiver: AudioDownloadReceiver
     private var downloadList: ArrayList<Long> = ArrayList()
     private var downloadSize: Int = 0
+    private var isToPlay = false
+    var lastAudio = 0
+
 
     @Inject
     lateinit var audioController: AudioController
@@ -91,21 +96,24 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         closeAudioControlBottomSheet()
 
         registerDownloadBroadcast()
+        setUpObserver()
     }
 
     private fun downloadBtnClick() {
-        when (save) {
-            NOTSAVED -> {
-                viewModel.getBookAudios(book!!)
-                setUpObserver()
-            }
-            SAVING -> {
-
-            }
-            SAVED -> {
-
-            }
-        }
+        isToPlay = true
+        getAllBookData()
+//        when (save) {
+//            NOTSAVED -> {
+//                viewModel.getBookAudios(book!!)
+//            }
+//            SAVING -> {
+//
+//            }
+//            SAVED -> {
+//                isToPlay = true
+//                getAllBookData()
+//            }
+//        }
 
     }
 
@@ -117,12 +125,16 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             initJangchi()
             save = SharedPref(requireContext()).isSavedAudioJangchi
         }
-        if (save == NOTSAVED) {
-            binding.ivDownload.setImageResource(R.drawable.ic_download_blue_icon)
-        } else if (save == SAVING) {
-            // Glide.with(requireActivity()).load(R.drawable.loding_blue).into(binding.ivDownload)
-        } else if (save == SAVED) {
-            binding.ivDownload.setImageResource(R.drawable.ic_play_white)
+        when (save) {
+            NOTSAVED -> {
+                binding.ivDownload.setImageResource(R.drawable.ic_download_blue_icon)
+            }
+            SAVING -> {
+//                 Glide.with(requireActivity()).load(R.drawable.loding_blue).into(binding.ivDownload)
+            }
+            SAVED -> {
+                binding.ivDownload.setImageResource(R.drawable.ic_play_white)
+            }
         }
     }
 
@@ -142,6 +154,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                         }
 
                         is UiStateList.SUCCESS -> {
+                            if (isToPlay) {
+                                playBook(it.data)
+                                return@collect
+                            }
                             downloadSize = it.data.size
                             downloadList.clear()
                             it.data.forEach { bookDate ->
@@ -155,6 +171,44 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 }
             }
         }
+    }
+
+    private fun playBook(data: List<BookData>) {
+        Log.d(TAG, "playBook: $data")
+        openAudioControlBottomSheet()
+        changePlayPauseButton(R.drawable.ic_pause_blue)
+        audioController.playSource(getFilePath(getUri(data[lastAudio])))
+
+        binding.audioControlBottomSheet.apply {
+            ivBack.setOnClickListener {
+                closeAudioControlBottomSheet()
+            }
+            ivNext.setOnClickListener {
+                if (lastAudio < data.size - 1)
+                    audioController.playSource(getFilePath(getUri(data[++lastAudio])))
+            }
+            ivPrevious.setOnClickListener {
+                if (lastAudio > 0)
+                    audioController.playSource(getFilePath(getUri(data[--lastAudio])))
+            }
+            ivNext15.setOnClickListener {
+                audioController.forward15Seconds()
+            }
+            ivPrevious15.setOnClickListener {
+                audioController.backward15Seconds()
+            }
+            ivPlayPause.setOnClickListener {
+                if (audioController.isPlaying()) {
+                    audioController.pauseMediaPlayer()
+                    changePlayPauseButton(R.drawable.ic_play_blue)
+
+                } else {
+                    audioController.playMediaPlayer()
+                    changePlayPauseButton(R.drawable.ic_pause_blue)
+                }
+            }
+        }
+
     }
 
     private fun initLanguageConst() {
@@ -252,42 +306,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 openAudioControlBottomSheet()
             }
 
-            ivPlayPause.setOnClickListener {
-                if (audioController.isPlaying())
-                    ivPlayPause.setImageResource(R.drawable.ic_pause_blue)
-                else ivPlayPause.setImageResource(R.drawable.ic_play_blue)
-            }
-        }
-
-        binding.audioControlBottomSheet.apply {
-            ivBack.setOnClickListener {
-                closeAudioControlBottomSheet()
-            }
-            ivNext.setOnClickListener {
-                audioController.playSource(getFilePath(getUri(BookData().apply {
-                    bookName = "Jangchi"
-                    bob = "1-bob"
-                })))
-            }
-            ivPrevious.setOnClickListener {
-                audioController.playSource(getFilePath(getUri(BookData().apply {
-                    bookName = "Jangchi"
-                    bob = "1-bob"
-                })))
-            }
-            ivNext15.setOnClickListener {
-                audioController.forward15Seconds()
-            }
-            ivPrevious15.setOnClickListener {
-                audioController.backward15Seconds()
-            }
-            ivPlayPause.setOnClickListener {
+            ivPlayPauseBottom.setOnClickListener {
                 if (audioController.isPlaying()) {
+                    changePlayPauseButton(R.drawable.ic_play_blue)
                     audioController.pauseMediaPlayer()
-                    ivPlayPause.setImageResource(R.drawable.ic_play_blue)
                 } else {
+                    changePlayPauseButton(R.drawable.ic_pause_blue)
                     audioController.playMediaPlayer()
-                    ivPlayPause.setImageResource(R.drawable.ic_pause_blue)
                 }
             }
         }
@@ -297,6 +322,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         setPageSelectionObserver()
 
         controlOnBackPressed()
+    }
+
+    private fun changePlayPauseButton(drawable: Int) {
+        binding.apply {
+            ivPlayPauseBottom.setImageResource(drawable)
+            audioControlBottomSheet.ivPlayPause.setImageResource(drawable)
+        }
     }
 
     /*
@@ -323,8 +355,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             })
         }
     */
+
     private fun setHalqaMenu() {
-        if (SharedPref(requireContext()).getString("til") == "Lotin")
+        if (SharedPref(requireContext()).getString(LANGUAGE) == LATIN)
             setMenuList(
                 resources.getStringArray(R.array.chapters_halqa_latin).toList()
             )
@@ -339,7 +372,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun setJangchiMenu() {
-        if (SharedPref(requireContext()).getString("til") == "Lotin")
+        if (SharedPref(requireContext()).getString(LANGUAGE) == LATIN)
             setMenuList(
                 resources.getStringArray(R.array.chapters_jangchi_latin).toList()
             )
@@ -371,6 +404,17 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
             setDataToBottomSheet(it)
             openAudioControlBottomSheet()
+            lastAudio = it.chapNumber
+            audioController.playSource(
+                getFilePath(
+                    getUri(
+                        BookData(
+                            bob = "${it.chapNumber + 1}-bob",
+                            bookName = book!!
+                        )
+                    )
+                )
+            )
         }
     }
 
@@ -391,7 +435,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun downloadFile(bookData: BookData) {
-        Log.d("TAG", "downloadFile: $bookData")
         val folderName = "${bookData.bookName}${BOOK_EXTRA}/${bookData.bookName}"
         val request = DownloadManager.Request(Uri.parse(bookData.url))
             .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
@@ -409,11 +452,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadID = downloadManager.enqueue(request)
         lastDownloadID = downloadID
-        Log.d("TAG", "setUpObserver downloadID: $downloadID")
 
         audioDownloadReceiver.onDownloadCompleted = { ID ->
             downloadedAudioID = ID!!
-            Log.d("TAG", "setUpObserver ID: $ID")
             downloadList.add(ID)
 
             if (downloadList.size == downloadSize) {
@@ -503,5 +544,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 override fun onStopTrackingTouch(p0: SeekBar?) {}
             })
         }
+    }
+
+    private fun getAllBookData() {
+        viewModel.getBookAudios(book!!)
     }
 }

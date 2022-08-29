@@ -36,7 +36,15 @@
         android:id="@+id/savedFragment"
         android:name="com.example.halqa.fragment.mainflow.saved.SavedFragment"
         android:label="fragment_saved"
-        tools:layout="@layout/fragment_saved" />
+        tools:layout="@layout/fragment_saved" >
+        <action
+            android:id="@+id/action_savedFragment_to_readFragment"
+            app:destination="@id/readFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/audioFragmentBM"
@@ -48,9 +56,7 @@
         android:id="@+id/booksFragmentBM"
         android:name="com.example.halqa.fragment.mainflow.bookmark.books.BooksBookmarkFragment"
         android:label="fragmentAudioBM"
-        tools:layout="@layout/fragment_books_saved" >
-
-    </fragment>
+        tools:layout="@layout/fragment_books_saved" />
     <fragment
         android:id="@+id/bookAboutFragment"
         android:name="com.example.halqa.fragment.mainflow.bookabout.BookAboutFragment"

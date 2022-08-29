@@ -11,5 +11,10 @@ object Constants {
     const val SAVING = "SAVING"
     const val SAVED = "SAVED"
     const val FONT_SIZE = "fontSize"
-    const val BRIGHTNESS = "brightness"
+    const val HALQA_LAST_READING_CHAPTER = "halqaLast"
+    const val JANGCHI_LAST_READING_CHAPTER = "jangchiLast"
+    const val LAST_CHAPTER = "lastReadingChapter"
+    const val LANGUAGE = "language"
+    const val LATIN = "latin"
+    const val KRILL = "krill"
 }
