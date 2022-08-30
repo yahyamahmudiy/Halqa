@@ -1,9 +1,7 @@
 package com.example.halqa.fragment.mainflow.readbook
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
@@ -108,7 +106,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
         }
 
-        setMenu()
+        initMenu()
 
         controlBottomSettingsViewShowHide()
 
@@ -130,10 +128,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     }
 
     private fun setMenu() {
-        if (isCurrentBookHalqa())
-            setHalqaMenu()
-        else
-            setJangchiMenu()
+
     }
 
     private fun setUpBookPageSelectionObserver() {
@@ -379,29 +374,8 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private fun lastPosition(): Int =
         (binding.rvText.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-    private fun setHalqaMenu() {
-        if (SharedPref(requireContext()).getString("til") == "Lotin")
-            setMenuList(
-                resources.getStringArray(R.array.chapters_halqa_latin).toList()
-            )
-        else
-            setMenuList(
-                resources.getStringArray(R.array.chapters_halqa_crill).toList()
-            )
-    }
 
-    private fun setMenuList(list: List<String>) {
-        (requireActivity() as MainActivity).refreshAdapter(list)
-    }
-
-    private fun setJangchiMenu() {
-        if (SharedPref(requireContext()).getString("til") == "Lotin")
-            setMenuList(
-                resources.getStringArray(R.array.chapters_jangchi_latin).toList()
-            )
-        else
-            setMenuList(
-                resources.getStringArray(R.array.chapter_jangchi_crill).toList()
-            )
+    private fun initMenu() {
+        (requireActivity() as MainActivity).getMenuData(bookName)
     }
 }

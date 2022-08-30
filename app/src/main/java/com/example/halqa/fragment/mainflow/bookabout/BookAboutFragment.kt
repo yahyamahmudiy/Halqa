@@ -174,7 +174,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun playBook(data: List<BookData>) {
-        Log.d(TAG, "playBook: $data")
         openAudioControlBottomSheet()
         changePlayPauseButton(R.drawable.ic_pause_blue)
         audioController.playSource(getFilePath(getUri(data[lastAudio])))
@@ -282,11 +281,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         setData(book!!)
 
         binding.tvBookDescription.makeVerticallyScrollable()
-        if (book == JANGCHI) {
-            setJangchiMenu()
-        } else {
-            setHalqaMenu()
-        }
 
         binding.apply {
 
@@ -355,32 +349,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             })
         }
     */
-
-    private fun setHalqaMenu() {
-        if (SharedPref(requireContext()).getString(LANGUAGE) == LATIN)
-            setMenuList(
-                resources.getStringArray(R.array.chapters_halqa_latin).toList()
-            )
-        else
-            setMenuList(
-                resources.getStringArray(R.array.chapters_halqa_crill).toList()
-            )
-    }
-
-    private fun setMenuList(list: List<String>) {
-        (requireActivity() as MainActivity).refreshAdapter(list)
-    }
-
-    private fun setJangchiMenu() {
-        if (SharedPref(requireContext()).getString(LANGUAGE) == LATIN)
-            setMenuList(
-                resources.getStringArray(R.array.chapters_jangchi_latin).toList()
-            )
-        else
-            setMenuList(
-                resources.getStringArray(R.array.chapter_jangchi_crill).toList()
-            )
-    }
 
     private fun setData(bookName: String) {
         binding.apply {

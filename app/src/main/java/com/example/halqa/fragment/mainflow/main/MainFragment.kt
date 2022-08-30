@@ -1,13 +1,13 @@
 package com.example.halqa.fragment.mainflow.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
+import com.example.halqa.activity.MainActivity
 import com.example.halqa.databinding.FragmentMainBinding
 import com.example.halqa.manager.SharedPref
 import com.example.halqa.utils.Constants.BOOK
@@ -69,6 +69,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initViews() {
         binding.apply {
             cvHalqa.setOnClickListener {
+                initMenu(HALQA)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_bookAboutFragment,
                     bundleOf(BOOK to HALQA)
@@ -76,6 +77,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             cvJangchi.setOnClickListener {
+                initMenu(JANGCHI)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_bookAboutFragment,
                     bundleOf(BOOK to JANGCHI)
@@ -84,4 +86,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    private fun initMenu(bookName: String) {
+        (requireActivity() as MainActivity).getMenuData(bookName)
+    }
 }

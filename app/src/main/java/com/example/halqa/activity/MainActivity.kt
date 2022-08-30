@@ -8,19 +8,27 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.example.halqa.R
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
+import com.example.halqa.activity.viewmodel.MainActivityViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookData
 import com.example.halqa.model.Chapter
+import com.example.halqa.utils.Constants.LANGUAGE
+import com.example.halqa.utils.Constants.LATIN
+import com.example.halqa.utils.UiStateList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
     private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
+    private val viewModel by viewModels<MainActivityViewModel>()
+    private val chapterList: ArrayList<Chapter> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,15 +93,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun setMenu() {
         adapter = ChapAdapter()
+        initObserver()
         binding.drawerLayout.setScrimColor(resources.getColor(R.color.drawer_background_color))
     }
 
-    fun refreshAdapter(stringArray: List<String>) {
+    fun getMenuData(bookName: String) {
+        viewModel.getBookAudios(bookName)
+    }
+
+    private fun initObserver() {
+        Log.d("TAG", "initObserver: okkkk")
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allBookData.collect {
+                    when (it) {
+                        UiStateList.LOADING -> {}
+                        is UiStateList.SUCCESS -> {
+                            Log.d("TAG", "initObserver: ${it.data.size}")
+                            refreshMenuAdapter(it.data)
+                        }
+                        is UiStateList.ERROR -> {}
+                        else -> {}
+                    }
+                }
+            }
+        }
+    }
+
+    private fun refreshMenuAdapter(list: List<BookData>) {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
-        binding.recyclerView.adapter = adapter
+        adapter.submitList(getChapterList(list))
 
-        adapter.submitList(stringArray)
+        binding.recyclerView.adapter = adapter
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
@@ -99,10 +133,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getChapterList(allBookData: List<BookData>): List<Chapter> {
+        chapterList.clear()
+        if (SharedPref(this).getString(LANGUAGE) == LATIN)
+            allBookData.forEach {
+                chapterList.add(
+                    Chapter(
+                        getBobNumber(it.bob),
+                        it.chapterNameLatin,
+                        it.chapterCommentLatin
+                    )
+                )
+            }
+        else allBookData.forEach {
+            chapterList.add(
+                Chapter(
+                    getBobNumber(it.bob),
+                    it.chapterNameKrill,
+                    it.chapterCommentKrill
+                )
+            )
+        }
+        return chapterList
+    }
+
+    private fun getBobNumber(bob: String): Int = bob.substring(0, bob.indexOf("-")).toInt() - 1
+
     fun openDrawerLayout() {
         binding.drawerLayout.openDrawer(GravityCompat.END, true)
     }
-
 
     fun closeDrawerLayout() {
         binding.drawerLayout.closeDrawer(GravityCompat.END, true)

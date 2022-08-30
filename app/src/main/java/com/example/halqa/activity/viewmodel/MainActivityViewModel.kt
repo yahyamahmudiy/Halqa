@@ -1,33 +1,31 @@
-package com.example.halqa.fragment.mainflow.bookabout
+package com.example.halqa.activity.viewmodel
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.halqa.model.BookData
 import com.example.halqa.repository.ItemRepository
 import com.example.halqa.utils.UiStateList
-import com.example.halqa.utils.UiStateObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookAboutViewModel @Inject
-constructor(private val repository: ItemRepository): ViewModel() {
-
-    private val _allBookAudios =
+class MainActivityViewModel @Inject
+constructor(private val repository: ItemRepository) : ViewModel() {
+    private val _allBookData =
         MutableStateFlow<UiStateList<BookData>>(UiStateList.EMPTY)
-    val allBookAudios = _allBookAudios
+    val allBookData = _allBookData
 
     fun getBookAudios(bookName: String) = viewModelScope.launch {
-        _allBookAudios.value = UiStateList.LOADING
+        _allBookData.value = UiStateList.LOADING
         try {
             val response = repository.getBookAudios(bookName)
-            _allBookAudios.value = UiStateList.SUCCESS(response)
+            _allBookData.value = UiStateList.SUCCESS(response)
         } catch (e: Exception) {
-            _allBookAudios.value =
+            _allBookData.value =
                 UiStateList.ERROR(e.localizedMessage ?: "No connection", false)
         }
     }
-
 }

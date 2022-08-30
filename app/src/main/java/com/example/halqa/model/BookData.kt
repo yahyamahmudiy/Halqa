@@ -10,7 +10,10 @@ data class BookData(
     var bob: String = "",
     var bookName: String = "",
     var url: String = "",
+    var chapterNameKrill: String = "",
+    var chapterNameLatin: String = "",
+    var chapterCommentKrill: String = "",
+    var chapterCommentLatin: String = "",
     var isDownload: Boolean = false,
-    var isPlaying: Boolean = false,
     var downloadID: Long = -1
 )

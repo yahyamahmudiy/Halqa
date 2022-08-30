@@ -1,136 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    //latin
+
     <string-array name="chapters_halqa_latin">
         <item>
-BRITANIYALIK JURNALISTLAR{ }
+BRITANIYALIK JURNALISTLAR
         </item>
 
         <item>
-VATANDAN HIJRAT{Abdulloh Yorqinning hikoyasi}
+VATANDAN HIJRAT
         </item>
 
         <item>
-MUSLIMANING DUNYOSI{ }
+MUSLIMANING DUNYOSI
         </item>
 
         <item>
-OLIJANOB YO‘LTO‘SAR VA EHSON HAKIM UYIDA{Abdulloh Yorqinning hikoyasi}
+OLIJANOB YO‘LTO‘SAR VA EHSON HAKIM UYIDA
         </item>
 
         <item>
-ERKINLIK ISTAB{Shafiqaning hikoyasi}
+ERKINLIK ISTAB
         </item>
 
         <item>
-ASRLAR UCHRASHUVI{Abdulloh Yorqinning hikoyasi}
+ASRLAR UCHRASHUVI
         </item>
 
         <item>
-TIRILGAN QALB{Shafiqaning hikoyasi}
+TIRILGAN QALB
         </item>
 
         <item>
-BUYUK FARYOD{Abdulloh Yorqinning hikoyasi}
+BUYUK FARYOD
         </item>
 
         <item>
-YO‘LGA QAYTISH{Shafiqaning hikoyasi}
+YO‘LGA QAYTISH
         </item>
 
         <item>
-AVLODLARNI O‘RTAGAN DARD{Abdulloh Yorqinning hikoyasi}
+AVLODLARNI O‘RTAGAN DARD
         </item>
 
         <item>
-HAQNI TOPISH VA HAQ TOMON YO‘L{Shafiqa hikoyasining oxiri,Anjelina hikoyasining boshlanishi}
+HAQNI TOPISH VA HAQ TOMON YO‘L
         </item>
 
         <item>
-ISTIBDOD O‘LKASI{Abdulloh Yorqinning hikoyasi}
+ISTIBDOD O‘LKASI
         </item>
 
         <item>
-BOLQON: BITMAYDIGAN JAROHAT{Anjelinaning hikoyasi}
+BOLQON: BITMAYDIGAN JAROHAT
         </item>
 
         <item>
-XOIN VA ZOLIM QARSHISIDA{Abdulloh Yorqinning hikoyasi}
+XOIN VA ZOLIM QARSHISIDA
         </item>
 
         <item>
-ZAHARLANGAN SUV{Anjelinaning hikoyasi}
+ZAHARLANGAN SUV
         </item>
 
         <item>
-IBLISLAR ISKANJASI{Abdulloh Yorqinning hikoyasi}
+IBLISLAR ISKANJASI
         </item>
 
         <item>
-“HIND SORI YUZLANDIM”[ Шоҳ ва шоир Заҳириддин Муҳаммад Бобур (1483 – 1530) сатри.]{Anjelinaning hikoyasi}
+“HIND SORI YUZLANDIM”[ Шоҳ ва шоир Заҳириддин Муҳаммад Бобур (1483 – 1530) сатри.]
         </item>
 
         <item>
-“ROBBIM, KO‘KSIMNI OCH!”[ Тоҳа сурасининг 25-ояти мазмуни.]{Abdulloh Yorqinning hikoyasi}
+“ROBBIM, KO‘KSIMNI OCH!”[ Тоҳа сурасининг 25-ояти мазмуни.]
         </item>
 
         <item>
-FITNA OTAShI{Anjelinaning hikoyasi}
+FITNA OTAShI
         </item>
 
         <item>
-CHOH EGALARI[ Қуръонда зикр этилган қисса.]{Abdulloh Yorqinning hikoyasi}
+CHOH EGALARI[ Қуръонда зикр этилган қисса.]
         </item>
 
         <item>
-FITNA OTAShI ALANGA OLDI{Sabriniso xonimning hikoyasi}
+FITNA OTAShI ALANGA OLDI
         </item>
 
         <item>
-QALB ESHIKLARINING OCHILISHI{Abdulloh Yorqinning hikoyasi}
+QALB ESHIKLARINING OCHILISHI
         </item>
 
         <item>
-QAMOQ OSTONASIDA{Sabriniso xonimning hikoyasi}
+QAMOQ OSTONASIDA
         </item>
 
         <item>
-SINOVLAR SARI{Abdulloh Yorqinning hikoyasi}
+SINOVLAR SARI
         </item>
 
         <item>
-QANOTSIZ UCHGAN AYoL{Sabriniso xonimning hikoyasi}
+QANOTSIZ UCHGAN AYoL
         </item>
 
         <item>
-HAQQA NAZAR{Abdulloh Yorqinning hikoyasi}
+HAQQA NAZAR
         </item>
 
         <item>
-IYMON NURI{Sabriniso xonimning hikoyasi tugaydi, Anjelina hikoyasining davomi}
+IYMON NURI
         </item>
 
         <item>
-“SAHAR VAQTI KO‘RDIM KO‘ZIM SULTONINI”[ Уйғур шоири Абдураҳим Ўткир сатри.]{Abdulloh Yorqin hikoyasining so‘ngi, Umar Sayfullin hikoyasining boshlanishi}
+“SAHAR VAQTI KO‘RDIM KO‘ZIM SULTONINI”[ Уйғур шоири Абдураҳим Ўткир сатри.]
         </item>
 
         <item>
-QIZIL ATIRGUL{Anjelina hikoyasining so‘ngi va Humayro hikoyasining avvali}
+QIZIL ATIRGUL
         </item>
 
         <item>
-FIG‘ON{Umar Sayfullinning hikoyasi}
+FIG‘ON
         </item>
 
         <item>
-SAJDADAGI AYoL{Humayroning hikoyasi}
+SAJDADAGI AYoL
         </item>
 
         <item>
-TO‘FON{So‘nggi bob}
+TO‘FON
         </item>
 
         <item>
-MUALLIF SHUKRONASI{ }
+MUALLIF SHUKRONASI
+        </item>
+
+    </string-array>
+
+    <string-array name="chapters_halqa_latin_comment">
+        <item>
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+                Shafiqaning hikoyasi
+        </item>
+
+        <item>
+                Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Shafiqaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Shafiqaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Shafiqa hikoyasining oxiri,Anjelina hikoyasining boshlanishi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Anjelinaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Anjelinaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+                Anjelinaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Anjelinaning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Sabriniso xonimning hikoyasi
+        </item>
+
+        <item>Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Sabriniso xonimning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Sabriniso xonimning hikoyasi
+        </item>
+
+        <item>
+Abdulloh Yorqinning hikoyasi
+        </item>
+
+        <item>
+Sabriniso xonimning hikoyasi tugaydi, Anjelina hikoyasining davomi
+        </item>
+
+        <item>
+Abdulloh Yorqin hikoyasining so‘ngi, Umar Sayfullin hikoyasining boshlanishi
+        </item>
+
+        <item>
+Anjelina hikoyasining so‘ngi va Humayro hikoyasining avvali
+        </item>
+
+        <item>
+Umar Sayfullinning hikoyasi
+        </item>
+
+        <item>
+Humayroning hikoyasi
+        </item>
+
+        <item>
+So‘nggi bob
+        </item>
+
+        <item>
         </item>
 
     </string-array>
@@ -186,181 +320,256 @@ XOTIMA
         </item>
     </string-array>
 
-        //krill
+    //krill
 
-        <string-array name="chapters_halqa_crill">
+    <string-array name="chapters_halqa_crill">
         <item>
-БРИТАНИЯЛИК ЖУРНАЛИСТЛАР{ }
+БРИТАНИЯЛИК ЖУРНАЛИСТЛАР
         </item>
-                <item>
+        <item>
 ВАТАНДАН ҲИЖРАТ
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
-МУСЛИМАНИНГ ДУНЁСИ{ }
+        <item>
+МУСЛИМАНИНГ ДУНЁСИ
         </item>
-                <item>
+        <item>
 ОЛИЖАНОБ ЙЎЛТЎСАР ВА ЭҲСОН
 ҲАКИМ УЙИДА
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ЭРКИНЛИК ИСТАБ
-{Шафиқанинг ҳикояси}
         </item>
-                <item>
+        <item>
 АСРЛАР УЧРАШУВИ
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ТИРИЛГАН ҚАЛБ
-{Шафиқанинг ҳикояси}
         </item>
-                <item>
+        <item>
 БУЮК ФАРЁД
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ЙЎЛГА ҚАЙТИШ
-{Шафиқанинг ҳикояси}
         </item>
-                <item>
+        <item>
 АВЛОДЛАРНИ ЎРТАГАН ДАРД
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ҲАҚНИ ТОПИШ ВА ҲАҚ ТОМОН ЙЎЛ
-{Шафиқа ҳикоясининг охири,
-Анжелина ҳикоясининг бошланиши}
-        </item>
-                <item>
+{Шафиқа ҳикоясининг охири,</item>
+        <item>
 ИСТИБДОД ЎЛКАСИ
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 БОЛҚОН: БИТМАЙДИГАН ЖАРОҲАТ
-{Анжелинанинг ҳикояси}
         </item>
-                <item>
+        <item>
 ХОИН ВА ЗОЛИМ ҚАРШИСИДА
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ЗАҲАРЛАНГАН СУВ
-{Анжелинанинг ҳикояси}
         </item>
-                <item>
+        <item>
 ИБЛИСЛАР ИСКАНЖАСИ
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 “ҲИНД СОРИ ЮЗЛАНДИМ”[ Шоҳ ва шоир Заҳириддин Муҳаммад Бобур (1483 – 1530) сатри.]
-{Анжелинанинг ҳикояси}
+
         </item>
-                <item>
+        <item>
 “РОББИМ, КЎКСИМНИ ОЧ!”[ Тоҳа сурасининг 25-ояти мазмуни.]
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ФИТНА ОТАШИ
-{Анжелинанинг ҳикояси}
         </item>
-                <item>
+        <item>
 ЧОҲ ЭГАЛАРИ[ Қуръонда зикр этилган қисса.]
-{Абдуллоҳ Ёрқиннинг ҳикояси}
         </item>
-                <item>
+        <item>
 ФИТНА ОТАШИ АЛАНГА ОЛДИ
-{Сабринисо хонимнинг ҳикояси}
         </item>
-                <item>
+        <item>
 ҚАЛБ ЭШИКЛАРИНИНГ ОЧИЛИШИ
-{Абдуллоҳ Ёрқиннинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 ҚАМОҚ ОСТОНАСИДА
-{Сабринисо хонимнинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 СИНОВЛАР САРИ
-{Абдуллоҳ Ёрқиннинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 ҚАНОТСИЗ УЧГАН АЁЛ
-{Сабринисо хонимнинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 ҲАҚҚА НАЗАР
-{Абдуллоҳ Ёрқиннинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 ИЙМОН НУРИ
-{Сабринисо хонимнинг ҳикояси тугайди, Анжелина ҳикоясининг давоми}</item>
-                <item>
+        </item>
+        <item>
 “САҲАР ВАҚТИ КЎРДИМ КЎЗИМ СУЛТОНИНИ”[ Уйғур шоири Абдураҳим Ўткир сатри.]
-{Абдуллоҳ Ёрқин ҳикоясининг сўнги, Умар Сайфуллин ҳикоясининг бошланиши}</item>
-                <item>
+        </item>
+        <item>
 ҚИЗИЛ АТИРГУЛ
-{Анжелина ҳикоясининг сўнги ва Ҳумайро ҳикоясининг аввали}</item>
-                <item>
+        </item>
+        <item>
 ФИҒОН
-{Умар Сайфуллиннинг ҳикояси}</item>
-                <item>
+        </item>
+        <item>
 САЖДАДАГИ АЁЛ
-{Ҳумайронинг ҳикояси}</item>
-                <item>ТЎФОН
-{Сўнгги боб}</item>
-                <item>
-МУАЛЛИФ ШУКРОНАСИ{ }</item>
+        </item>
+        <item>ТЎФОН</item>
+        <item>
+МУАЛЛИФ ШУКРОНАСИ</item>
 
-        </string-array>
+    </string-array>
 
-        <string-array name="chapter_jangchi_crill">
+    <string-array name="chapters_halqa_crill_commment">
+        <item>
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Шафиқанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Шафиқанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Шафиқанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Шафиқа ҳикоясининг охири,
+Анжелина ҳикоясининг бошланиши
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Анжелинанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Анжелинанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Анжелинанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Анжелинанинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси
+        </item>
+        <item>
+Сабринисо хонимнинг ҳикояси
+        </item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси</item>
+        <item>
+Сабринисо хонимнинг ҳикояси</item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси</item>
+        <item>
+Сабринисо хонимнинг ҳикояси</item>
+        <item>
+Абдуллоҳ Ёрқиннинг ҳикояси</item>
+        <item>
+Сабринисо хонимнинг ҳикояси тугайди, Анжелина ҳикоясининг давоми
+        </item>
+        <item>
+Абдуллоҳ Ёрқин ҳикоясининг сўнги, Умар Сайфуллин ҳикоясининг бошланиши
+        </item>
+        <item>
+Анжелина ҳикоясининг сўнги ва Ҳумайро ҳикоясининг аввали
+        </item>
+        <item>
+Умар Сайфуллиннинг ҳикояси
+        </item>
+        <item>
+Ҳумайронинг ҳикояси
+        </item>
+        <item>
+Сўнгги боб
+        </item>
+        <item>
+        </item>
+
+    </string-array>
+
+    <string-array name="chapter_jangchi_crill">
         <item>
 ЗУЛМ
         </item>
-                <item>
+        <item>
 ҲУКМ
         </item>
-                <item>
+        <item>
 ҲИМОЯ
         </item>
-                <item>
+        <item>
 “ТАКЛИФ”
         </item>
-                <item>
+        <item>
 ҚУВИЛГАННИНГ РЕЖАЛАРИ
         </item>
-                <item>
+        <item>
 ХИЁНАТЛИ ЎТМИШ
         </item>
-                <item>
+        <item>
 ФИТНА
         </item>
-                <item>
+        <item>
 ХУДОНИ ТАНИШ
         </item>
-                <item>
+        <item>
 ТОЛУТ
         </item>
-                <item>
+        <item>
 ҚОЧИШ
         </item>
-                <item>
+        <item>
 ТОЛУТ ТАХТГА ЧИҚДИ
          </item>
-                <item>
+        <item>
 ИБЛИС МАЖЛИСИ
          </item>
-                <item>
+        <item>
 ДАРЁДАН КЕЧИБ ЎТГАНЛАР
          </item>
-                <item>
+        <item>
 НУСРАТ ЖАНГИ
         </item>
-                <item>
+        <item>
             ХОТИМА
         </item>
-                <item>
+        <item>
            ШУКРОНА СЎЗИ
        </item>
 
-        </string-array>
-
+    </string-array>
 
 </resources>

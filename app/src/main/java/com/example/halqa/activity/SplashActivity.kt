@@ -42,27 +42,51 @@ class SplashActivity : AppCompatActivity() {
         }
         val sharedPref = SharedPref(this)
 
-        if (sharedPref.isOneCreate){
-            //val appDatabase = AppDatabase.getAppDBInstance(this)
+        if (sharedPref.isOneCreate) {
 
-            val halqaList = resources.getStringArray(R.array.halqa).toList()
+            val halqaList = getListFromId(R.array.halqa)
+            val halqaChapterNameKrillList =
+                getListFromId(R.array.chapters_halqa_crill)
+            val halqaChapterCommentKrillList =
+                getListFromId(R.array.chapters_halqa_crill_commment)
+            val halqaChapterNameLatinList =
+                getListFromId(R.array.chapters_halqa_latin)
+            val halqaChapterCommentLatinList =
+                getListFromId(R.array.chapters_halqa_latin_comment)
+
 
             halqaList.forEachIndexed { index, item ->
-                val halqa = BookData(bob = "${index + 1}-bob" , bookName = HALQA, url = item, isDownload = false)
-                //appDatabase.itemDao().createPost(halqa)
+                val halqa = BookData(
+                    bob = "${index + 1}-bob",
+                    bookName = HALQA,
+                    url = item,
+                    chapterNameKrill = halqaChapterNameKrillList[index],
+                    chapterNameLatin = halqaChapterNameLatinList[index],
+                    chapterCommentKrill = halqaChapterCommentKrillList[index],
+                    chapterCommentLatin = halqaChapterCommentLatinList[index],
+                    isDownload = false
+                )
                 viewModel.createPost(halqa)
             }
-            val jangchiList = resources.getStringArray(R.array.jangchi).toList()
+            val jangchiList = getListFromId(R.array.jangchi)
+            val jangchiChapterNameKrillList =
+                getListFromId(R.array.chapter_jangchi_crill)
+            val jangchiChapterNameLatinList =
+                getListFromId(R.array.chapters_jangchi_latin)
 
             jangchiList.forEachIndexed { index, item ->
-                val halqa = BookData(bob = "${index + 1}-bob" , bookName = JANGCHI, url = item, isDownload = false)
-                //appDatabase.itemDao().createPost(halqa)
+                val halqa = BookData(
+                    bob = "${index + 1}-bob",
+                    bookName = JANGCHI,
+                    url = item,
+                    chapterNameKrill = jangchiChapterNameKrillList[index],
+                    chapterNameLatin = jangchiChapterNameLatinList[index],
+                    isDownload = false
+                )
                 viewModel.createPost(halqa)
             }
-
             sharedPref.isOneCreate = false
         }
-
         countDownTimer()
     }
 
@@ -70,12 +94,12 @@ class SplashActivity : AppCompatActivity() {
         object : CountDownTimer(4000, 1000) {
             override fun onTick(l: Long) {}
             override fun onFinish() {
-                val intent = Intent(this@SplashActivity,MainActivity::class.java)
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }.start()
     }
 
-
+    private fun getListFromId(id: Int): List<String> = resources.getStringArray(id).toList()
 }
