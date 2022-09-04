@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHalqa"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:outlineSpotShadowColor="@color/main_color"
@@ -21,13 +21,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            >
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_book_image"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_jangchi"
@@ -37,33 +38,33 @@
                 app:shapeAppearanceOverlay="@style/round_corner" />
 
             <TextView
-                android:id="@+id/tv_bookName"
+                android:id="@+id/tvBookJangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/str_jangchi"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/tv_inform"
+                app:layout_constraintStart_toStartOf="@id/tvChapterJangchi"
                 app:layout_constraintTop_toTopOf="@id/iv_book_image" />
 
             <TextView
-                android:layout_marginBottom="4dp"
-                android:id="@+id/tv_inform"
+                android:id="@+id/tvChapterJangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginBottom="4dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="2-bop, 20-bet"
                 android:textColor="#9597A1"
                 android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/tvContinueJangchi"
                 app:layout_constraintStart_toEndOf="@id/iv_book_image"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bookName"
-                app:layout_constraintBottom_toTopOf="@id/tv_continue"/>
+                app:layout_constraintTop_toBottomOf="@+id/tvBookJangchi" />
 
 
             <TextView
-                android:id="@+id/tv_continue"
+                android:id="@+id/tvContinueJangchi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -72,12 +73,12 @@
                 android:textColor="#177EE6"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_book_image"
-                app:layout_constraintStart_toStartOf="@id/tv_inform" />
+                app:layout_constraintStart_toStartOf="@id/tvChapterJangchi" />
 
             <ImageView
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="2dp"
                 android:src="@drawable/ic_play"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -90,7 +91,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvJangchi"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
         android:outlineSpotShadowColor="@color/main_color"
@@ -101,13 +102,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="15dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivHalqa"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/halqa_2"
@@ -117,7 +118,7 @@
                 app:shapeAppearanceOverlay="@style/round_corner" />
 
             <TextView
-                android:id="@+id/tvHalqa"
+                android:id="@+id/tvBookHalqa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -126,23 +127,23 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/ivHalqa"
-                app:layout_constraintTop_toTopOf="@id/ivHalqa"/>
+                app:layout_constraintTop_toTopOf="@id/ivHalqa" />
 
             <TextView
-                android:id="@+id/tv_inform1"
+                android:id="@+id/tvChapterHalqa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="2-bop, 20-bet"
                 android:textColor="#9597A1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_davom_ettirish1"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintStart_toStartOf="@id/tvHalqa"
-                app:layout_constraintTop_toBottomOf="@id/tvHalqa"/>
+                app:layout_constraintBottom_toTopOf="@id/tvContinueHalqa"
+                app:layout_constraintStart_toStartOf="@id/tvBookHalqa"
+                app:layout_constraintTop_toBottomOf="@id/tvBookHalqa" />
 
             <TextView
-                android:id="@+id/tv_davom_ettirish1"
+                android:id="@+id/tvContinueHalqa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -151,12 +152,12 @@
                 android:textColor="#177EE6"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivHalqa"
-                app:layout_constraintStart_toStartOf="@id/tv_inform1"/>
+                app:layout_constraintStart_toStartOf="@id/tvChapterHalqa" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="2dp"
                 android:src="@drawable/ic_play"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

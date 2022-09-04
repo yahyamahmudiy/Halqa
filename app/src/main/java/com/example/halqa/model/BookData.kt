@@ -15,5 +15,6 @@ data class BookData(
     var chapterCommentKrill: String = "",
     var chapterCommentLatin: String = "",
     var isDownload: Boolean = false,
-    var downloadID: Long = -1
+    var downloadID: Long = -1,
+    var duration: Int = 0
 )

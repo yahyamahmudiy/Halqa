@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkSaved() {
-        if (SharedPref(this).getBoolean("introDone")) {
+        if (SharedPref(this).getString(LANGUAGE)!!.isNotBlank()) {
             navGraph.setStartDestination(R.id.mainFlowFragment)
         } else {
             navGraph.setStartDestination(R.id.languageFlowFragment)
@@ -102,14 +102,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserver() {
-        Log.d("TAG", "initObserver: okkkk")
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allBookData.collect {
                     when (it) {
                         UiStateList.LOADING -> {}
                         is UiStateList.SUCCESS -> {
-                            Log.d("TAG", "initObserver: ${it.data.size}")
                             refreshMenuAdapter(it.data)
                         }
                         is UiStateList.ERROR -> {}
@@ -129,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter.onChapterClick = {
             bookPageSelected.setChapterNumber(it)
+            bookPageSelected.setLoading()
             closeDrawerLayout()
         }
     }

@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHalqa"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:outlineSpotShadowColor="@color/main_color"
@@ -21,13 +21,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="15dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_book_image"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_jangchi"
@@ -81,7 +81,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvJangchi"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
         android:outlineSpotShadowColor="@color/main_color"
@@ -92,13 +92,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="15dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivHalqa"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/halqa_2"

@@ -8,35 +8,44 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.halqa.R
+import com.example.halqa.databinding.ItemBookmarkAudioBinding
 import com.example.halqa.databinding.ItemBookmarkBinding
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.model.BookmarkAudioData
 import com.example.halqa.model.BookmarkData
 import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.UiStateList
 
-class BookmarkAdapter(context: Context) :
-    ListAdapter<BookmarkData, BookmarkAdapter.ItemViewHolder>(ITEM_DIF) {
+class BookmarkAudioAdapter(context: Context) :
+    ListAdapter<BookmarkAudioData, BookmarkAudioAdapter.ItemViewHolder>(ITEM_DIF) {
 
     private var isBool = SharedPref(context).isSaved
     var lotin = context.getString(R.string.str_bob_lotin)
     var kirill = context.getString(R.string.str_bob_kirill)
 
-    lateinit var onClick: (BookmarkData) -> (Unit)
+    lateinit var onClick: (BookmarkAudioData) -> (Unit)
 
     companion object {
-        val ITEM_DIF = object : DiffUtil.ItemCallback<BookmarkData>() {
-            override fun areItemsTheSame(oldItem: BookmarkData, newItem: BookmarkData): Boolean {
+        val ITEM_DIF = object : DiffUtil.ItemCallback<BookmarkAudioData>() {
+            override fun areItemsTheSame(
+                oldItem: BookmarkAudioData,
+                newItem: BookmarkAudioData
+            ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: BookmarkData, newItem: BookmarkData): Boolean {
+            override fun areContentsTheSame(
+                oldItem: BookmarkAudioData,
+                newItem: BookmarkAudioData
+            ): Boolean {
                 return oldItem == newItem
             }
 
         }
     }
 
-    inner class ItemViewHolder(val bn: ItemBookmarkBinding) : RecyclerView.ViewHolder(bn.root) {
+    inner class ItemViewHolder(val bn: ItemBookmarkAudioBinding) :
+        RecyclerView.ViewHolder(bn.root) {
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
             val item = getItem(adapterPosition)
@@ -46,10 +55,13 @@ class BookmarkAdapter(context: Context) :
                 else ivBook.setImageResource(R.drawable.img_jangchi)
 
                 if (isBool) {
-                    tvInform.text = "${item.bob}-" + lotin
+                    tvChapterNumber.text = "${item.bob}-" + lotin
                 } else {
-                    tvInform.text = "${item.bob}-" + kirill
+                    tvChapterNumber.text = "${item.bob}-" + kirill
                 }
+
+                tvChapterDuration.text = getDuration(item.duration / 1000)
+
                 root.setOnClickListener {
                     onClick.invoke(currentList[position])
                 }
@@ -57,9 +69,16 @@ class BookmarkAdapter(context: Context) :
         }
     }
 
+    private fun getDuration(duration: Int): String = String.format(
+        "%02d:%02d:%02d",
+        (duration / 3600),
+        (duration / 60) % 60,
+        duration % 60
+    )
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            ItemBookmarkBinding.inflate(
+            ItemBookmarkAudioBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -71,8 +90,8 @@ class BookmarkAdapter(context: Context) :
         holder.bind(position)
     }
 
-    fun submitData(list: List<BookmarkData>) {
-        val items = ArrayList<BookmarkData>()
+    fun submitData(list: List<BookmarkAudioData>) {
+        val items = ArrayList<BookmarkAudioData>()
         items.addAll(currentList)
         items.addAll(list)
         items.reverse()

@@ -10,6 +10,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#B3B9C0</color>
     <color name="main_color">#177EE6</color>
+    <color name="main_color_dialog">#99177EE6</color>
     <color name="light_main_color">#97CAFB</color>
     <color name="main_background">#F8FAFF</color>
     <color name="card_view_color">#062D303A</color>

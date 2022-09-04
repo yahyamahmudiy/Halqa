@@ -17,7 +17,6 @@ import com.example.halqa.utils.slideUp
 
 class MainFlowFragment : BaseFragment(R.layout.fragment_main_flow, R.id.nav_host_fragment_main) {
 
-    private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private val binding by viewBinding(FragmentMainFlowBinding::bind)
 
 

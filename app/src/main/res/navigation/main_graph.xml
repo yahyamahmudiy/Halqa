@@ -11,12 +11,19 @@
         tools:layout="@layout/fragment_bookmark">
 
         <action
-            android:id="@+id/action_booksFragmentBM_to_readFragment"
+            android:id="@+id/action_bookmarkFragment_to_readFragment"
             app:destination="@id/readFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_bookmarkFragment_to_bookAboutFragment"
+            app:destination="@id/bookAboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
     <fragment
@@ -40,6 +47,13 @@
         <action
             android:id="@+id/action_savedFragment_to_readFragment"
             app:destination="@id/readFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_savedFragment_to_bookAboutFragment"
+            app:destination="@id/bookAboutFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

@@ -1,6 +1,5 @@
 package com.example.halqa.fragment.mainflow.bookmark.books
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.halqa.model.BookmarkData
@@ -14,15 +13,22 @@ import javax.inject.Inject
 @HiltViewModel
 class BooksBMViewModel @Inject constructor(private val repository: ItemRepository) : ViewModel() {
 
-    val bookmarkFromDB = MutableLiveData<ArrayList<BookmarkData>>()
+    private val _bookmarkFromDB =
+        MutableStateFlow<UiStateList<BookmarkData>>(UiStateList.EMPTY)
+    val bookmarkFromDB = _bookmarkFromDB
 
     /**
      * Room related
      */
 
-    fun getBookmarkFromDB(){
-        viewModelScope.launch {
-            bookmarkFromDB.postValue(repository.getBookmarkFromDB() as ArrayList<BookmarkData>)
+    fun getBookmarkFromDB() = viewModelScope.launch {
+        _bookmarkFromDB.value = UiStateList.LOADING
+        try {
+            val response = repository.getBookmarkFromDB()
+            _bookmarkFromDB.value = UiStateList.SUCCESS(response)
+        } catch (e: Exception) {
+            _bookmarkFromDB.value =
+                UiStateList.ERROR(e.localizedMessage ?: "No connection", false)
         }
     }
 }

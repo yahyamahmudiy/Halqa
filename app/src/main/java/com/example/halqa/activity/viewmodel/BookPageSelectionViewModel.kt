@@ -1,20 +1,23 @@
 package com.example.halqa.activity.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.halqa.model.BookData
 import com.example.halqa.model.Chapter
+import com.example.halqa.utils.UiStateObject
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class BookPageSelectionViewModel : ViewModel() {
 
-    private val timeState = MutableLiveData<Chapter>()
+    private val timeState = MutableStateFlow<UiStateObject<Chapter>>(UiStateObject.EMPTY)
 
     fun setChapterNumber(chapter: Chapter) {
-        timeState.value = chapter
+        timeState.value = UiStateObject.SUCCESS(chapter)
     }
 
-    fun getChapterNumber(): LiveData<Chapter> {
+    fun getChapterNumber(): MutableStateFlow<UiStateObject<Chapter>> {
         return timeState
+    }
+
+    fun setLoading() {
+        timeState.value = UiStateObject.EMPTY
     }
 }

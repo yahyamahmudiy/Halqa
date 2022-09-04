@@ -117,7 +117,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="42dp"
-        android:progress="12"
+        android:progress="0"
         android:progressBackgroundTint="#C3E2FF"
         android:progressTint="#2C9AFF"
         android:theme="@style/seekBarStyle"
@@ -177,7 +177,7 @@
         android:layout_width="61dp"
         android:layout_height="61dp"
         android:layout_marginBottom="85dp"
-        android:src="@drawable/ic_pause_blue"
+        android:src="@drawable/ic_play_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -217,5 +217,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ivPlayPause" />
 
+    <TextView
+        android:id="@+id/tvSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.0x"
+        android:textColor="@color/main_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivAudioBookmark"
+        app:layout_constraintEnd_toStartOf="@id/ivPlayPause"
+        app:layout_constraintTop_toTopOf="@id/ivAudioBookmark" />
+
+    <ImageView
+        android:id="@+id/ivAudioBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_music_bookmark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivPlayPause" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

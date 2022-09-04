@@ -31,6 +31,12 @@ Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning nav
     <string name="str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh">“Saqlangan kitoblar” bo’limi xozircha bo’sh</string>
     <string name="str_15">15</string>
     <string name="str_00_00">00:00</string>
+    <string name="str_settings" >Sozlamalar</string>
+    <string name="str_yorqinlik" >Yorqinlik</string>
+    <string name="str_text_olcham" >Matn o\'lchami</string>
+    <string name="str_toliq_ekran" >To\'liq ekran</string>
+    <string name="str_something" >Something</string>
+    <string name="alert">Oxirgi ba\'zi boblar birga bitta audioda o\'qilgan</string>
     <string name="app_shior">Bugun mohiyatga qaytish fursati keldi, millat o\'zligini tanishga intilarkan, albatta, Xudoni tanishga majburdir.</string>
 
     <string name="str_biografiya_kirill">Aкром Малик 1991 йилда Тошкент вилояти Пискент туманида тугъилган. Тошкент давлат миллий университети магистри, Aлишер Навоий ижод билимдони, Ҳалқа, Жанги ва яна бир неча китоблар муаллифи</string>
@@ -54,5 +60,14 @@ Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning nav
     <string name="str_shams_solih_kirill">Шамс Солиҳ</string>
     <string name="str_reading_book_kirill">Китобни ўқиш</string>
     <string name="str_rate_book_kirill">Китобга баҳо беринг</string>
+    <string name="alert_krill">Охирги баъзи боблар бирга битта аудиода ўқилган</string>
     <string name="str_saqlangan_kitoblar_bo_limi_xozircha_bo_sh_kirill">“Saqlangan kitoblar” bo’limi xozircha bo’sh</string>
+    <string name="str_settings_krill" >Созламалар</string>
+    <string name="str_yorqinlik_krill" >Ёрқинлик</string>
+    <string name="str_text_olcham_krill" >Матн ўлчами</string>
+    <string name="str_toliq_ekran_krill" >Тўлиқ экран</string>
+    <string name="str_something_krill" >Something</string>
+    <string name="str_notdownload">Yuklanmagan</string>
+    <string name="str_notdownload_krill">Юкланмаган</string>
+
 </resources>

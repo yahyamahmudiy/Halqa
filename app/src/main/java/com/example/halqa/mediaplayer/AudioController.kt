@@ -9,62 +9,79 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
 
-class AudioController @Inject constructor(@ApplicationContext val context: Context) {
+class AudioController(val context: Context) {
 
-    private var mediaPlayer: MediaPlayer = MediaPlayer()
+    private var mediaPlayer: MediaPlayer? = null
+    private var audioController: AudioController? = null
+    private var isInitialized = false
 
+
+    init {
+        if (mediaPlayer == null) mediaPlayer = MediaPlayer()
+    }
+
+    fun getMediaPlayer() = if (mediaPlayer == null) mediaPlayer!! else {
+        mediaPlayer = MediaPlayer()
+        mediaPlayer!!
+    }
+
+
+    fun getInstance(): AudioController = if (audioController == null) {
+        audioController = AudioController(context)
+        audioController!!
+    } else audioController!!
 
     fun playMediaPlayer() {
-        mediaPlayer.start()
+        mediaPlayer!!.start()
     }
 
     fun pauseMediaPlayer() {
-        mediaPlayer.pause()
+        mediaPlayer!!.pause()
     }
 
 
     fun playSource(filePath: String) =
         try {
-            Log.d("TAG", "playSource: $filePath")
             resetPlayer()
-            mediaPlayer.setDataSource(context, File(filePath).toUri())
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer.prepare()
-            mediaPlayer.start()
+            mediaPlayer!!.setDataSource(context, File(filePath).toUri())
+            mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer!!.prepare()
+            mediaPlayer!!.start()
+            isInitialized = true
         } catch (e: Exception) {
-
+            isInitialized = false
         }
 
 
-
-    private fun resetPlayer() =
+    fun resetPlayer() =
         try {
-            mediaPlayer.stop()
-            mediaPlayer.reset()
+            mediaPlayer!!.stop()
+            mediaPlayer!!.reset()
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-
     fun forward15Seconds() {
-        if (mediaPlayer.currentPosition + 15000 <= mediaPlayer.duration)
-            mediaPlayer.seekTo(mediaPlayer.currentPosition + 15000)
-        else mediaPlayer.seekTo(mediaPlayer.duration)
+        if (mediaPlayer!!.currentPosition + 15000 <= mediaPlayer!!.duration)
+            mediaPlayer!!.seekTo(mediaPlayer!!.currentPosition + 15000)
+        else mediaPlayer!!.seekTo(mediaPlayer!!.duration)
     }
 
 
     fun backward15Seconds() {
-        if (mediaPlayer.currentPosition >= 15000)
-            mediaPlayer.seekTo(mediaPlayer.currentPosition - 15000)
-        else mediaPlayer.seekTo(0)
+        if (mediaPlayer!!.currentPosition >= 15000)
+            mediaPlayer!!.seekTo(mediaPlayer!!.currentPosition - 15000)
+        else mediaPlayer!!.seekTo(0)
     }
 
 
-    fun isPlaying(): Boolean = mediaPlayer.isPlaying
+    fun isPlaying(): Boolean = mediaPlayer!!.isPlaying
 
-    fun duration(): Int = mediaPlayer.duration
+    fun isMediaPlayerInitialized(): Boolean = isInitialized
 
-    fun currentPosition(): Int = mediaPlayer.currentPosition
+    fun duration(): Int = mediaPlayer!!.duration
 
-    fun seekTo(p1: Int) = mediaPlayer.seekTo(p1)
+    fun currentPosition(): Int = mediaPlayer!!.currentPosition
+
+    fun seekTo(p1: Int) = mediaPlayer!!.seekTo(p1)
 }

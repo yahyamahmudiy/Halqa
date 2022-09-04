@@ -69,7 +69,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initViews() {
         binding.apply {
             cvHalqa.setOnClickListener {
-                initMenu(HALQA)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_bookAboutFragment,
                     bundleOf(BOOK to HALQA)
@@ -77,16 +76,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             cvJangchi.setOnClickListener {
-                initMenu(JANGCHI)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_bookAboutFragment,
                     bundleOf(BOOK to JANGCHI)
                 )
             }
         }
-    }
-
-    private fun initMenu(bookName: String) {
-        (requireActivity() as MainActivity).getMenuData(bookName)
     }
 }

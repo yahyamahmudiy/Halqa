@@ -210,11 +210,13 @@
             android:layout_height="16dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="7.33dp"
-            android:rating="3.8"
-            android:stepSize="0.01"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="1"
             app:layout_constraintStart_toEndOf="@id/ivBook"
             app:layout_constraintTop_toBottomOf="@id/ivBookBackground"
-            app:mrb_progressBackgroundTint="#E8B006"
+            app:mrb_progressBackgroundTint="#E4E4E4"
             app:mrb_progressTint="#E8B006"
             app:mrb_secondaryProgressTint="#E8B006" />
 
@@ -222,7 +224,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="7.33dp"
             android:text="3.8"
             android:textColor="#828282"
             android:textSize="12sp"
@@ -301,21 +302,39 @@
             android:textColor="@color/white"
             app:backgroundTint="@color/main_color"
             app:cardCornerRadius="12dp"
-            app:layout_constraintEnd_toStartOf="@id/ivDownload"
+            app:layout_constraintEnd_toStartOf="@id/btnDownload"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ivDownload"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnDownload"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/bg_button_blue_12dp"
-            android:src="@drawable/ic_download_blue_icon"
+            app:cardBackgroundColor="@color/main_color"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="@id/btnReadbook"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnReadbook" />
+            app:layout_constraintTop_toTopOf="@id/btnReadbook">
+
+            <ImageView
+                android:id="@+id/ivDownload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_download_blue_icon" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminateTint="@color/white"
+                android:padding="10dp"
+                android:visibility="gone" />
+
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tvRateBook"
@@ -410,6 +429,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivBookBottom" />
 
             <TextView
+                android:id="@+id/tvAudioSpeaker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_abdukarim_mirzayev"
@@ -442,11 +462,12 @@
                 app:layout_constraintTop_toTopOf="@id/ivBookBottom" />
 
             <SeekBar
+                android:id="@+id/seekBarBottom"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:progress="12"
+                android:progress="0"
                 android:progressTint="@color/main_color"
                 android:thumb="@null"
                 app:layout_constraintBottom_toBottomOf="parent"

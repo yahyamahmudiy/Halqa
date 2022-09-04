@@ -20,6 +20,12 @@
         <item name="cornerSize">6dp</item>
     </style>
 
+    <style name="CustomDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/main_color_dialog</item>
+    </style>
+
     <style name="ProgressBarStyle">
         <item name="colorAccent">@color/main_color</item>
     </style>

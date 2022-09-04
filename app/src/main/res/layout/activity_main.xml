@@ -30,7 +30,7 @@
             android:background="@color/white"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="24dp">
+            android:paddingTop="40dp">
 
             <TextView
                 android:id="@+id/tvBookName"

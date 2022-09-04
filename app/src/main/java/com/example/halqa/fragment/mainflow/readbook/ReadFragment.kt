@@ -1,15 +1,21 @@
 package com.example.halqa.fragment.mainflow.readbook
 
+import android.app.ActionBar
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,9 +33,15 @@ import com.example.halqa.utils.Constants.HALQA
 import com.example.halqa.utils.Constants.HALQA_LAST_READING_CHAPTER
 import com.example.halqa.utils.Constants.JANGCHI
 import com.example.halqa.utils.Constants.JANGCHI_LAST_READING_CHAPTER
+import com.example.halqa.utils.Constants.LANGUAGE
 import com.example.halqa.utils.Constants.LAST_CHAPTER
+import com.example.halqa.utils.Constants.LATIN
+import com.example.halqa.utils.UiStateObject
+import com.example.halqa.utils.hide
+import com.example.halqa.utils.show
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.math.ceil
 
 @AndroidEntryPoint
@@ -43,28 +55,23 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private var isInDarkMode = false
     private var page: Int? = null
     private lateinit var bookName: String
-
     lateinit var sharedPref: SharedPref
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
             bookName = it.get(BOOK_KEY).toString()
-            if (it.containsKey(LAST_CHAPTER))
+            if (it.containsKey(LAST_CHAPTER)) {
                 page = it.get(LAST_CHAPTER).toString().toInt()
+                initMenu()
+            }
         }
 
         initViews()
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.readingSettings))
         closeAudioControlBottomSheet()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        saveToDB()
     }
 
     private fun closeAudioControlBottomSheet() {
@@ -77,13 +84,12 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
     private fun initViews() {
         sharedPref = SharedPref(requireContext())
+
         binding.apply {
             if (isCurrentBookHalqa()) {
-                seekBarPage.max = 33
-                tvFullPages.text = "33"
+                updateSeekBarData(33)
             } else {
-                seekBarPage.max = 16
-                tvFullPages.text = "16"
+                updateSeekBarData(16)
             }
 
             btnSettings.setOnClickListener {
@@ -106,7 +112,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             }
         }
 
-        initMenu()
+        setDataToView()
 
         controlBottomSettingsViewShowHide()
 
@@ -122,20 +128,90 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
         controlBookmark()
 
+        controlFullScreen()
+
         refreshAdapter()
 
         setUpBookPageSelectionObserver()
     }
 
-    private fun setMenu() {
+    private fun controlFullScreen() {
+        binding.readingSettings.switchFullscreen.setOnCheckedChangeListener { _, isSwitchOn ->
+            makeRvMatchParent(isSwitchOn)
+        }
+    }
 
+    private fun makeRvMatchParent(isSwitchOn: Boolean) {
+        if (isSwitchOn) {
+            binding.rvText.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            binding.topScreen.hide()
+        } else {
+            binding.topScreen.show()
+            (binding.rvText.layoutParams as ConstraintLayout.LayoutParams).apply {
+                height = 0
+                topToBottom = binding.topScreen.id
+            }
+        }
+    }
+
+    private fun setDataToView() {
+        binding.apply {
+            tvBookName.text = getBookName()
+            tvAuthorName.text = getAuthorName()
+
+            readingSettings.apply {
+                tvSettings.text =
+                    if (isLatin()) getString(R.string.str_settings) else getString(R.string.str_settings_krill)
+                tvBrightness.text =
+                    if (isLatin()) getString(R.string.str_yorqinlik) else getString(R.string.str_yorqinlik_krill)
+                tvTextSize.text =
+                    if (isLatin()) getString(R.string.str_text_olcham) else getString(R.string.str_text_olcham_krill)
+                tvFullscreen.text =
+                    if (isLatin()) getString(R.string.str_toliq_ekran) else getString(R.string.str_toliq_ekran_krill)
+//                tvSomething2.text =
+//                    if (isLatin()) getString(R.string.str_something) else getString(R.string.str_something_krill)
+            }
+        }
+    }
+
+    private fun getAuthorName(): String =
+        if (isLatin()) getString(R.string.str_akrom_malik) else getString(R.string.str_akrom_malik_kirill)
+
+    private fun getBookName(): String = if (isLatin()) {
+        if (isCurrentBookHalqa()) HALQA else JANGCHI
+    } else if (isCurrentBookHalqa()) getString(R.string.str_halqa_kirill) else getString(R.string.str_jangchi_kirill)
+
+    private fun isLatin(): Boolean = sharedPref.getString(LANGUAGE) == LATIN
+
+    private fun updateSeekBarData(fullChapterNumber: Int) {
+        binding.apply {
+            seekBarPage.max = fullChapterNumber
+            tvFullPages.text = fullChapterNumber.toString()
+        }
     }
 
     private fun setUpBookPageSelectionObserver() {
-        bookPageSelected.getChapterNumber().observe(viewLifecycleOwner) {
-            if (isCurrentBookHalqa())
-                scrollToPosition(it.chapNumber * 2)
-            else scrollToPosition(it.chapNumber)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                bookPageSelected.getChapterNumber().collect {
+                    when (it) {
+                        UiStateObject.LOADING -> {
+                            //show progress
+                        }
+
+                        is UiStateObject.SUCCESS -> {
+                            if (isCurrentBookHalqa())
+                                scrollToPosition(it.data.chapNumber * 2)
+                            else scrollToPosition(it.data.chapNumber)
+                            bookPageSelected.setLoading()
+                        }
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 
@@ -154,23 +230,27 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             scrollToPosition(page!!)
             binding.tvCurrentPage.text = page.toString()
         }
-
     }
 
     private fun saveToDB() {
-        val page = binding.tvCurrentPage.text.toString()
-        val bookName = binding.tvBookName.text.toString()
-        viewModel.insertPhotoHomeDB(BookmarkData(0, bookName, page))
+        viewModel.insertPhotoHomeDB(
+            BookmarkData(
+                bookName = bookName,
+                bob = binding.tvCurrentPage.text.toString(),
+                position = getJangchiLastVisibleItemPosition() - 1
+            )
+        )
     }
 
     private fun controlRecyclerViewScroll() {
         binding.rvText.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                binding.seekBarPage.progress = lastPosition()
                 binding.tvCurrentPage.text =
                     if (isCurrentBookHalqa())
                         getHalqaLastVisibleItemPosition().toString()
                     else getJangchiLastVisibleItemPosition().toString()
+
+                binding.seekBarPage.progress = binding.tvCurrentPage.text.toString().toInt()
             }
         })
     }
@@ -280,19 +360,20 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
             this.submitList(resources.getStringArray(getNeededArray()).toList())
         }
         sharedPref.getInt(FONT_SIZE).apply {
-            binding.readingSettings.seekBarTextSize.progress
+            binding.readingSettings.seekBarTextSize.progress = this
             adapter.changeFontSizeWithoutDataSet(this.toFloat())
         }
         binding.rvText.adapter = adapter
     }
 
-    private fun getNeededArray(): Int = if (bookName == JANGCHI) {
-        if (sharedPref.getString("til") == "Lotin")
+    private fun getNeededArray(): Int = if (!isCurrentBookHalqa()) {
+        if (isLatin())
             R.array.text_of_chapters_jangchi_latin
         else R.array.text_of_chapters_jangchi_crill
-    } else if (sharedPref.getString("til") == "Lotin")
+    } else if (isLatin())
         R.array.text_of_chapters_halqa_latin
     else R.array.text_of_chapters_halqa_crill
+
 
     private fun changeModeToDark() {
         binding.apply {
@@ -330,6 +411,9 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     }
 
     private fun controlScreenBrightnessWithSeekbar() {
+
+        binding.readingSettings.seekBarBrightness.progress = getSystemBrightness()
+
         binding.readingSettings.seekBarBrightness.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
 
@@ -343,8 +427,7 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
     }
 
@@ -374,8 +457,13 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private fun lastPosition(): Int =
         (binding.rvText.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-
     private fun initMenu() {
         (requireActivity() as MainActivity).getMenuData(bookName)
     }
+
+    private fun getSystemBrightness() = android.provider.Settings.System.getInt(
+        requireContext().contentResolver,
+        android.provider.Settings.System.SCREEN_BRIGHTNESS,
+        -1
+    ) / 100
 }
