@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class BookPageSelectionViewModel : ViewModel() {
 
     private val timeState = MutableStateFlow<UiStateObject<Chapter>>(UiStateObject.EMPTY)
+    private val isDownloadComplete = MutableStateFlow<UiStateObject<Boolean>>(UiStateObject.EMPTY)
 
     fun setChapterNumber(chapter: Chapter) {
         timeState.value = UiStateObject.SUCCESS(chapter)
@@ -19,5 +20,13 @@ class BookPageSelectionViewModel : ViewModel() {
 
     fun setLoading() {
         timeState.value = UiStateObject.EMPTY
+    }
+
+    fun setDownloadComplete(download: Boolean) {
+        isDownloadComplete.value = UiStateObject.SUCCESS(download)
+    }
+
+    fun getDownloadComplete(): MutableStateFlow<UiStateObject<Boolean>> {
+        return isDownloadComplete
     }
 }

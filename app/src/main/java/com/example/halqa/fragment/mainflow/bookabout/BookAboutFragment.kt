@@ -2,10 +2,7 @@ package com.example.halqa.fragment.mainflow.bookabout
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -27,7 +24,6 @@ import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
 import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
-import com.example.halqa.dialog.DownloadSuccessDialog
 import com.example.halqa.extension.firstCap
 import com.example.halqa.extension.makeVerticallyScrollable
 import com.example.halqa.manager.SharedPref
@@ -71,7 +67,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private var completelyStopMediaPlayer = false
     private var currentDuration = 0
     private var isFromSaved = false
-
     lateinit var audioController: AudioController
     private lateinit var sharedPref: SharedPref
 
@@ -91,11 +86,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireActivity().registerReceiver(
-            broadcastReceiver,
-            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-        )
 
         downloadIcon()
 
@@ -206,10 +196,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
         setPageSelectionObserver()
 
-        setUpDownloadStatusUpdateObserver()
-
-        setUpDownloadedSizeObserver()
-
         controlOnBackPressed()
     }
 
@@ -224,54 +210,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             )
     }
 
-    private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            viewModel.updateDownloadStatus(
-                true,
-                intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            )
-        }
-    }
-
-    private fun setUpDownloadedSizeObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.downloadedSize.collect {
-                    when (it) {
-                        UiStateObject.LOADING -> {}
-
-                        is UiStateObject.SUCCESS -> {
-                            if (it.data == getPlayableRange()) {
-                                saveToSharedPrefSaved()
-                                showDownloadedDialog()
-                            }
-                        }
-                        is UiStateObject.ERROR -> {
-                        }
-                        else -> {}
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showDownloadedDialog() {
-        DownloadSuccessDialog(requireContext()).show()
-    }
-
-    private fun saveToSharedPrefSaved() {
-        if (book == HALQA) {
-            sharedPref.isSavedAudioHalqa = SAVED
-        } else {
-            sharedPref.isSavedAudioJangchi = SAVED
-        }
-        downloadIcon()
-    }
-
     private fun downloadBtnClick() {
         when (save) {
             NOTSAVED -> {
                 viewModel.getBookAudios(book!!)
+                setUpDownloadCompleteObserver()
             }
             SAVING -> {
 
@@ -280,6 +223,35 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 getAllBookData()
             }
         }
+    }
+
+    private fun setUpDownloadCompleteObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allBooks.collect {
+                    when (it) {
+                        UiStateList.LOADING -> {
+                            if (book == HALQA) {
+                                sharedPref.isSavedAudioHalqa = SAVING
+                            } else {
+                                sharedPref.isSavedAudioJangchi = SAVING
+                            }
+                            downloadIcon()
+                        }
+
+                        is UiStateList.SUCCESS -> {
+                            it.data.forEach { bookDate ->
+                                downloadFile(bookDate)
+                            }
+                        }
+                        is UiStateList.ERROR -> {
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
+
     }
 
     private fun downloadIcon() {
@@ -310,40 +282,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun setUpDownloadObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allBooks.collect {
-                    when (it) {
-                        UiStateList.LOADING -> {
-                            if (book == HALQA) {
-                                sharedPref.isSavedAudioHalqa = SAVING
-                            } else {
-                                sharedPref.isSavedAudioJangchi = SAVING
-                            }
-                            downloadIcon()
-                        }
-
-                        is UiStateList.SUCCESS -> {
-                            it.data.forEach { bookDate ->
-                                downloadFile(bookDate)
-                            }
-                        }
-                        is UiStateList.ERROR -> {
-                        }
-                        else -> {}
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setUpDownloadStatusUpdateObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.updateStatus.collect {
+                bookPageSelected.getDownloadComplete().collect {
                     when (it) {
                         UiStateObject.LOADING -> {}
 
                         is UiStateObject.SUCCESS -> {
-                            viewModel.getDownloadedBookDataSize(book!!, true)
+                            binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
+                            binding.progress.hide()
                         }
                         is UiStateObject.ERROR -> {
                         }
@@ -625,7 +570,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 Toast.LENGTH_SHORT
             ).show()
         else
-            Toast.makeText(requireContext(), getString(R.string.str_notdownload_krill), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.str_notdownload_krill),
+                Toast.LENGTH_SHORT
+            ).show()
     }
 
     private fun changePlayPauseButton(drawable: Int) {

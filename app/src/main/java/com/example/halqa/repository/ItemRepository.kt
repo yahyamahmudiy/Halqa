@@ -36,4 +36,5 @@ class ItemRepository @Inject constructor(private val itemDao: ItemDao) {
         itemDao.updateDuration(id, duration)
 
     suspend fun getBookmarkAudios() = itemDao.getBookmarkAudios()
+    suspend fun getBookName(downloadId: Long): BookData  = itemDao.getBookName(downloadId)
 }

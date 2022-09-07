@@ -30,7 +30,7 @@ fun View.slideUp() {
         this.height.toFloat(),  // fromYDelta
         0f
     ) // toYDelta
-    animate.duration = 1
+    animate.duration = 500
     animate.fillAfter = true
     this.startAnimation(animate)
 }

@@ -47,4 +47,7 @@ interface ItemDao {
     @Query("UPDATE halqabook SET duration=:duration WHERE id=:id")
     suspend fun updateDuration(id: Int, duration: Int): Int
 
+    @Query("SELECT * FROM halqabook WHERE downloadID=:downloadId")
+    suspend fun getBookName(downloadId: Long): BookData
+
 }

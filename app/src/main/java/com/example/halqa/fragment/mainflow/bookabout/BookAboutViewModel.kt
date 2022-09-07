@@ -21,13 +21,6 @@ constructor(private val repository: ItemRepository) : ViewModel() {
         MutableStateFlow<UiStateList<BookData>>(UiStateList.EMPTY)
     val allBooks = _allBooks
 
-    private val _updateStatus =
-        MutableStateFlow<UiStateObject<Int>>(UiStateObject.EMPTY)
-    val updateStatus = _updateStatus
-
-    private val _downloadedSize =
-        MutableStateFlow<UiStateObject<Int>>(UiStateObject.EMPTY)
-    val downloadedSize = _downloadedSize
 
     private val _allBooksAudio =
         MutableStateFlow<UiStateList<BookData>>(UiStateList.EMPTY)
@@ -55,17 +48,6 @@ constructor(private val repository: ItemRepository) : ViewModel() {
         }
     }
 
-    fun getDownloadedBookDataSize(bookName: String, isDownloaded: Boolean) = viewModelScope.launch {
-        _downloadedSize.value = UiStateObject.LOADING
-        try {
-            val response = repository.getDownloadedBookDataSize(bookName, isDownloaded)
-            _downloadedSize.value = UiStateObject.SUCCESS(response)
-        } catch (e: Exception) {
-            _downloadedSize.value =
-                UiStateObject.ERROR(e.localizedMessage ?: "No connection", false)
-        }
-    }
-
     fun updateAudioDownloadId(id: Int, downloadID: Long) = viewModelScope.launch {
         try {
             repository.updateDownloadId(id, downloadID)
@@ -73,16 +55,6 @@ constructor(private val repository: ItemRepository) : ViewModel() {
         }
     }
 
-    fun updateDownloadStatus(status: Boolean, downloadID: Long) = viewModelScope.launch {
-        _updateStatus.value = UiStateObject.LOADING
-        try {
-            val response = repository.updateDownloadStatus(status, downloadID)
-            _updateStatus.value = UiStateObject.SUCCESS(response)
-        } catch (e: Exception) {
-            _updateStatus.value =
-                UiStateObject.ERROR(e.localizedMessage ?: "No connection", false)
-        }
-    }
 
     fun saveLastDuration(id: Int, duration: Int) = viewModelScope.launch {
         try {
