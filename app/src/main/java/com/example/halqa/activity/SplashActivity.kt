@@ -1,6 +1,7 @@
 package com.example.halqa.activity
 
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -9,8 +10,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
-import android.util.Log
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -29,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private val viewModel: SplashViewModel by viewModels()
-    private var progressBar: ProgressBar? = null
+    private lateinit var progressBar: ProgressBar
     private var progressStatus = 0
     private var textView: TextView? = null
     private val handler: Handler = Handler()
@@ -117,28 +118,21 @@ class SplashActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
-    private fun setProgressBar(){
-        progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
-        progressBar!!.progressTintList =  ColorStateList.valueOf(getColor(R.color.main_color))
-        // Start long running operation in a background thread
-        // Start long running operation in a background thread
-        Thread {
-            while (progressStatus < 22) {
-                progressStatus += 1
-                // Update the progress bar and display the
-                //current value in the text view
-                handler.post(Runnable {
-                    progressBar!!.progress = progressStatus
-                })
-                try {
-                    // Sleep for 200 milliseconds.
-                    Thread.sleep(200)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }
-        }.start()
+    private fun setProgressBar() {
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.progressTintList = ColorStateList.valueOf(getColor(R.color.main_color))
+
+        progressBar.smoothProgress(100)
+
     }
 
     private fun getListFromId(id: Int): List<String> = resources.getStringArray(id).toList()
+
+    private fun ProgressBar.smoothProgress(percent: Int) {
+        val animation = ObjectAnimator.ofInt(this, "progress", percent)
+        animation.duration = 4000
+        animation.interpolator = DecelerateInterpolator()
+        animation.start()
+    }
+
 }
