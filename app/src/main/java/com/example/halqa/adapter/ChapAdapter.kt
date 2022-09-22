@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.halqa.R
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.hide
@@ -14,7 +15,6 @@ import com.example.halqa.utils.hide
 class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
 
     lateinit var onChapterClick: ((Chapter) -> Unit)
-    private val chapter = Chapter()
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Chapter>() {
         override fun areItemsTheSame(oldItem: Chapter, newItem: Chapter): Boolean {
@@ -46,6 +46,8 @@ class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
                     onChapterClick.invoke(item)
                 }
                 holder.view.apply {
+                    if (item.isDownloaded) ivPlay.setImageResource(R.drawable.ic_play)
+                    else ivPlay.setImageResource(R.drawable.ic_play_grey)
                     if (currentList.size == 33) {
                         if (position != 32)
                             tvChapNumber.text = "${position + 1}-bob"

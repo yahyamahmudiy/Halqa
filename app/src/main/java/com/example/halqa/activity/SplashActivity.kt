@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.view.View
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -31,15 +32,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val viewModel: SplashViewModel by viewModels()
     private lateinit var progressBar: ProgressBar
-    private var progressStatus = 0
-    private var textView: TextView? = null
-    private val handler: Handler = Handler()
-    var mCountDownTimer: CountDownTimer? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        window?.decorView?.systemUiVisibility = (SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
 
         initViews()
     }

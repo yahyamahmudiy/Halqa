@@ -17,10 +17,10 @@ class AudioController(val context: Context) {
 
 
     init {
-        if (mediaPlayer == null) mediaPlayer = MediaPlayer()
+        mediaPlayer = getMediaPlayer()
     }
 
-    fun getMediaPlayer() = if (mediaPlayer == null) mediaPlayer!! else {
+    fun getMediaPlayer() = if (mediaPlayer != null) mediaPlayer!! else {
         mediaPlayer = MediaPlayer()
         mediaPlayer!!
     }
@@ -53,7 +53,7 @@ class AudioController(val context: Context) {
         }
 
 
-    fun resetPlayer() =
+    private fun resetPlayer() =
         try {
             mediaPlayer!!.stop()
             mediaPlayer!!.reset()

@@ -1,12 +1,9 @@
 package com.example.halqa.fragment.mainflow
 
-import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
-import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentMainFlowBinding
 import com.example.halqa.fragment.BaseFragment
 import com.example.halqa.utils.hide

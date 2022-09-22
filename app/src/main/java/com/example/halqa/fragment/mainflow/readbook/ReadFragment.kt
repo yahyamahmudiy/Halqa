@@ -1,6 +1,5 @@
 package com.example.halqa.fragment.mainflow.readbook
 
-import android.app.ActionBar
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
@@ -8,21 +7,17 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
-import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.adapter.BookTextAdapter
 import com.example.halqa.databinding.FragmentReadBinding
 import com.example.halqa.manager.SharedPref
@@ -36,12 +31,10 @@ import com.example.halqa.utils.Constants.JANGCHI_LAST_READING_CHAPTER
 import com.example.halqa.utils.Constants.LANGUAGE
 import com.example.halqa.utils.Constants.LAST_CHAPTER
 import com.example.halqa.utils.Constants.LATIN
-import com.example.halqa.utils.UiStateObject
 import com.example.halqa.utils.hide
 import com.example.halqa.utils.show
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import kotlin.math.ceil
 
 @AndroidEntryPoint
@@ -50,7 +43,6 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     private val viewModel: ReadViewModel by viewModels()
     private val binding by viewBinding(FragmentReadBinding::bind)
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-    private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var adapter: BookTextAdapter
     private var isInDarkMode = false
     private var page: Int? = null
@@ -194,24 +186,10 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
     }
 
     private fun setUpBookPageSelectionObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                bookPageSelected.getChapterNumber().collect {
-                    when (it) {
-                        UiStateObject.LOADING -> {
-                            //show progress
-                        }
-
-                        is UiStateObject.SUCCESS -> {
-                            if (isCurrentBookHalqa())
-                                scrollToPosition(it.data.chapNumber * 2)
-                            else scrollToPosition(it.data.chapNumber)
-                            bookPageSelected.setLoading()
-                        }
-                        else -> {}
-                    }
-                }
-            }
+        (requireActivity() as MainActivity).onChapterSelected = {
+            if (isCurrentBookHalqa())
+                scrollToPosition(it.chapNumber * 2)
+            else scrollToPosition(it.chapNumber)
         }
     }
 
@@ -240,6 +218,14 @@ class ReadFragment : Fragment(R.layout.fragment_read) {
                 position = getJangchiLastVisibleItemPosition() - 1
             )
         )
+        toast(getString(R.string.saved_successfully), getString(R.string.saved_successfully_krill))
+    }
+
+    private fun toast(string1: String, string2: String) {
+        if (isLatin()) Toast.makeText(requireContext(), string1, Toast.LENGTH_LONG)
+            .show()
+        else Toast.makeText(requireContext(), string2, Toast.LENGTH_LONG)
+            .show()
     }
 
     private fun controlRecyclerViewScroll() {

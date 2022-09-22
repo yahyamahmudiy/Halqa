@@ -6,23 +6,18 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.halqa.R
 import com.example.halqa.activity.MainActivity
-import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.databinding.FragmentBookAboutBinding
 import com.example.halqa.extension.firstCap
 import com.example.halqa.extension.makeVerticallyScrollable
@@ -30,6 +25,7 @@ import com.example.halqa.manager.SharedPref
 import com.example.halqa.mediaplayer.AudioController
 import com.example.halqa.model.BookData
 import com.example.halqa.model.BookmarkAudioData
+import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants.BOOK
 import com.example.halqa.utils.Constants.BOOK_EXTRA
 import com.example.halqa.utils.Constants.BOOK_KEY
@@ -51,12 +47,12 @@ import com.example.halqa.utils.show
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
 class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private val binding by viewBinding(FragmentBookAboutBinding::bind)
-    private val bookPageSelected by activityViewModels<BookPageSelectionViewModel>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private var isBool = true
     private var book: String? = null
@@ -64,14 +60,16 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private var save: String? = null
     private var dataList = emptyList<BookData>()
     private var lastAudio = 0
-    private var completelyStopMediaPlayer = false
-    private var currentDuration = 0
     private var isFromSaved = false
     lateinit var audioController: AudioController
     private lateinit var sharedPref: SharedPref
+    private lateinit var activity: MainActivity
+    val chapter by lazy { Chapter() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         sharedPref = SharedPref(requireContext())
         isBool = sharedPref.isSaved
         arguments?.let {
@@ -82,10 +80,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 getAllBookData()
             }
         }
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        activity = requireActivity() as MainActivity
 
         downloadIcon()
 
@@ -104,14 +100,18 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun setMenu() {
-        (requireActivity() as MainActivity).getMenuData(book!!)
+        activity.getMenuData(book!!)
     }
 
     private fun initViews() {
 
-        audioController = AudioController(requireContext()).getInstance()
+        audioController = activity.getAudioController()
+
+        checkIfAudioControllerWorking()
 
         binding.tvBookDescription.makeVerticallyScrollable()
+
+        activity.bookName = book!!
 
         binding.apply {
 
@@ -126,7 +126,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             }
 
             ivMenu.setOnClickListener {
-                (requireActivity() as MainActivity).openDrawerLayout()
+                activity.openDrawerLayout()
             }
 
             btnReadbook.setOnClickListener {
@@ -197,6 +197,21 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         setPageSelectionObserver()
 
         controlOnBackPressed()
+
+        setDataToBottomSheet()
+    }
+
+    private fun checkIfAudioControllerWorking() {
+        if (audioController.isPlaying() || audioController.isMediaPlayerInitialized()) {
+            binding.bottomAudioPlayView.show()
+            updateFullDurationValue()
+            setSeekBarCorrespondingly()
+            setBottomSeekBarCorrespondingly()
+        }
+
+        if (audioController.isPlaying()) {
+            changePlayPauseButton(R.drawable.ic_pause_blue)
+        }
     }
 
     private fun saveToDB() {
@@ -208,6 +223,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     duration = audioController.currentPosition()
                 )
             )
+        toast(getString(R.string.saved_successfully), getString(R.string.saved_successfully_krill))
     }
 
     private fun downloadBtnClick() {
@@ -277,25 +293,25 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 binding.progress.hide()
             }
         }
+        if (getAllFilesWriteInAppStorage() == getRealAudioSize()) {
+            binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
+        }
     }
 
-    private fun setUpDownloadObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                bookPageSelected.getDownloadComplete().collect {
-                    when (it) {
-                        UiStateObject.LOADING -> {}
+    private fun getAllFilesWriteInAppStorage() = try {
+        File("${requireActivity().getExternalFilesDir(null)}/$book$BOOK_EXTRA/$book").listFiles()!!.size
+    } catch (e: Exception) {
+        0
+    }
 
-                        is UiStateObject.SUCCESS -> {
-                            binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
-                            binding.progress.hide()
-                        }
-                        is UiStateObject.ERROR -> {
-                        }
-                        else -> {}
-                    }
-                }
-            }
+    private fun getRealAudioSize() =
+        if (book == HALQA) HALQA_AUDIO_LIST_SIZE else JANGCHI_AUDIO_LIST_SIZE
+
+
+    private fun setUpDownloadObserver() {
+        activity.onDownloadComplete = {
+            binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
+            binding.progress.hide()
         }
     }
 
@@ -424,8 +440,8 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 override fun handleOnBackPressed() {
                     // Do custom work here
 
-                    if ((requireActivity() as MainActivity).isDrawerOpen()) {
-                        (requireActivity() as MainActivity).closeDrawerLayout()
+                    if (activity.isDrawerOpen()) {
+                        activity.closeDrawerLayout()
                         return
                     }
 
@@ -437,8 +453,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     // if you want onBackPressed() to be called as normal afterwards
                     if (isEnabled) {
                         isEnabled = false
-                        completelyStopMediaPlayer = true
-                        saveCurrentAudioPositionToContinue()
                         requireActivity().onBackPressed()
                     }
                 }
@@ -479,8 +493,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                             audioController.currentPosition()
                         tvPassingDuration.text =
                             getDuration(audioController.currentPosition() / 1000)
-                        if (audioController.currentPosition() >= 0) currentDuration =
-                            audioController.currentPosition()
                         handler.postDelayed(this, 1000)
                     } catch (e: Exception) {
                         seekBar.progress = 0
@@ -519,23 +531,27 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun getAllBookData() {
-        if (dataList.isEmpty())
+        if (dataList.isEmpty()) {
             viewModel.getBookAudiosData(book!!)
+        }
     }
-
-//    private fun mediaPlayerCompleteTask() {
-//        audioController.getMediaPlayer().setOnCompletionListener {
-//            if (!completelyStopMediaPlayer)
-//                playAudio(++lastAudio, dataList[lastAudio].duration)
-//        }
-//    }
 
     private fun playAudio(position: Int, duration: Int) {
         if (dataList[position].downloadID != -1L) {
             if (position in dataList.indices) {
                 if (isBool)
-                    setDataToBottomSheet(lastAudio, dataList[position].chapterNameLatin)
-                else setDataToBottomSheet(lastAudio, dataList[position].chapterNameKrill)
+                    activity.lastAudioLiveData.value = UiStateObject.SUCCESS(
+                        chapter.apply {
+                            chapNumber = lastAudio
+                            chapName = dataList[position].chapterNameLatin
+                        }
+                    )
+                else activity.lastAudioLiveData.value = UiStateObject.SUCCESS(
+                    chapter.apply {
+                        chapNumber = lastAudio
+                        chapName = dataList[position].chapterNameKrill
+                    }
+                )
             }
 
             if (position in 0 until getPlayableRange()) {
@@ -546,7 +562,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             if (position in getPlayableRange() until dataList.size) {
                 lastAudio = getPlayableRange() - 1
                 audioController.playSource(getFilePath(getUri(dataList[lastAudio])))
-                toast()
+                toast(getString(R.string.alert), getString(R.string.alert_krill))
             }
             if (isFromSaved)
                 if (duration > 0) audioController.seekTo(duration)
@@ -556,6 +572,22 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     audioController.seekTo(it.get(DURATION).toString().toInt())
                 }
             }
+            saveCurrentAudioPositionToContinue()
+            binding.bottomAudioPlayView.show()
+        } else if (position in getPlayableRange() until dataList.size) {
+            lastAudio = getPlayableRange() - 1
+            audioController.playSource(getFilePath(getUri(dataList[lastAudio])))
+            toast(getString(R.string.alert), getString(R.string.alert_krill))
+            if (isFromSaved)
+                if (duration > 0) audioController.seekTo(duration)
+
+            arguments.let {
+                if (it!!.containsKey(DURATION)) {
+                    audioController.seekTo(it.get(DURATION).toString().toInt())
+                }
+            }
+            binding.bottomAudioPlayView.show()
+            saveCurrentAudioPositionToContinue()
         } else {
             toastAlert()
         }
@@ -621,27 +653,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun setPageSelectionObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                bookPageSelected.getChapterNumber().collect {
-                    when (it) {
-                        UiStateObject.LOADING -> {
-                            //show progress
-                        }
+        activity.onChapterSelected = {
+            if (dataList.isNotEmpty())
+                playAudio(it.chapNumber, dataList[lastAudio].duration)
 
-                        is UiStateObject.SUCCESS -> {
-                            if (dataList.isNotEmpty())
-                                playAudio(it.data.chapNumber, dataList[lastAudio].duration)
-
-                            setDataToBottomSheet(it.data.chapNumber, it.data.chapName)
-                            lastAudio = it.data.chapNumber
-                            getAllBookData()
-                            openAudioControlBottomSheet()
-                        }
-                        else -> {}
-                    }
-                }
-            }
+            lastAudio = it.chapNumber
+            getAllBookData()
+            openAudioControlBottomSheet()
         }
     }
 
@@ -650,16 +668,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allBooksAudio.collect {
                     when (it) {
-                        UiStateList.LOADING -> {
-
-                        }
+                        UiStateList.LOADING -> {}
 
                         is UiStateList.SUCCESS -> {
-                            //mediaPlayerCompleteTask()
                             playBook(it.data)
+                            viewModel.allBooksAudio.value = UiStateList.LOADING
                         }
-                        is UiStateList.ERROR -> {
-                        }
+                        is UiStateList.ERROR -> {}
                         else -> {}
                     }
                 }
@@ -677,21 +692,32 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         changePlayPauseButton(R.drawable.ic_pause_blue)
     }
 
-    private fun setDataToBottomSheet(chapterNumber: Int, chapterName: String) {
-        try {
-            binding.audioControlBottomSheet.tvChapter.text =
-                getChapterData(chapterNumber, chapterName)
-        } catch (e: Exception) {
+    private fun setDataToBottomSheet() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                activity.lastAudioLiveData.observe(viewLifecycleOwner) {
+                    when (it) {
+                        is UiStateObject.SUCCESS -> {
+                            try {
+                                binding.audioControlBottomSheet.tvChapter.text =
+                                    getChapterData(it.data.chapNumber, it.data.chapName)
+                            } catch (e: Exception) {
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 
     private fun getChapterData(chapterNumber: Int, chapterName: String): String =
         "${chapterNumber + 1}-bob. ${chapterName.firstCap()}"
 
-    private fun toast() {
-        if (isBool) Toast.makeText(requireContext(), getString(R.string.alert), Toast.LENGTH_LONG)
+    private fun toast(string1: String, string2: String) {
+        if (isBool) Toast.makeText(requireContext(), string1, Toast.LENGTH_LONG)
             .show()
-        else Toast.makeText(requireContext(), getString(R.string.alert_krill), Toast.LENGTH_LONG)
+        else Toast.makeText(requireContext(), string2, Toast.LENGTH_LONG)
             .show()
     }
 
@@ -712,7 +738,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun saveCurrentAudioPositionToContinue() {
         if (dataList.isNotEmpty()) {
             try {
-                viewModel.saveLastDuration(dataList[lastAudio].id!!, currentDuration)
+                activity.bookData = dataList[lastAudio]
                 sharedPref.saveInt(getChapterKey(), lastAudio)
             } catch (e: Exception) {
             }
@@ -722,9 +748,4 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun getChapterKey(): String =
         if (book == HALQA) HALQA_LAST_LISTENING_CHAPTER else JANGCHI_LAST_LISTENING_CHAPTER
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("TAG", "onDestroy: ok")
-        audioController.resetPlayer()
-    }
 }

@@ -381,6 +381,7 @@
             android:id="@+id/bottomAudioPlayView"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:visibility="gone"
             android:background="@drawable/top_cornered_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

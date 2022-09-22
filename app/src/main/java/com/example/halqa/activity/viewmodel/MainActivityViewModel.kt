@@ -1,10 +1,9 @@
 package com.example.halqa.activity.viewmodel
 
-import android.view.View
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.halqa.model.BookData
-import com.example.halqa.model.Chapter
 import com.example.halqa.repository.ItemRepository
 import com.example.halqa.utils.UiStateList
 import com.example.halqa.utils.UiStateObject
@@ -79,4 +78,16 @@ constructor(private val repository: ItemRepository) : ViewModel() {
         }
     }
 
+    fun updateAudioDownloadId(id: Int, downloadID: Long) = viewModelScope.launch {
+        try {
+            repository.updateDownloadId(id, downloadID)
+        } catch (e: Exception) {
+        }
+    }
+
+    fun saveLastDuration(id: Int, duration: Int) = viewModelScope.launch {
+        try {
+            repository.updateDuration(id, duration)
+        } catch (e: Exception) { }
+    }
 }

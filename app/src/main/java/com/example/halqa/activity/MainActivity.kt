@@ -6,14 +6,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
@@ -21,12 +25,12 @@ import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.halqa.R
-import com.example.halqa.activity.viewmodel.BookPageSelectionViewModel
 import com.example.halqa.activity.viewmodel.MainActivityViewModel
 import com.example.halqa.adapter.ChapAdapter
 import com.example.halqa.databinding.ActivityMainBinding
 import com.example.halqa.dialog.DownloadSuccessDialog
 import com.example.halqa.manager.SharedPref
+import com.example.halqa.mediaplayer.AudioController
 import com.example.halqa.model.BookData
 import com.example.halqa.model.Chapter
 import com.example.halqa.utils.Constants
@@ -39,23 +43,32 @@ import com.example.halqa.utils.Constants.LATIN
 import com.example.halqa.utils.UiStateList
 import com.example.halqa.utils.UiStateObject
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 import java.io.File
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    lateinit var onDownloadComplete: () -> Unit
     lateinit var navGraph: NavGraph
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var adapter: ChapAdapter
-    private val bookPageSelected by viewModels<BookPageSelectionViewModel>()
     private val viewModel by viewModels<MainActivityViewModel>()
     private val chapterList: ArrayList<Chapter> = arrayListOf()
-    private var bookName: String = ""
+    var bookName: String = ""
     private var downloadId: Long = 0
     private lateinit var sharedPref: SharedPref
+    private var bookList: List<BookData>? = null
+    private lateinit var audioController: AudioController
+    lateinit var onChapterSelected: (Chapter) -> Unit
+    var bookData = BookData()
+    val lastAudioLiveData =
+        MutableLiveData<UiStateObject<Chapter>>(UiStateObject.EMPTY)
+    private var handler = Handler(Looper.getMainLooper())
+    private var isOnBackground = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +92,11 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
+    override fun onStart() {
+        super.onStart()
+        isOnBackground = false
+    }
+
     private fun initViews() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -90,9 +108,42 @@ class MainActivity : AppCompatActivity() {
 
         navController.graph = navGraph
 
+        binding.ivDownloadAll.setOnClickListener {
+            bookList?.forEach {
+                downloadFile(it)
+            }
+            if (bookName == HALQA) {
+                sharedPref.isSavedAudioHalqa = Constants.SAVING
+            } else {
+                sharedPref.isSavedAudioJangchi = Constants.SAVING
+            }
+        }
+
+        audioController = AudioController(this).getInstance()
+
         setMenu()
 
         initObservers()
+    }
+
+    private fun downloadFile(bookData: BookData) {
+        val folderName = "${bookData.bookName}${BOOK_EXTRA}/${bookData.bookName}"
+        val request = DownloadManager.Request(Uri.parse(bookData.url))
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setTitle(bookData.bookName)
+            .setDescription("${bookData.bookName} audio kitob ${bookData.bob}")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(false)
+            .setDestinationInExternalFilesDir(
+                this,
+                folderName,
+                "${bookData.bookName}${bookData.bob}.mp3"
+            )
+        val downloadManager =
+            getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadID = downloadManager.enqueue(request)
+        viewModel.updateAudioDownloadId(bookData.id!!, downloadID)
     }
 
     private fun initObservers() {
@@ -139,6 +190,7 @@ class MainActivity : AppCompatActivity() {
                         UiStateList.LOADING -> {}
                         is UiStateList.SUCCESS -> {
                             refreshMenuAdapter(it.data)
+                            bookList = it.data
                         }
                         is UiStateList.ERROR -> {}
                         else -> {}
@@ -156,8 +208,8 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         adapter.onChapterClick = {
-            bookPageSelected.setChapterNumber(it)
-            bookPageSelected.setLoading()
+            //bookPageSelected.setChapterNumber(it)
+            onChapterSelected.invoke(it)
             closeDrawerLayout()
         }
     }
@@ -170,7 +222,8 @@ class MainActivity : AppCompatActivity() {
                     Chapter(
                         getBobNumber(it.bob),
                         it.chapterNameLatin,
-                        it.chapterCommentLatin
+                        it.chapterCommentLatin,
+                        it.isDownload
                     )
                 )
             }
@@ -179,7 +232,8 @@ class MainActivity : AppCompatActivity() {
                 Chapter(
                     getBobNumber(it.bob),
                     it.chapterNameKrill,
-                    it.chapterCommentKrill
+                    it.chapterCommentKrill,
+                    it.isDownload
                 )
             )
         }
@@ -201,7 +255,6 @@ class MainActivity : AppCompatActivity() {
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            Log.d("TAG", "onReceive: $downloadId")
             viewModel.updateDownloadStatus(
                 true,
                 downloadId
@@ -218,7 +271,6 @@ class MainActivity : AppCompatActivity() {
 
                         is UiStateObject.SUCCESS -> {
                             viewModel.getBookName(downloadId)
-                            Log.d("TAG", "setUpDownloadStatusUpdateObserver: ${it.data}")
                         }
                         is UiStateObject.ERROR -> {
                         }
@@ -237,7 +289,6 @@ class MainActivity : AppCompatActivity() {
                         UiStateObject.LOADING -> {}
 
                         is UiStateObject.SUCCESS -> {
-                            Log.d("TAG", "setUpBookNameObserver: ${it.data}")
                             bookName = it.data.bookName
                             viewModel.getDownloadedBookDataSize(bookName, true)
                         }
@@ -259,13 +310,10 @@ class MainActivity : AppCompatActivity() {
 
                         is UiStateObject.SUCCESS -> {
                             if (it.data == getAllFilesWriteInAppStorage() && getAllFilesWriteInAppStorage() == getRealAudioSize()) {
-                                Log.d(
-                                    "TAG",
-                                    "setUpDownloadedSizeObserver: ${it.data} ${getAllFilesWriteInAppStorage()} $bookName"
-                                )
                                 showDownloadedDialog()
                                 saveToSharedPrefSaved()
-                                bookPageSelected.setDownloadComplete(true)
+                                onDownloadComplete.invoke()
+                                getMenuData(bookName)
                             }
                         }
                         is UiStateObject.ERROR -> {
@@ -288,10 +336,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveToSharedPrefSaved() {
-        if (bookName == Constants.HALQA) {
+        if (bookName == HALQA) {
             sharedPref.isSavedAudioHalqa = Constants.SAVED
         } else {
             sharedPref.isSavedAudioJangchi = Constants.SAVED
         }
     }
+
+    fun getAudioController() = audioController
+
+    private fun saveCurrentAudioPositionToContinue(duration: Int) {
+        try {
+            if (bookData.id != null)
+                handler.post(object : Runnable {
+                    override fun run() {
+                        if (isOnBackground) {
+                            viewModel.saveLastDuration(bookData.id!!, duration)
+                        }
+                        handler.postDelayed(this, 10000)
+                    }
+                })
+        } catch (e: Exception) {
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isOnBackground = true
+        saveCurrentAudioPositionToContinue(getPosition())
+    }
+
+    private fun getPosition(): Int =
+        if (audioController.currentPosition() > 0) audioController.currentPosition() else 0
 }

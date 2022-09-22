@@ -69,5 +69,7 @@ Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning nav
     <string name="str_something_krill" >Something</string>
     <string name="str_notdownload">Yuklanmagan</string>
     <string name="str_notdownload_krill">Юкланмаган</string>
+    <string name="saved_successfully">Saqlandi</string>
+    <string name="saved_successfully_krill">Сақланди</string>
 
 </resources>

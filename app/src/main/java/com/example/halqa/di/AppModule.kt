@@ -28,5 +28,4 @@ class AppModule {
     fun dao(appDatabase: AppDatabase): ItemDao {
         return appDatabase.itemDao()
     }
-
 }

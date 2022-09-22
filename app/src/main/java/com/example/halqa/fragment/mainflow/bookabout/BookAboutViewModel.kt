@@ -1,13 +1,11 @@
 package com.example.halqa.fragment.mainflow.bookabout
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.halqa.model.BookData
 import com.example.halqa.model.BookmarkAudioData
 import com.example.halqa.repository.ItemRepository
 import com.example.halqa.utils.UiStateList
-import com.example.halqa.utils.UiStateObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -24,13 +22,14 @@ constructor(private val repository: ItemRepository) : ViewModel() {
 
     private val _allBooksAudio =
         MutableStateFlow<UiStateList<BookData>>(UiStateList.EMPTY)
-    val allBooksAudio = _allBooksAudio
+    var allBooksAudio = _allBooksAudio
 
     fun getBookAudios(bookName: String) = viewModelScope.launch {
         _allBooks.value = UiStateList.LOADING
         try {
             val response = repository.getBookAudiosNotEmptyUrl(bookName)
             _allBooks.value = UiStateList.SUCCESS(response)
+            _allBooks.value = UiStateList.LOADING
         } catch (e: Exception) {
             _allBooks.value =
                 UiStateList.ERROR(e.localizedMessage ?: "No connection", false)
@@ -55,20 +54,11 @@ constructor(private val repository: ItemRepository) : ViewModel() {
         }
     }
 
-
-    fun saveLastDuration(id: Int, duration: Int) = viewModelScope.launch {
-        try {
-            repository.updateDuration(id, duration)
-        } catch (e: Exception) {
-        }
-    }
-
     fun saveAudioBookmark(audioData: BookmarkAudioData) = viewModelScope.launch {
         try {
             repository.insertAudioBookmarkToDB(audioData)
         } catch (e: Exception) {
         }
     }
-
 }
 
