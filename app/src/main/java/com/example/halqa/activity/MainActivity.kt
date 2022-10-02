@@ -40,6 +40,8 @@ import com.example.halqa.utils.Constants.HALQA_AUDIO_LIST_SIZE
 import com.example.halqa.utils.Constants.JANGCHI_AUDIO_LIST_SIZE
 import com.example.halqa.utils.Constants.LANGUAGE
 import com.example.halqa.utils.Constants.LATIN
+import com.example.halqa.utils.Constants.SAVED
+import com.example.halqa.utils.Constants.SAVING
 import com.example.halqa.utils.UiStateList
 import com.example.halqa.utils.UiStateObject
 import dagger.hilt.android.AndroidEntryPoint
@@ -112,11 +114,7 @@ class MainActivity : AppCompatActivity() {
             bookList?.forEach {
                 downloadFile(it)
             }
-            if (bookName == HALQA) {
-                sharedPref.isSavedAudioHalqa = Constants.SAVING
-            } else {
-                sharedPref.isSavedAudioJangchi = Constants.SAVING
-            }
+            saveToSharedPrefSaved(SAVING)
         }
 
         audioController = AudioController(this).getInstance()
@@ -208,7 +206,6 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         adapter.onChapterClick = {
-            //bookPageSelected.setChapterNumber(it)
             onChapterSelected.invoke(it)
             closeDrawerLayout()
         }
@@ -220,6 +217,7 @@ class MainActivity : AppCompatActivity() {
             allBookData.forEach {
                 chapterList.add(
                     Chapter(
+                        it.bookName,
                         getBobNumber(it.bob),
                         it.chapterNameLatin,
                         it.chapterCommentLatin,
@@ -230,6 +228,7 @@ class MainActivity : AppCompatActivity() {
         else allBookData.forEach {
             chapterList.add(
                 Chapter(
+                    it.bookName,
                     getBobNumber(it.bob),
                     it.chapterNameKrill,
                     it.chapterCommentKrill,
@@ -311,7 +310,7 @@ class MainActivity : AppCompatActivity() {
                         is UiStateObject.SUCCESS -> {
                             if (it.data == getAllFilesWriteInAppStorage() && getAllFilesWriteInAppStorage() == getRealAudioSize()) {
                                 showDownloadedDialog()
-                                saveToSharedPrefSaved()
+                                saveToSharedPrefSaved(SAVED)
                                 onDownloadComplete.invoke()
                                 getMenuData(bookName)
                             }
@@ -335,11 +334,11 @@ class MainActivity : AppCompatActivity() {
         DownloadSuccessDialog(this).show()
     }
 
-    private fun saveToSharedPrefSaved() {
+    private fun saveToSharedPrefSaved(status: String) {
         if (bookName == HALQA) {
-            sharedPref.isSavedAudioHalqa = Constants.SAVED
+            sharedPref.isSavedAudioHalqa = status
         } else {
-            sharedPref.isSavedAudioJangchi = Constants.SAVED
+            sharedPref.isSavedAudioJangchi = status
         }
     }
 

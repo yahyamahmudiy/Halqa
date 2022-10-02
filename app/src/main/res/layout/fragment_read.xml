@@ -17,10 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:padding="10dp"
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="12dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@id/tvAuthorName"
@@ -29,6 +30,7 @@
             app:tint="#333333" />
 
         <TextView
+            android:fontFamily="@font/montserrat_medium"
             android:id="@+id/tvBookName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:fontFamily="@font/montserrat_regular"
             android:id="@+id/tvAuthorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,10 +56,11 @@
             app:layout_constraintTop_toBottomOf="@id/tvBookName" />
 
         <ImageView
+            android:padding="10dp"
             android:id="@+id/ivMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="22dp"
+            android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu"
             app:layout_constraintBottom_toBottomOf="@id/tvAuthorName"

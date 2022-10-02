@@ -39,7 +39,7 @@ class AudioSavedFragment : Fragment(R.layout.fragment_audio_saved) {
             else setLatinDataToViews()
 
 
-            tvContinueJangchi.setOnClickListener {
+            cvJangchi.setOnClickListener {
                 openBookAboutFragment(
                     sharedPref.getInt(
                         JANGCHI_LAST_LISTENING_CHAPTER
@@ -47,7 +47,7 @@ class AudioSavedFragment : Fragment(R.layout.fragment_audio_saved) {
                 )
             }
 
-            tvContinueHalqa.setOnClickListener {
+            cvHalqa.setOnClickListener {
                 openBookAboutFragment(
                     sharedPref.getInt(
                         HALQA_LAST_LISTENING_CHAPTER

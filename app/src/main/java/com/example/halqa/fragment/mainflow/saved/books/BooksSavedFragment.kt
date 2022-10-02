@@ -45,11 +45,11 @@ class BooksSavedFragment : Fragment(R.layout.fragment_books_saved) {
                 setKrillDataToViews()
             else setLatinDataToViews()
 
-            tvContinueHalqa.setOnClickListener {
+            cvHalqa.setOnClickListener {
                 openReadFragment(sharedPref.getInt(HALQA_LAST_READING_CHAPTER), HALQA)
             }
 
-            tvContinueJangchi.setOnClickListener {
+            cvJangchi.setOnClickListener {
                 openReadFragment(sharedPref.getInt(JANGCHI_LAST_READING_CHAPTER), JANGCHI)
             }
         }

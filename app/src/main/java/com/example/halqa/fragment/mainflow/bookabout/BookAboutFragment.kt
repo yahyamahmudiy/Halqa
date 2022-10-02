@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
@@ -109,9 +111,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
         checkIfAudioControllerWorking()
 
-        binding.tvBookDescription.makeVerticallyScrollable()
-
         activity.bookName = book!!
+
+        binding.tvBookDescription.makeVerticallyScrollable()
 
         binding.apply {
 
@@ -192,6 +194,23 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
             ivAudioBookmark.setOnClickListener {
                 saveToDB()
             }
+
+            tvSpeed.setOnClickListener {
+                when (tvSpeed.text) {
+                    getString(R.string.speed_1x) -> {
+                        setMediaPlayerSpeed(1.5f)
+                        tvSpeed.text = getString(R.string.speed_1_5x)
+                    }
+                    getString(R.string.speed_1_5x) -> {
+                        setMediaPlayerSpeed(2f)
+                        tvSpeed.text = getString(R.string.speed_2x)
+                    }
+                    else -> {
+                        setMediaPlayerSpeed(1f)
+                        tvSpeed.text = getString(R.string.speed_1x)
+                    }
+                }
+            }
         }
 
         setPageSelectionObserver()
@@ -202,8 +221,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun checkIfAudioControllerWorking() {
-        if (audioController.isPlaying() || audioController.isMediaPlayerInitialized()) {
+        if ((audioController.isPlaying() || audioController.isMediaPlayerInitialized())) {
             binding.bottomAudioPlayView.show()
+            setDataToBottomSheet()
             updateFullDurationValue()
             setSeekBarCorrespondingly()
             setBottomSeekBarCorrespondingly()
@@ -271,31 +291,36 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     }
 
     private fun downloadIcon() {
-        if (book == HALQA) {
+        save = if (book == HALQA) {
             initHalqa()
-            save = sharedPref.isSavedAudioHalqa
-        } else if (book == JANGCHI) {
+            sharedPref.isSavedAudioHalqa
+        } else {
             initJangchi()
-            save = sharedPref.isSavedAudioJangchi
+            sharedPref.isSavedAudioJangchi
         }
 
         when (save) {
             NOTSAVED -> {
-                binding.ivDownload.setImageResource(R.drawable.ic_download_blue_icon)
+                setImage(R.drawable.ic_download_blue_icon)
                 binding.progress.hide()
             }
             SAVING -> {
-                binding.ivDownload.setImageResource(0)
+                setImage(0)
                 binding.progress.show()
             }
             SAVED -> {
-                binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
+                setImage(R.drawable.ic_play_white_donwload)
                 binding.progress.hide()
             }
         }
         if (getAllFilesWriteInAppStorage() == getRealAudioSize()) {
-            binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
+            binding.progress.hide()
+            setImage(R.drawable.ic_play_white_donwload)
         }
+    }
+
+    private fun setImage(drawable: Int) {
+        binding.ivDownload.setImageResource(drawable)
     }
 
     private fun getAllFilesWriteInAppStorage() = try {
@@ -307,97 +332,10 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
     private fun getRealAudioSize() =
         if (book == HALQA) HALQA_AUDIO_LIST_SIZE else JANGCHI_AUDIO_LIST_SIZE
 
-
     private fun setUpDownloadObserver() {
         activity.onDownloadComplete = {
             binding.ivDownload.setImageResource(R.drawable.ic_play_white_donwload)
             binding.progress.hide()
-        }
-    }
-
-    private fun initLanguageConst() {
-        if (isBool) {
-            binding.apply {
-                tvAuthor.text = getString(R.string.str_author)
-                tvAuthorName.text = getString(R.string.str_akrom_malik)
-                tvRead.text = getString(R.string.str_read)
-                btnReadbook.text = getString(R.string.str_reading_book)
-                tvRateBook.text = getString(R.string.str_rate_book)
-            }
-        } else {
-            binding.apply {
-                tvAuthor.text = getString(R.string.str_author_kirill)
-                tvAuthorName.text = getString(R.string.str_akrom_malik_kirill)
-                tvRead.text = getString(R.string.str_read_kirill)
-                btnReadbook.text = getString(R.string.str_reading_book_kirill)
-                tvRateBook.text = getString(R.string.str_rate_book_kirill)
-            }
-        }
-    }
-
-    private fun initHalqa() {
-        binding.apply {
-            ivBookImage.setImageResource(R.drawable.halqa_2)
-            ivBookBottomMain.setImageResource(R.drawable.halqa_2)
-            ivBookBackground.setImageResource(R.drawable.halqa_2)
-            audioControlBottomSheet.ivBook.setImageResource(R.drawable.halqa_2)
-            if (isBool) {
-                tvBookName.text = getString(R.string.str_halqa)
-                audioControlBottomSheet.tvName.text = getString(R.string.str_halqa)
-                tvReadName1.text = getString(R.string.str_abdukarim_mirzayev)
-                audioControlBottomSheet.tvAudioSpeaker.text =
-                    getString(R.string.str_abdukarim_mirzayev)
-                tvReadName2.text = getString(R.string.str_shams_solih)
-                tvChap.text = getString(R.string.str_32_bob_halqa)
-                tvBookDescription.text = getString(R.string.str_dic_halqa)
-                tvBookNameBottom.text = getString(R.string.str_halqa)
-                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev)
-            } else {
-                tvBookName.text = getString(R.string.str_halqa_kirill)
-                tvBookNameBottom.text = getString(R.string.str_halqa_kirill)
-                audioControlBottomSheet.tvName.text = getString(R.string.str_halqa_kirill)
-                tvReadName1.text =
-                    getString(R.string.str_abdukarim_mirzayev_kirill)
-                tvReadName2.text = getString(R.string.str_shams_solih_kirill)
-                tvChap.text = getString(R.string.str_32_bob_halqa_kirill)
-                tvBookDescription.text = getString(R.string.str_dic_halqa_kirill)
-                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev_kirill)
-                audioControlBottomSheet.tvAudioSpeaker.text =
-                    getString(R.string.str_abdukarim_mirzayev_kirill)
-            }
-        }
-    }
-
-    private fun initJangchi() {
-        binding.apply {
-            audioControlBottomSheet.ivBook.setImageResource(R.drawable.img_jangchi)
-            ivBookImage.setImageResource(R.drawable.img_jangchi)
-            ivBookBottomMain.setImageResource(R.drawable.img_jangchi)
-            ivBookBackground.setImageResource(R.drawable.img_jangchi)
-            if (isBool) {
-                audioControlBottomSheet.tvAudioSpeaker.text =
-                    getString(R.string.str_abdukarim_mirzayev)
-                audioControlBottomSheet.tvName.text = getString(R.string.str_jangchi)
-                tvBookName.text = getString(R.string.str_jangchi)
-                tvBookNameBottom.text = getString(R.string.str_jangchi)
-                tvReadName1.text = getString(R.string.str_abdukarim_mirzayev)
-                tvReadName2.text = getString(R.string.str_shams_solih)
-                tvChap.text = getString(R.string.str_14_bob_jangchi)
-                tvBookDescription.text = getString(R.string.str_dic_jangchi)
-                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev)
-            } else {
-                audioControlBottomSheet.tvAudioSpeaker.text =
-                    getString(R.string.str_abdukarim_mirzayev_kirill)
-                audioControlBottomSheet.tvName.text = getString(R.string.str_jangchi_kirill)
-                tvBookName.text = getString(R.string.str_jangchi_kirill)
-                tvBookNameBottom.text = getString(R.string.str_jangchi_kirill)
-                tvReadName1.text =
-                    getString(R.string.str_abdukarim_mirzayev_kirill)
-                tvReadName2.text = getString(R.string.str_shams_solih_kirill)
-                tvChap.text = getString(R.string.str_14_bob_jangchi_kirill)
-                tvBookDescription.text = getString(R.string.str_dic_jangchi_kirill)
-                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev_kirill)
-            }
         }
     }
 
@@ -542,12 +480,14 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 if (isBool)
                     activity.lastAudioLiveData.value = UiStateObject.SUCCESS(
                         chapter.apply {
+                            bookName = book!!
                             chapNumber = lastAudio
                             chapName = dataList[position].chapterNameLatin
                         }
                     )
                 else activity.lastAudioLiveData.value = UiStateObject.SUCCESS(
                     chapter.apply {
+                        bookName = book!!
                         chapNumber = lastAudio
                         chapName = dataList[position].chapterNameKrill
                     }
@@ -619,31 +559,6 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         }
     }
 
-    /*
-        private fun controlBottomSheetBehaviour() {
-            var isSlidingUp = true
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    Log.d(TAG, "onStateChanged: $newState")
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                            bookPageSelected.setIsOpen(isSlidingUp)
-                            isSlidingUp = true
-                        }
-                        BottomSheetBehavior.STATE_SETTLING -> {
-                            if (isSlidingUp)
-                                bookPageSelected.setIsOpen(isSlidingUp)
-                        }
-                        BottomSheetBehavior.STATE_EXPANDED -> isSlidingUp = false
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
-        }
-    */
-
     private fun openAudioControlBottomSheet() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
@@ -656,6 +571,7 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         activity.onChapterSelected = {
             if (dataList.isNotEmpty())
                 playAudio(it.chapNumber, dataList[lastAudio].duration)
+
 
             lastAudio = it.chapNumber
             getAllBookData()
@@ -699,6 +615,9 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                     when (it) {
                         is UiStateObject.SUCCESS -> {
                             try {
+                                binding.tvBookNameBottom.text = getPlayingBookName(it.data.bookName)
+                                binding.audioControlBottomSheet.tvName.text =
+                                    getPlayingBookName(it.data.bookName)
                                 binding.audioControlBottomSheet.tvChapter.text =
                                     getChapterData(it.data.chapNumber, it.data.chapName)
                             } catch (e: Exception) {
@@ -709,6 +628,13 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
                 }
             }
         }
+    }
+
+    private fun getPlayingBookName(bookName: String): String {
+        return if (!isBool) {
+            if (bookName == JANGCHI) getString(R.string.str_jangchi_kirill)
+            else getString(R.string.str_halqa_kirill)
+        } else bookName
     }
 
     private fun getChapterData(chapterNumber: Int, chapterName: String): String =
@@ -747,5 +673,98 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
 
     private fun getChapterKey(): String =
         if (book == HALQA) HALQA_LAST_LISTENING_CHAPTER else JANGCHI_LAST_LISTENING_CHAPTER
+
+    private fun setMediaPlayerSpeed(speed: Float) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            audioController.getMediaPlayer().playbackParams =
+                audioController.getMediaPlayer().playbackParams.setSpeed(speed)
+        }
+    }
+
+    private fun initLanguageConst() {
+        if (isBool) {
+            binding.apply {
+                tvAuthor.text = getString(R.string.str_author)
+                tvAuthorName.text = getString(R.string.str_akrom_malik)
+                tvRead.text = getString(R.string.str_read)
+                btnReadbook.text = getString(R.string.str_reading_book)
+                tvRateBook.text = getString(R.string.str_rate_book)
+            }
+        } else {
+            binding.apply {
+                tvAuthor.text = getString(R.string.str_author_kirill)
+                tvAuthorName.text = getString(R.string.str_akrom_malik_kirill)
+                tvRead.text = getString(R.string.str_read_kirill)
+                btnReadbook.text = getString(R.string.str_reading_book_kirill)
+                tvRateBook.text = getString(R.string.str_rate_book_kirill)
+            }
+        }
+    }
+
+    private fun initHalqa() {
+        binding.apply {
+            ivBookImage.setImageResource(R.drawable.halqa_2)
+            ivBookBottomMain.setImageResource(R.drawable.halqa_2)
+            ivBookBackground.setImageResource(R.drawable.halqa_2)
+            audioControlBottomSheet.ivBook.setImageResource(R.drawable.halqa_2)
+            if (isBool) {
+                tvBookName.text = getString(R.string.str_halqa)
+                tvReadName1.text = getString(R.string.str_abdukarim_mirzayev)
+                audioControlBottomSheet.tvAudioSpeaker.text =
+                    getString(R.string.str_abdukarim_mirzayev)
+                tvReadName2.text = getString(R.string.str_shams_solih)
+                tvChap.text = getString(R.string.str_32_bob_halqa)
+                tvBookDescription.text = getString(R.string.str_dic_halqa)
+                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev)
+                tvAudioDuration.text = getString(R.string.str_halqa_duration_latin)
+                tvAudioSize.text = getString(R.string.str_halqa_audio_size_latin)
+            } else {
+                tvBookName.text = getString(R.string.str_halqa_kirill)
+                tvReadName1.text =
+                    getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName2.text = getString(R.string.str_shams_solih_kirill)
+                tvChap.text = getString(R.string.str_32_bob_halqa_kirill)
+                tvBookDescription.text = getString(R.string.str_dic_halqa_kirill)
+                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev_kirill)
+                audioControlBottomSheet.tvAudioSpeaker.text =
+                    getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvAudioDuration.text = getString(R.string.str_halqa_duration_krill)
+                tvAudioSize.text = getString(R.string.str_halqa_audio_size_krill)
+            }
+        }
+    }
+
+    private fun initJangchi() {
+        binding.apply {
+            audioControlBottomSheet.ivBook.setImageResource(R.drawable.img_jangchi)
+            ivBookImage.setImageResource(R.drawable.img_jangchi)
+            ivBookBottomMain.setImageResource(R.drawable.img_jangchi)
+            ivBookBackground.setImageResource(R.drawable.img_jangchi)
+            if (isBool) {
+                audioControlBottomSheet.tvAudioSpeaker.text =
+                    getString(R.string.str_abdukarim_mirzayev)
+                tvBookName.text = getString(R.string.str_jangchi)
+                tvReadName1.text = getString(R.string.str_abdukarim_mirzayev)
+                tvReadName2.text = getString(R.string.str_shams_solih)
+                tvChap.text = getString(R.string.str_14_bob_jangchi)
+                tvBookDescription.text = getString(R.string.str_dic_jangchi)
+                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev)
+                tvAudioDuration.text = getString(R.string.str_jangchi_duration_latin)
+                tvAudioSize.text = getString(R.string.str_jangchi_audio_size_latin)
+            } else {
+                audioControlBottomSheet.tvAudioSpeaker.text =
+                    getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvBookName.text = getString(R.string.str_jangchi_kirill)
+                tvReadName1.text =
+                    getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvReadName2.text = getString(R.string.str_shams_solih_kirill)
+                tvChap.text = getString(R.string.str_14_bob_jangchi_kirill)
+                tvBookDescription.text = getString(R.string.str_dic_jangchi_kirill)
+                tvAudioSpeaker.text = getString(R.string.str_abdukarim_mirzayev_kirill)
+                tvAudioDuration.text = getString(R.string.str_jangchi_duration_krill)
+                tvAudioSize.text = getString(R.string.str_jangchi_audio_size_krill)
+            }
+        }
+    }
 
 }

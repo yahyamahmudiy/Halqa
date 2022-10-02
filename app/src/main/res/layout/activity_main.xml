@@ -33,6 +33,7 @@
             android:paddingTop="40dp">
 
             <TextView
+                android:fontFamily="@font/montserrat_extra_bold"
                 android:id="@+id/tvBookName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivDownloadAll" />
 
             <TextView
+                android:fontFamily="@font/montserrat_regular"
                 android:id="@+id/tvBobCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

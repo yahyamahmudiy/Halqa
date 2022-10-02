@@ -14,6 +14,17 @@
     <string name="str_halqa">Halqa</string>
     <string name="str_bob_lotin">bob</string>
     <string name="str_abdukarim_mirzayev">Abdukarim Mirzayev</string>
+
+    <string name="str_jangchi_duration_latin">4h 34m</string>
+    <string name="str_jangchi_audio_size_latin">66mb</string>
+    <string name="str_jangchi_duration_krill">4ч 34м</string>
+    <string name="str_jangchi_audio_size_krill">66мб</string>
+
+    <string name="str_halqa_duration_latin">4h 34m</string>
+    <string name="str_halqa_audio_size_latin">66mb</string>
+    <string name="str_halqa_duration_krill">4ч 34м</string>
+    <string name="str_halqa_audio_size_krill">66мб</string>
+
     <string name="str_32_bob_halqa">32 bob</string>
     <string name="str_jangchi">Jangchi</string>
     <string name="str_14_bob_jangchi">14 bob</string>
@@ -71,5 +82,8 @@ Yer yuzining turli nuqtalarida bo’ladigan voqealar yoritilgan bu qissaning nav
     <string name="str_notdownload_krill">Юкланмаган</string>
     <string name="saved_successfully">Saqlandi</string>
     <string name="saved_successfully_krill">Сақланди</string>
+    <string name="speed_1x">1.0x</string>
+    <string name="speed_1.5x">1.5x</string>
+    <string name="speed_2x">2.0x</string>
 
 </resources>

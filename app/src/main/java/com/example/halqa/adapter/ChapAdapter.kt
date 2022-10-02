@@ -1,8 +1,6 @@
 package com.example.halqa.adapter
 
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +8,6 @@ import androidx.viewbinding.ViewBinding
 import com.example.halqa.R
 import com.example.halqa.databinding.ItemBookChapViewBinding
 import com.example.halqa.model.Chapter
-import com.example.halqa.utils.hide
 
 class ChapAdapter : ListAdapter<Chapter, RecyclerView.ViewHolder>(DiffUtil()) {
 

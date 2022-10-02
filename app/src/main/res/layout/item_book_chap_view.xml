@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:fontFamily="@font/montserrat_medium"
         android:id="@+id/tvChapNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintEnd_toStartOf="@id/ivPlay"
         android:id="@+id/tvChapName"
         android:layout_width="0dp"
@@ -31,6 +33,7 @@
         app:layout_goneMarginStart="10dp" />
 
     <TextView
+        android:fontFamily="@font/montserrat_regular"
         android:id="@+id/tvChapComment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

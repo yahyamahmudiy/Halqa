@@ -7,6 +7,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvText"
         android:layout_width="match_parent"
+        android:fontFamily="@font/montserrat_regular"
         android:layout_height="match_parent"
         android:text="@string/str_dic_halqa"
         android:textColor="#828282"

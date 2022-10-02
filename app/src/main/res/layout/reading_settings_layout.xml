@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Sozlamalar"
         android:textColor="#4F4F4F"
         android:textSize="16sp"
@@ -44,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Yorqinlik"
         android:textColor="#333333"
         android:textSize="14sp"
@@ -94,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Matn o'lchami"
         android:textColor="#333333"
         android:textSize="14sp"
@@ -144,6 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
+        android:fontFamily="@font/montserrat_regular"
         android:text="To'liq ekran"
         android:textColor="#333333"
         android:textSize="14sp"
@@ -163,38 +167,39 @@
         app:layout_constraintTop_toTopOf="@id/tvFullscreen"
         app:track="@drawable/custom_track" />
 
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/ivSomething2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="25dp"-->
-<!--        android:src="@drawable/ic_text_size"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/ivFullscreen" />-->
+    <!--    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--        android:id="@+id/ivSomething2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginTop="25dp"-->
+    <!--        android:src="@drawable/ic_text_size"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/ivFullscreen" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/tvSomething2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="17dp"-->
-<!--        android:text="Something 2"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="14sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/ivSomething2"-->
-<!--        app:layout_constraintStart_toEndOf="@id/ivSomething2"-->
-<!--        app:layout_constraintTop_toTopOf="@id/ivSomething2" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvSomething2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="17dp"-->
+    <!--        android:text="Something 2"-->
+    <!--        android:textColor="#333333"-->
+    <!--    android:fontFamily="@font/montserrat_regular"-->
+    <!--        android:textSize="14sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/ivSomething2"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/ivSomething2"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/ivSomething2" />-->
 
-<!--    <androidx.appcompat.widget.SwitchCompat-->
-<!--        android:id="@+id/switchSomething"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:background="@null"-->
-<!--        android:thumb="@drawable/custom_thumb"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/tvSomething2"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/tvSomething2"-->
-<!--        app:track="@drawable/custom_track" />-->
+    <!--    <androidx.appcompat.widget.SwitchCompat-->
+    <!--        android:id="@+id/switchSomething"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:background="@null"-->
+    <!--        android:thumb="@drawable/custom_thumb"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/tvSomething2"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/tvSomething2"-->
+    <!--        app:track="@drawable/custom_track" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
