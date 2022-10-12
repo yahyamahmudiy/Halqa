@@ -316,6 +316,11 @@ class BookAboutFragment : Fragment(R.layout.fragment_book_about) {
         if (getAllFilesWriteInAppStorage() == getRealAudioSize()) {
             binding.progress.hide()
             setImage(R.drawable.ic_play_white_donwload)
+            if (book == HALQA) {
+                sharedPref.isSavedAudioHalqa = SAVED
+            } else {
+                sharedPref.isSavedAudioJangchi = SAVED
+            }
         }
     }
 

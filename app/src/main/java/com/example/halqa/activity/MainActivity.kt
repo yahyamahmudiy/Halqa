@@ -199,6 +199,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshMenuAdapter(list: List<BookData>) {
+        binding.tvBookName.text = list[0].bookName
+        binding.tvBobCount.text = "${list.size} bob"
         binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
         adapter.submitList(getChapterList(list))
