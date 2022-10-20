@@ -10,7 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookmarkAudio"
         android:layout_width="match_parent"
-        anroid:layout_height="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="100dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
